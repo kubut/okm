@@ -24,7 +24,6 @@ public class MainMapActivity extends FragmentActivity implements OnMapReadyCallb
         map.getMapAsync(this);
     }
 
-    @Override
     public void onMapReady(GoogleMap map) {
 
     }
