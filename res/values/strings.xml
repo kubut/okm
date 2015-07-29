@@ -15,4 +15,7 @@
     <string name="languageAndServer">Język i serwer</string>
     <string name="Language">Język</string>
     <string name="Server">Serwer</string>
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
 </resources>
