@@ -13,28 +13,24 @@ import com.google.android.gms.maps.*;
 /**
  * Created by kubut on 2015-07-12.
  */
-public class MainMapActivity extends AppCompatActivity implements OnMapReadyCallback{
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback{
     private SupportMapFragment map;
-    private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
-
-    private CharSequence mDrawerTitle;
-    private CharSequence mTitle;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_map_activity);
+        setContentView(R.layout.main_activity);
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
+        final DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.main_layout);
+
         setSupportActionBar(toolbar);
+
+        assert getSupportActionBar() != null;
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mTitle = getTitle();
-        mDrawerTitle = "Navigation Drawer";
-
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.main_layout);
         mDrawerToggle = new ActionBarDrawerToggle(
                 this,
                 mDrawerLayout,
@@ -44,14 +40,12 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
         {
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-                toolbar.setTitle(mTitle);
                 invalidateOptionsMenu();
                 syncState();
             }
 
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                toolbar.setTitle(mDrawerTitle);
                 invalidateOptionsMenu();
                 syncState();
             }
@@ -59,10 +53,8 @@ public class MainMapActivity extends AppCompatActivity implements OnMapReadyCall
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-
-//        map = (SupportMapFragment) getSupportFragmentManager()
-//                .findFragmentById(R.id.map);
-//        map.getMapAsync(this);
+        map = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        map.getMapAsync(this);
     }
 
     public void onMapReady(GoogleMap map) {

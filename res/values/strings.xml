@@ -1,21 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- general -->
     <string name="app_name">Opencaching Kubut Maps</string>
-    <string name="settings">ustawienia</string>
-    <string name="map">mapa</string>
-    <string name="informations">o aplikacji</string>
-    <string name="exit">zamknij</string>
 
-    <string name="username">Nazwa użytkownika</string>
-    <string name="getUsername">Podaj nazwę użytkownika</string>
-    <string name="numberOfCachesToDownload">Ilość skrzynek do pobrania (1-500)</string>
-    <string name="startPositionOfMap">Pozycja startowa mapy</string>
-    <string name="Choose">Wybierz</string>
-    <string name="Default">Domyślna</string>
-    <string name="languageAndServer">Język i serwer</string>
-    <string name="Language">Język</string>
-    <string name="Server">Serwer</string>
-
+    <!-- drawer -->
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
 </resources>
