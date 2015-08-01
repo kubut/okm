@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         assert getSupportActionBar() != null;
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(null);
 
         mDrawerToggle = new ActionBarDrawerToggle(
                 this,
@@ -50,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 syncState();
             }
         };
+
+        mDrawerToggle.syncState();
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 

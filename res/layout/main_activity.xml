@@ -21,6 +21,13 @@
                 android:layout_below="@id/app_bar"
                 android:name="com.google.android.gms.maps.SupportMapFragment"/>
 
+        <View
+                android:layout_width="match_parent"
+                android:id="@+id/toolbarShadow"
+                android:layout_height="4dp"
+                android:layout_below="@id/app_bar"
+                android:background="@drawable/shadow"/>
+
     </RelativeLayout>
 
     <include
