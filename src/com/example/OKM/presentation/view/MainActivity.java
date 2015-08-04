@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import com.example.OKM.R;
 
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private SupportMapFragment map;
     private ActionBarDrawerToggle mDrawerToggle;
     private ListView mDrawerListView;
+    private LinearLayout mDrawerManuLayout;
     private MainDrawerListAdapter drawerAdapter;
     private ArrayList<IMainDrawerItem> mainDrawerItemsList;
     private MainMapPresenter presenter;
@@ -60,7 +62,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         IMainDrawerItemListFactory factory = new MainDrawerActionItemListFactory(presenter);
         mainDrawerItemsList = factory.getItemsList();
 
-        mDrawerListView = (ListView) findViewById(R.id.left_drawer);
+        mDrawerManuLayout = (LinearLayout) findViewById(R.id.left_drawer);
+        mDrawerListView = (ListView) mDrawerManuLayout.findViewById(R.id.left_drawer_list_view);
         drawerAdapter = new MainDrawerListAdapter(getApplicationContext(), mainDrawerItemsList);
 
         mDrawerListView.setAdapter(drawerAdapter);

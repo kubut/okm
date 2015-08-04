@@ -8,10 +8,12 @@ import com.example.OKM.presentation.presenter.MainMapPresenter;
 public interface IMainDrawerItem {
     void click();
 
+    void setIcon(int icon);
     void setTitle(String title);
     void setActive(boolean active);
 
-    boolean isActive();
+    int getIcon();
     String getTitle();
+    boolean isActive();
     MainMapPresenter getPresenter();
 }

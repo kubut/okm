@@ -21,7 +21,7 @@ public class MainDrawerActionItemListFactory implements IMainDrawerItemListFacto
     @Override
     public ArrayList<IMainDrawerItem> getItemsList() {
         ArrayList<IMainDrawerItem> itemsList = new ArrayList<>();
-        itemsList.add(new MainDrawerItemModel( this.presenter.getContext().getString(R.string.satellite), this.presenter ){
+        itemsList.add(new MainDrawerItemModel( this.presenter.getContext().getString(R.string.satellite), R.drawable.globe, this.presenter ){
             @Override
             public void click(){
                 super.click();
