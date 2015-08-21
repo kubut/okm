@@ -29,7 +29,19 @@ public class MainMapPresenter {
         }
     }
 
+    public void setGpsMode(boolean modeOn){
+        if(map == null || map.getMap() == null){
+            return;
+        }
+
+        map.getMap().setMyLocationEnabled(modeOn);
+    }
+
     public Context getContext(){
         return this.mainActivity.getApplicationContext();
+    }
+
+    public MainActivity getActivity() {
+        return this.mainActivity;
     }
 }

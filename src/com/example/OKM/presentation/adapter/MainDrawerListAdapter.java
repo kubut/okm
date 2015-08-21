@@ -1,9 +1,9 @@
 package com.example.OKM.presentation.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,19 +30,20 @@ public class MainDrawerListAdapter extends ArrayAdapter<IMainDrawerItem>{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         int color;
+        Drawable drawable;
+        PorterDuffColorFilter filter;
+        IMainDrawerItem item;
+        TextView title;
+        ImageView icon;
 
         if(convertView == null){
             LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.main_drawer_item, parent, false);
         }
 
-        TextView title = (TextView) convertView.findViewById(R.id.drawerItemTitle);
-        ImageView icon = (ImageView) convertView.findViewById(R.id.drawerItemIcon);
-
-        IMainDrawerItem item = getItem(position);
-
-        title.setText(item.getTitle());
-        icon.setImageDrawable(ContextCompat.getDrawable(context, item.getIcon()));
+        title = (TextView) convertView.findViewById(R.id.drawerItemTitle);
+        icon = (ImageView) convertView.findViewById(R.id.drawerItemIcon);
+        item = getItem(position);
 
         if(item.isActive()){
             color = context.getResources().getColor(R.color.textColorPrimary);
@@ -50,9 +51,12 @@ public class MainDrawerListAdapter extends ArrayAdapter<IMainDrawerItem>{
             color = context.getResources().getColor(R.color.textColorPrimaryInactive);
         }
 
+        title.setText(item.getTitle());
+        icon.setImageDrawable(ContextCompat.getDrawable(context, item.getIcon()));
         title.setTextColor(color);
-        ContextCompat.getDrawable(context, item.getIcon()).setColorFilter(new
-                PorterDuffColorFilter(color,PorterDuff.Mode.SRC_ATOP));
+        drawable = ContextCompat.getDrawable(context, item.getIcon());
+        filter = new PorterDuffColorFilter(color,PorterDuff.Mode.SRC_ATOP);
+        drawable.setColorFilter(filter);
 
         return convertView;
     }

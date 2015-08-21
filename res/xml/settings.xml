@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference
+            android:title="@string/settings_username"
+            android:summary="@string/settings_username_blank"
+            android:key="prefUsername"/>
+    <SwitchPreference
+            android:title="@string/settings_low_limit"
+            android:summary="@string/settings_low_limit_sub"
+            android:key="prefLimit"/>
+    <ListPreference
+            android:title="@string/settings_language"
+            android:summary="@string/settings_language_sub"
+            android:entries="@array/settings_languages_list_entries"
+            android:entryValues="@array/settings_languages_list_values"
+            android:key="prefLanguage"/>
+    <ListPreference
+            android:title="@string/settings_server"
+            android:summary="@string/settings_server_sub"
+            android:entries="@array/settings_servers_list_entries"
+            android:entryValues="@array/settings_servers_list_values"
+            android:key="prefServer"/>
+    <Preference
+            android:title="@string/settings_pointless"
+            android:key="prefPointless"/>
+</PreferenceScreen>

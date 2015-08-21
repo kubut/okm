@@ -1,5 +1,6 @@
 package com.example.OKM.presentation.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -7,14 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import com.example.OKM.R;
 
 import com.example.OKM.data.IMainDrawerItemListFactory;
 import com.example.OKM.data.MainDrawerActionItemListFactory;
+import com.example.OKM.data.MainDrawerIntentItemListFactory;
 import com.example.OKM.domain.model.IMainDrawerItem;
-import com.example.OKM.domain.model.MainDrawerItemModel;
 import com.example.OKM.presentation.adapter.*;
 import com.example.OKM.presentation.presenter.MainMapPresenter;
 import com.google.android.gms.maps.*;
@@ -27,10 +28,10 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback{
     private SupportMapFragment map;
     private ActionBarDrawerToggle mDrawerToggle;
-    private ListView mDrawerListView;
-    private LinearLayout mDrawerManuLayout;
-    private MainDrawerListAdapter drawerAdapter;
-    private ArrayList<IMainDrawerItem> mainDrawerItemsList;
+    private ListView mDrawerActionListView, mDrawerIntentListView;
+    private RelativeLayout mDrawerManuLayout;
+    private MainDrawerListAdapter drawerActionAdapter, drawerIntentAdapter;
+    private ArrayList<IMainDrawerItem> mainDrawerActionItemsList, mainDrawerIntentItemsList;
     private MainMapPresenter presenter;
 
     @Override
@@ -39,7 +40,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.main_activity);
 
         map = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        map.getMapAsync(this);
+        if(map != null){
+            map.getMapAsync(this);
+        }
 
         if(presenter == null){
             presenter = new MainMapPresenter(this, map);
@@ -59,14 +62,22 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void initializeDrawerMenu(DrawerLayout mDrawerLayout, Toolbar toolbar){
-        IMainDrawerItemListFactory factory = new MainDrawerActionItemListFactory(presenter);
-        mainDrawerItemsList = factory.getItemsList();
+        IMainDrawerItemListFactory actionFactory = new MainDrawerActionItemListFactory(presenter);
+        IMainDrawerItemListFactory intentFactory = new MainDrawerIntentItemListFactory(presenter);
 
-        mDrawerManuLayout = (LinearLayout) findViewById(R.id.left_drawer);
-        mDrawerListView = (ListView) mDrawerManuLayout.findViewById(R.id.left_drawer_list_view);
-        drawerAdapter = new MainDrawerListAdapter(getApplicationContext(), mainDrawerItemsList);
+        mainDrawerActionItemsList = actionFactory.getItemsList();
+        mainDrawerIntentItemsList = intentFactory.getItemsList();
 
-        mDrawerListView.setAdapter(drawerAdapter);
+        mDrawerManuLayout = (RelativeLayout) findViewById(R.id.left_drawer);
+
+        mDrawerActionListView = (ListView) mDrawerManuLayout.findViewById(R.id.left_drawer_action_list_view);
+        mDrawerIntentListView = (ListView) mDrawerManuLayout.findViewById(R.id.left_drawer_intent_list_view);
+
+        drawerActionAdapter = new MainDrawerListAdapter(getApplicationContext(), mainDrawerActionItemsList);
+        drawerIntentAdapter = new MainDrawerListAdapter(getApplicationContext(), mainDrawerIntentItemsList);
+
+        mDrawerActionListView.setAdapter(drawerActionAdapter);
+        mDrawerIntentListView.setAdapter(drawerIntentAdapter);
 
         mDrawerToggle = new ActionBarDrawerToggle(
                 this,
@@ -90,19 +101,34 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         mDrawerToggle.syncState();
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-        mDrawerListView.setOnItemClickListener(new SlideMenuClickListener());
+        mDrawerActionListView.setOnItemClickListener(new SlideMenuActionClickListener());
+        mDrawerIntentListView.setOnItemClickListener(new SlideMenuIntentClickListener());
     }
 
-    private class SlideMenuClickListener implements ListView.OnItemClickListener {
+    private class SlideMenuActionClickListener implements ListView.OnItemClickListener {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            drawerAdapter.getItem(position).click();
-            drawerAdapter.notifyDataSetChanged();
+            drawerActionAdapter.getItem(position).click();
+            drawerActionAdapter.notifyDataSetChanged();
+        }
+    }
+
+    private class SlideMenuIntentClickListener implements ListView.OnItemClickListener {
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            drawerIntentAdapter.getItem(position).click();
+            drawerIntentAdapter.notifyDataSetChanged();
         }
     }
 
     public void onMapReady(GoogleMap map) {
 
+    }
+
+    public void goToSettings(){
+        Intent intent = new Intent(this.getApplicationContext(), SettingsActivity.class);
+        startActivity(intent);
     }
 }

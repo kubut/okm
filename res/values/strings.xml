@@ -9,4 +9,40 @@
     
     <!-- drawer items -->
     <string name="satellite">Satelita</string>
+    <string name="gps">GPS</string>
+    <string name="exit">Zamknij</string>
+    <string name="settings">Ustawienia</string>
+
+    <!-- Settings-->
+    <string name="title_activity_settings">Ustawienia</string>
+    <string name="settings_downloading">Pobieranie</string>
+    <string name="settings_username">Nazwa użytkownika</string>
+    <string name="settings_username_blank">Brak</string>
+    <string name="settings_low_limit">Tryb oszczędny</string>
+    <string name="settings_low_limit_sub">Oszczędzaj transfer pobierając mniej skrzynek</string>
+    <string name="settings_pointless">Nie naciskaj mnie</string>
+    <string name="settings_language">Język</string>
+    <string name="settings_language_sub">Polski</string>
+    <string-array name="settings_languages_list_entries">
+        <item>Polski</item>
+        <item>Angielski</item>
+    </string-array>
+    <string-array name="settings_languages_list_values">
+        <item>pl_PL</item>
+        <item>en_US</item>
+    </string-array>
+    <string name="settings_server">Serwer</string>
+    <string name="settings_server_sub">opencaching.pl</string>
+    <string-array name="settings_servers_list_entries">
+        <item>opencaching.pl</item>
+        <item>opencaching.de</item>
+        <item>opencaching.us</item>
+        <item>opencaching.org.uk</item>
+    </string-array>
+    <string-array name="settings_servers_list_values">
+        <item>opencaching.pl</item>
+        <item>opencaching.de</item>
+        <item>opencaching.us</item>
+        <item>opencaching.org.uk</item>
+    </string-array>
 </resources>
