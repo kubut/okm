@@ -37,12 +37,10 @@
         <item>opencaching.pl</item>
         <item>opencaching.de</item>
         <item>opencaching.us</item>
-        <item>opencaching.org.uk</item>
     </string-array>
     <string-array name="settings_servers_list_values">
         <item>opencaching.pl</item>
         <item>opencaching.de</item>
         <item>opencaching.us</item>
-        <item>opencaching.org.uk</item>
     </string-array>
 </resources>

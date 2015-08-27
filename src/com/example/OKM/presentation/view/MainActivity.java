@@ -12,9 +12,9 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import com.example.OKM.R;
 
-import com.example.OKM.data.IMainDrawerItemListFactory;
-import com.example.OKM.data.MainDrawerActionItemListFactory;
-import com.example.OKM.data.MainDrawerIntentItemListFactory;
+import com.example.OKM.data.factories.IMainDrawerItemListFactory;
+import com.example.OKM.data.factories.MainDrawerActionItemListFactory;
+import com.example.OKM.data.factories.MainDrawerIntentItemListFactory;
 import com.example.OKM.domain.model.IMainDrawerItem;
 import com.example.OKM.presentation.adapter.*;
 import com.example.OKM.presentation.presenter.MainMapPresenter;

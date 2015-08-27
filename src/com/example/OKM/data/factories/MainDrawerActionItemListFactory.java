@@ -1,4 +1,4 @@
-package com.example.OKM.data;
+package com.example.OKM.data.factories;
 
 import com.example.OKM.R;
 import com.example.OKM.domain.model.IMainDrawerItem;

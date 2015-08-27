@@ -1,11 +1,10 @@
-package com.example.OKM.data;
+package com.example.OKM.data.factories;
 
 import android.content.Intent;
 import com.example.OKM.R;
 import com.example.OKM.domain.model.IMainDrawerItem;
 import com.example.OKM.domain.model.MainDrawerItemModel;
 import com.example.OKM.presentation.presenter.MainMapPresenter;
-import com.example.OKM.presentation.view.SettingsActivity;
 
 import java.util.ArrayList;
 
