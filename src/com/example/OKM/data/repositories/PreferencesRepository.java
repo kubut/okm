@@ -13,6 +13,8 @@ public class PreferencesRepository {
     public static final boolean SAVE_MODE = false;
     public static final String LANGUAGE = "en_US";
     public static final String SERVER = "opencaching.us";
+    public static final int UUID = -1;
+    public static final boolean HIDE_FOUND = false;
 
     Context context;
     SharedPreferences sharedPref;
@@ -21,6 +23,16 @@ public class PreferencesRepository {
         this.context = context;
 
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this.context);
+    }
+
+    public boolean isHideFound(){
+        return sharedPref.getBoolean("prefHideFound", HIDE_FOUND);
+    }
+
+    public void setHideFound(boolean hideFound){
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putBoolean("prefHideFound", hideFound);
+        editor.apply();
     }
 
     public String getUsername(){
@@ -36,6 +48,16 @@ public class PreferencesRepository {
     public void setUsername(String username){
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("prefUsername", username);
+        editor.apply();
+    }
+
+    public int getUuid(){
+        return sharedPref.getInt("prefUudi", UUID);
+    }
+
+    public void setUuid(int uuid){
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt("prefUudi", uuid);
         editor.apply();
     }
 

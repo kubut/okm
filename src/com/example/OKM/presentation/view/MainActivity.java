@@ -21,6 +21,7 @@ import com.example.OKM.presentation.presenter.MainMapPresenter;
 import com.google.android.gms.maps.*;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Created by kubut on 2015-07-12.
@@ -44,9 +45,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             map.getMapAsync(this);
         }
 
+        presenter = (MainMapPresenter) getLastCustomNonConfigurationInstance();
         if(presenter == null){
-            presenter = new MainMapPresenter(this, map);
+            presenter = new MainMapPresenter();
         }
+        presenter.connectContext(this, map);
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
         final DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.main_layout);
@@ -59,6 +62,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         getSupportActionBar().setTitle(null);
 
         this.initializeDrawerMenu(mDrawerLayout, toolbar);
+    }
+
+    @Override
+    public Object onRetainCustomNonConfigurationInstance(){
+        return presenter;
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        presenter.disconnectContext();
     }
 
     private void initializeDrawerMenu(DrawerLayout mDrawerLayout, Toolbar toolbar){

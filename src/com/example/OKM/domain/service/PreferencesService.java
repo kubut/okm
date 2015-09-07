@@ -22,6 +22,7 @@ public class PreferencesService {
 
     public void setUsername(String username){
         repository.setUsername(username);
+        repository.setUuid(-1);
     }
 
     public boolean isSaveMode(){
@@ -30,6 +31,18 @@ public class PreferencesService {
 
     public void setSaveMode(boolean saveMode){
         repository.setSaveMode(saveMode);
+    }
+
+    public int getCachesLimit(){
+        return this.isSaveMode() ? 50 : 200;
+    }
+
+    public int getUuid() {
+        return repository.getUuid();
+    }
+
+    public boolean isHideFound(){
+        return repository.isHideFound();
     }
 
     public String getLanguageSymbol(){

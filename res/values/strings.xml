@@ -10,6 +10,7 @@
     <!-- drawer items -->
     <string name="satellite">Satelita</string>
     <string name="gps">GPS</string>
+    <string name="caches">Skrzynki</string>
     <string name="exit">Zamknij</string>
     <string name="settings">Ustawienia</string>
 
@@ -20,6 +21,8 @@
     <string name="settings_username_blank">Brak</string>
     <string name="settings_low_limit">Tryb oszczędny</string>
     <string name="settings_low_limit_sub">Oszczędzaj transfer pobierając mniej skrzynek</string>
+    <string name="settings_hide_found">Ukryj znalezione</string>
+    <string name="settings_hide_found_sub">Nie pokazuj na mapie skrzynek które już znalazłeś</string>
     <string name="settings_pointless">Nie naciskaj mnie</string>
     <string name="settings_language">Język</string>
     <string name="settings_language_sub">Polski</string>
@@ -43,4 +46,8 @@
         <item>opencaching.de</item>
         <item>opencaching.us</item>
     </string-array>
+
+    <!-- OKAPI urls-->
+    <string name="okapi_getNearbyCachesNotFound" formatted="false">services/caches/shortcuts/search_and_retrieve?search_method=services/caches/search/nearest&amp;search_params={\"limit\":\"[$LIMIT$]\",\"langpref\":\"pl\",\"not_found_by\":\"[$UUID$]\",\"owner_uuid\":\"-[$UUID$]\",\"center\":\"[$CENTER$]\"}&amp;retr_method=services/caches/geocaches&amp;retr_params={\"fields\":\"last_found|code|name|size2|type|owner|location\"}&amp;wrap=false</string>
+    <string name="okapi_getNearbyCaches" formatted="false">services/caches/shortcuts/search_and_retrieve?search_method=services/caches/search/nearest&amp;search_params={\"limit\":\"[$LIMIT$]\",\"langpref\":\"pl\",\"center\":\"[$CENTER$]\"}&amp;retr_method=services/caches/geocaches&amp;retr_params={\"fields\":\"last_found|code|name|size2|type|owner|location\"}&amp;wrap=false</string>
 </resources>

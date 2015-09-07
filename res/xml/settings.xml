@@ -7,6 +7,10 @@
             android:title="@string/settings_low_limit"
             android:summary="@string/settings_low_limit_sub"
             android:key="prefLimit"/>
+    <SwitchPreference
+            android:title="@string/settings_hide_found"
+            android:summary="@string/settings_hide_found_sub"
+            android:key="prefHideFound"/>
     <ListPreference
             android:title="@string/settings_language"
             android:entries="@array/settings_languages_list_entries"

@@ -38,6 +38,15 @@ public class MainDrawerActionItemListFactory implements IMainDrawerItemListFacto
                 this.getPresenter().setGpsMode(this.isActive());
             }
         });
+
+        // Caches
+        itemsList.add(new MainDrawerItemModel( this.presenter.getContext().getString(R.string.caches), R.drawable.download, this.presenter ){
+            @Override
+            public void click(){
+                super.click();
+                this.getPresenter().getCaches(this.isActive());
+            }
+        });
         return itemsList;
     }
 }
