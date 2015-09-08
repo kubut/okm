@@ -48,4 +48,8 @@ public class JsonTransformService {
 
         return list;
     }
+
+    public String getUuidByJson(JSONObject jsonObject) throws Exception{
+        return jsonObject.getString("uuid");
+    }
 }

@@ -21,6 +21,7 @@ public class MainDrawerItemModel implements IMainDrawerItem {
     @Override
     public void click() {
         this.active = !this.active;
+        presenter.hideDrawer();
     }
 
     @Override

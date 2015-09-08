@@ -6,6 +6,7 @@ import com.example.OKM.data.services.OkapiCommunication;
 import com.example.OKM.domain.model.CacheMarkerCollectionModel;
 import com.example.OKM.domain.service.JsonTransformService;
 import com.example.OKM.domain.service.OkapiService;
+import com.example.OKM.domain.service.PreferencesService;
 import com.example.OKM.presentation.interactor.MapInteractor;
 import com.example.OKM.presentation.view.MainActivity;
 import com.google.android.gms.maps.GoogleMap;
@@ -68,26 +69,57 @@ public class MainMapPresenter {
         mapFragment.getMap().setMyLocationEnabled(modeOn);
     }
 
-    public void getCaches(boolean show){
+    public void setCaches(boolean show){
         if(show){
-            String url = okapiService.getCacheCollectionURL(this.mainActivity, mapFragment.getMap().getCameraPosition().target, -1);
+            final PreferencesService preferencesService = new PreferencesService(this.getContext());
+            final String uuid = preferencesService.getUuid();
 
-            new OkapiCommunication(){
-                @Override
-                public void onPostExecute(String result){
-                    try{
-                        JsonTransformService transformService = new JsonTransformService();
-                        markerList = transformService.getCacheMarkersByJson(new JSONObject(result));
-                        mapInteractor.setCachesOnMap(markerList);
-                    } catch (Exception e){
-                        e.printStackTrace();
+            if(uuid == null && preferencesService.getUsername() != null){
+                String url = okapiService.getUuidURL(this.mainActivity, preferencesService.getUsername());
+
+                new OkapiCommunication(){
+                    @Override
+                    public void onPostExecute(String result){
+                        try {
+                            JsonTransformService transformService = new JsonTransformService();
+                            String newUuid = transformService.getUuidByJson(new JSONObject(result));
+                            preferencesService.setUuid(newUuid);
+
+                            getAndApplyCaches(newUuid);
+                        } catch (Exception e){
+                            getAndApplyCaches(uuid);
+                            e.printStackTrace();
+                        }
                     }
-                }
-            }.execute(url);
+                }.execute(url);
+            } else {
+                getAndApplyCaches(uuid);
+            }
         } else {
             markerList.clear();
             mapFragment.getMap().clear();
         }
+    }
+
+    public void getAndApplyCaches(String uuid){
+        String url = okapiService.getCacheCollectionURL(this.mainActivity, mapFragment.getMap().getCameraPosition().target, uuid);
+
+        new OkapiCommunication(){
+            @Override
+            public void onPostExecute(String result){
+                try{
+                    JsonTransformService transformService = new JsonTransformService();
+                    markerList = transformService.getCacheMarkersByJson(new JSONObject(result));
+                    mapInteractor.setCachesOnMap(markerList);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }.execute(url);
+    }
+
+    public void applyCaches(){
+        mapInteractor.setCachesOnMap(markerList);
     }
 
     public Context getContext(){
@@ -96,5 +128,9 @@ public class MainMapPresenter {
 
     public MainActivity getActivity() {
         return this.mainActivity;
+    }
+
+    public void hideDrawer(){
+        this.mainActivity.hideNavigationDrawer();
     }
 }

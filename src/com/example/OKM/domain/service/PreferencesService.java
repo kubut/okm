@@ -17,12 +17,12 @@ public class PreferencesService {
     }
 
     public String getUsername(){
-        return repository.getUsername();
+        return repository.getUsername().trim();
     }
 
     public void setUsername(String username){
         repository.setUsername(username);
-        repository.setUuid(-1);
+        repository.setUuid(null);
     }
 
     public boolean isSaveMode(){
@@ -37,8 +37,12 @@ public class PreferencesService {
         return this.isSaveMode() ? 50 : 200;
     }
 
-    public int getUuid() {
+    public String getUuid() {
         return repository.getUuid();
+    }
+
+    public void setUuid(String uuid){
+        repository.setUuid(uuid);
     }
 
     public boolean isHideFound(){

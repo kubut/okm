@@ -35,6 +35,10 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if(isAdded()){
             presenter.syncPreferencesSummary();
+
+            if(key.equals("prefUsername")){
+                presenter.resetUuid();
+            }
         }
     }
 }

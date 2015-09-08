@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private MainDrawerListAdapter drawerActionAdapter, drawerIntentAdapter;
     private ArrayList<IMainDrawerItem> mainDrawerActionItemsList, mainDrawerIntentItemsList;
     private MainMapPresenter presenter;
+    private DrawerLayout mDrawerLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         presenter.connectContext(this, map);
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
-        final DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.main_layout);
+        this.mDrawerLayout = (DrawerLayout) findViewById(R.id.main_layout);
 
         setSupportActionBar(toolbar);
 
@@ -144,5 +145,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void goToSettings(){
         Intent intent = new Intent(this.getApplicationContext(), SettingsActivity.class);
         startActivity(intent);
+    }
+
+    public void hideNavigationDrawer(){
+        this.mDrawerLayout.closeDrawers();
     }
 }

@@ -49,4 +49,8 @@ public class SettingsPresenter {
         languagesList.setSummary(this.getLanguageSummary());
         serversList.setSummary(this.getServerSummary());
     }
+
+    public void resetUuid(){
+        this.preferencesService.setUuid(null);
+    }
 }

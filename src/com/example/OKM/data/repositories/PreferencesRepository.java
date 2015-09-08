@@ -13,7 +13,7 @@ public class PreferencesRepository {
     public static final boolean SAVE_MODE = false;
     public static final String LANGUAGE = "en_US";
     public static final String SERVER = "opencaching.us";
-    public static final int UUID = -1;
+    public static final String UUID = null;
     public static final boolean HIDE_FOUND = false;
 
     Context context;
@@ -51,13 +51,13 @@ public class PreferencesRepository {
         editor.apply();
     }
 
-    public int getUuid(){
-        return sharedPref.getInt("prefUudi", UUID);
+    public String getUuid(){
+        return sharedPref.getString("prefUudi", UUID);
     }
 
-    public void setUuid(int uuid){
+    public void setUuid(String uuid){
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt("prefUudi", uuid);
+        editor.putString("prefUudi", uuid);
         editor.apply();
     }
 

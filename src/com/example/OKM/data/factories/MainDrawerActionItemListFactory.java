@@ -44,7 +44,7 @@ public class MainDrawerActionItemListFactory implements IMainDrawerItemListFacto
             @Override
             public void click(){
                 super.click();
-                this.getPresenter().getCaches(this.isActive());
+                this.getPresenter().setCaches(this.isActive());
             }
         });
         return itemsList;
