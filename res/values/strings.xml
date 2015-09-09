@@ -14,6 +14,10 @@
     <string name="exit">Zamknij</string>
     <string name="settings">Ustawienia</string>
 
+    <!-- toasts-->
+    <string name="toast_downloading">Pobieranie...</string>
+    <string name="toast_downloading_error">Błąd pobierania</string>
+
     <!-- Settings-->
     <string name="title_activity_settings">Ustawienia</string>
     <string name="settings_downloading">Pobieranie</string>

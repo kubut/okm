@@ -2,6 +2,8 @@ package com.example.OKM.presentation.presenter;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
+import com.example.OKM.R;
 import com.example.OKM.data.services.OkapiCommunication;
 import com.example.OKM.domain.model.CacheMarkerCollectionModel;
 import com.example.OKM.domain.service.JsonTransformService;
@@ -28,6 +30,7 @@ public class MainMapPresenter {
     private OkapiService okapiService;
     private MapInteractor mapInteractor;
     private CacheMarkerCollectionModel markerList;
+    private Toast toast;
 
     public MainMapPresenter(){
         this.okapiService = new OkapiService();
@@ -71,27 +74,34 @@ public class MainMapPresenter {
 
     public void setCaches(boolean show){
         if(show){
+            this.showToast(this.getContext().getString(R.string.toast_downloading));
+
             final PreferencesService preferencesService = new PreferencesService(this.getContext());
             final String uuid = preferencesService.getUuid();
 
             if(uuid == null && preferencesService.getUsername() != null){
-                String url = okapiService.getUuidURL(this.mainActivity, preferencesService.getUsername());
+                try{
+                    String url = okapiService.getUuidURL(this.mainActivity, preferencesService.getUsername());
 
-                new OkapiCommunication(){
-                    @Override
-                    public void onPostExecute(String result){
-                        try {
-                            JsonTransformService transformService = new JsonTransformService();
-                            String newUuid = transformService.getUuidByJson(new JSONObject(result));
-                            preferencesService.setUuid(newUuid);
+                    new OkapiCommunication(){
+                        @Override
+                        public void onPostExecute(String result){
+                            try {
+                                JsonTransformService transformService = new JsonTransformService();
+                                String newUuid = transformService.getUuidByJson(new JSONObject(result));
+                                preferencesService.setUuid(newUuid);
 
-                            getAndApplyCaches(newUuid);
-                        } catch (Exception e){
-                            getAndApplyCaches(uuid);
-                            e.printStackTrace();
+                                getAndApplyCaches(newUuid);
+                            } catch (Exception e){
+                                getAndApplyCaches(uuid);
+                                e.printStackTrace();
+                            }
                         }
-                    }
-                }.execute(url);
+                    }.execute(url);
+                } catch (Exception e){
+                    e.printStackTrace();
+                    getAndApplyCaches(uuid);
+                }
             } else {
                 getAndApplyCaches(uuid);
             }
@@ -112,6 +122,7 @@ public class MainMapPresenter {
                     markerList = transformService.getCacheMarkersByJson(new JSONObject(result));
                     mapInteractor.setCachesOnMap(markerList);
                 } catch (Exception e){
+                    showToast(getContext().getString(R.string.toast_downloading_error));
                     e.printStackTrace();
                 }
             }
@@ -132,5 +143,14 @@ public class MainMapPresenter {
 
     public void hideDrawer(){
         this.mainActivity.hideNavigationDrawer();
+    }
+
+    public void showToast(String text){
+        if(this.toast != null){
+            this.toast.cancel();
+        }
+
+        this.toast = Toast.makeText(this.getContext(), text, Toast.LENGTH_SHORT);
+        toast.show();
     }
 }

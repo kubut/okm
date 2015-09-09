@@ -38,12 +38,12 @@ public class OkapiService {
         return apiUrl + serviceUrl + okapiKey;
     }
 
-    public String getUuidURL(Context context, String username){
+    public String getUuidURL(Context context, String username) throws Exception{
         PreferencesService preferencesService = new PreferencesService(context);
 
         String apiUrl = preferencesService.getServerAPI();
         String okapiKey = "&consumer_key=" + context.getString(R.string.okapiKey);
-        String serviceUrl = context.getString(R.string.okapi_getUuid).replace("[$USER$]", URLEncoder.encode(username));
+        String serviceUrl = context.getString(R.string.okapi_getUuid).replace("[$USER$]", URLEncoder.encode(username, "UTF-8"));
 
         return apiUrl + serviceUrl + okapiKey;
     }
