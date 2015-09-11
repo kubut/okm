@@ -78,6 +78,7 @@ public class MainMapPresenter {
 
     public void setCaches(boolean show){
         if(show){
+            this.getActivity().displayProgressBar(true);
             this.showToast(this.getContext().getString(R.string.toast_downloading));
 
             final PreferencesService preferencesService = new PreferencesService(this.getContext());
@@ -133,6 +134,7 @@ public class MainMapPresenter {
                     setDrawerOptionState(getContext().getString(R.string.drawer_caches), false);
                     e.printStackTrace();
                 }
+                getActivity().displayProgressBar(false);
             }
         }.execute(url);
     }
@@ -178,5 +180,6 @@ public class MainMapPresenter {
         if(this.uuidDownloader != null){
             this.uuidDownloader.cancel(true);
         }
+        this.getActivity().displayProgressBar(false);
     }
 }

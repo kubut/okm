@@ -19,6 +19,7 @@ import com.example.OKM.domain.model.IMainDrawerItem;
 import com.example.OKM.presentation.adapter.*;
 import com.example.OKM.presentation.presenter.MainMapPresenter;
 import com.google.android.gms.maps.*;
+import com.rey.material.widget.ProgressView;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public ArrayList<IMainDrawerItem> mainDrawerActionItemsList, mainDrawerIntentItemsList;
     private MainMapPresenter presenter;
     private DrawerLayout mDrawerLayout;
+    private ProgressView progressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(null);
+
+        this.progressBar = (ProgressView) findViewById(R.id.progressBar);
 
         this.initializeDrawerMenu(mDrawerLayout, toolbar);
     }
@@ -154,5 +158,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void syncDrawerItems(){
         drawerActionAdapter.notifyDataSetChanged();
         drawerIntentAdapter.notifyDataSetChanged();
+    }
+
+    public void displayProgressBar(boolean show){
+        if(show){
+            this.progressBar.setVisibility(View.VISIBLE);
+        } else {
+            this.progressBar.setVisibility(View.INVISIBLE);
+        }
     }
 }

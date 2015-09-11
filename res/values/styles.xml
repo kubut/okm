@@ -4,4 +4,9 @@
         <item name="android:defaultValue">true</item>
         <item name="color">@color/textColorPrimaryInactive</item>
     </style>
+
+    <style name="ProgressBarStyle" parent="Material.Drawable.LinearProgress">
+        <item name="lpd_strokeColor">@color/textColorPrimary</item>
+        <item name="lpd_strokeSecondaryColor">#00000000</item>
+    </style>
 </resources>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -31,6 +32,17 @@
                     android:id="@+id/toolbarShadow"
                     android:layout_height="4dp"
                     android:background="@drawable/shadow"/>
+
+            <com.rey.material.widget.ProgressView
+                    android:id="@+id/progressBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp"
+                    android:visibility="invisible"
+                    app:pv_autostart="true"
+                    app:pv_circular="false"
+                    app:pv_progressMode="indeterminate"
+                    app:pv_progressStyle="@style/ProgressBarStyle"
+                    />
 
         </RelativeLayout>
 
