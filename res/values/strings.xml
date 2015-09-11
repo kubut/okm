@@ -6,13 +6,11 @@
     <!-- drawer -->
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-    
-    <!-- drawer items -->
-    <string name="satellite">Satelita</string>
-    <string name="gps">GPS</string>
-    <string name="caches">Skrzynki</string>
-    <string name="exit">Zamknij</string>
-    <string name="settings">Ustawienia</string>
+    <string name="drawer_satellite">Satelita</string>
+    <string name="drawer_gps">GPS</string>
+    <string name="drawer_caches">Skrzynki</string>
+    <string name="drawer_exit">Zamknij</string>
+    <string name="drawer_settings">Ustawienia</string>
 
     <!-- toasts-->
     <string name="toast_downloading">Pobieranie...</string>

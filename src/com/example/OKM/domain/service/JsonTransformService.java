@@ -5,15 +5,16 @@ import com.example.OKM.domain.model.CacheMarkerCollectionModel;
 import com.google.android.gms.maps.model.LatLng;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
  * Created by kubut on 2015-09-07.
  */
 public class JsonTransformService {
-    public CacheMarkerCollectionModel getCacheMarkersByJson(JSONObject jsonArray){
+    public ArrayList<CacheMakerModel> getCacheMarkersByJson(JSONObject jsonArray){
         Iterator iterator = jsonArray.keys();
-        CacheMarkerCollectionModel list = new CacheMarkerCollectionModel();
+        ArrayList<CacheMakerModel> list = new ArrayList<>();
 
         while (iterator.hasNext()){
             String key = (String)iterator.next();
@@ -40,7 +41,7 @@ public class JsonTransformService {
                         jsonCache.getString("size2")
                         );
 
-                list.addCache(cache);
+                list.add(cache);
             } catch (Exception e){
                 e.printStackTrace();
             }

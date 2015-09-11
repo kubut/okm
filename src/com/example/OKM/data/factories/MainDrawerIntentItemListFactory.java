@@ -23,7 +23,7 @@ public class MainDrawerIntentItemListFactory implements IMainDrawerItemListFacto
         ArrayList<IMainDrawerItem> itemsList = new ArrayList<>();
 
         // settings
-        itemsList.add(new MainDrawerItemModel( this.presenter.getContext().getString(R.string.settings), R.drawable.settings, this.presenter ){
+        itemsList.add(new MainDrawerItemModel( this.presenter.getContext().getString(R.string.drawer_settings), R.drawable.settings, this.presenter ){
             @Override
             public void click(){
                 this.getPresenter().getActivity().goToSettings();
@@ -31,7 +31,7 @@ public class MainDrawerIntentItemListFactory implements IMainDrawerItemListFacto
         });
 
         // exit
-        itemsList.add(new MainDrawerItemModel( this.presenter.getContext().getString(R.string.exit), R.drawable.exit, this.presenter ){
+        itemsList.add(new MainDrawerItemModel( this.presenter.getContext().getString(R.string.drawer_exit), R.drawable.exit, this.presenter ){
             @Override
             public void click(){
                 Intent intent = new Intent(Intent.ACTION_MAIN);

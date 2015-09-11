@@ -22,7 +22,7 @@ public class MainDrawerActionItemListFactory implements IMainDrawerItemListFacto
         ArrayList<IMainDrawerItem> itemsList = new ArrayList<>();
 
         // Satellite
-        itemsList.add(new MainDrawerItemModel( this.presenter.getContext().getString(R.string.satellite), R.drawable.globe, this.presenter ){
+        itemsList.add(new MainDrawerItemModel( this.presenter.getContext().getString(R.string.drawer_satellite), R.drawable.globe, this.presenter ){
             @Override
             public void click(){
                 super.click();
@@ -31,7 +31,7 @@ public class MainDrawerActionItemListFactory implements IMainDrawerItemListFacto
         });
 
         // GPS
-        itemsList.add(new MainDrawerItemModel( this.presenter.getContext().getString(R.string.gps), R.drawable.gps, this.presenter ){
+        itemsList.add(new MainDrawerItemModel( this.presenter.getContext().getString(R.string.drawer_gps), R.drawable.gps, this.presenter ){
             @Override
             public void click(){
                 super.click();
@@ -40,7 +40,7 @@ public class MainDrawerActionItemListFactory implements IMainDrawerItemListFacto
         });
 
         // Caches
-        itemsList.add(new MainDrawerItemModel( this.presenter.getContext().getString(R.string.caches), R.drawable.download, this.presenter ){
+        itemsList.add(new MainDrawerItemModel( this.presenter.getContext().getString(R.string.drawer_caches), R.drawable.download, this.presenter ){
             @Override
             public void click(){
                 super.click();

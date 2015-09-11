@@ -1,11 +1,13 @@
 package com.example.OKM.presentation.presenter;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 import com.example.OKM.R;
 import com.example.OKM.data.services.OkapiCommunication;
 import com.example.OKM.domain.model.CacheMarkerCollectionModel;
+import com.example.OKM.domain.model.IMainDrawerItem;
 import com.example.OKM.domain.service.JsonTransformService;
 import com.example.OKM.domain.service.OkapiService;
 import com.example.OKM.domain.service.PreferencesService;
@@ -30,11 +32,13 @@ public class MainMapPresenter {
     private OkapiService okapiService;
     private MapInteractor mapInteractor;
     private CacheMarkerCollectionModel markerList;
+    private AsyncTask markersDownloader, uuidDownloader;
     private Toast toast;
 
     public MainMapPresenter(){
         this.okapiService = new OkapiService();
         this.mapInteractor = new MapInteractor();
+        this.markerList = new CacheMarkerCollectionModel();
     }
 
     public void connectContext(MainActivity mainActivity, SupportMapFragment map){
@@ -83,7 +87,7 @@ public class MainMapPresenter {
                 try{
                     String url = okapiService.getUuidURL(this.mainActivity, preferencesService.getUsername());
 
-                    new OkapiCommunication(){
+                    uuidDownloader = new OkapiCommunication(){
                         @Override
                         public void onPostExecute(String result){
                             try {
@@ -106,6 +110,7 @@ public class MainMapPresenter {
                 getAndApplyCaches(uuid);
             }
         } else {
+            this.cancelDownloader();
             markerList.clear();
             mapFragment.getMap().clear();
         }
@@ -114,15 +119,18 @@ public class MainMapPresenter {
     public void getAndApplyCaches(String uuid){
         String url = okapiService.getCacheCollectionURL(this.mainActivity, mapFragment.getMap().getCameraPosition().target, uuid);
 
-        new OkapiCommunication(){
+        markersDownloader = new OkapiCommunication(){
             @Override
             public void onPostExecute(String result){
                 try{
-                    JsonTransformService transformService = new JsonTransformService();
-                    markerList = transformService.getCacheMarkersByJson(new JSONObject(result));
-                    mapInteractor.setCachesOnMap(markerList);
+                    if(!this.isCancelled()){
+                        JsonTransformService transformService = new JsonTransformService();
+                        markerList.append(transformService.getCacheMarkersByJson(new JSONObject(result)));
+                        applyCaches();
+                    }
                 } catch (Exception e){
                     showToast(getContext().getString(R.string.toast_downloading_error));
+                    setDrawerOptionState(getContext().getString(R.string.drawer_caches), false);
                     e.printStackTrace();
                 }
             }
@@ -152,5 +160,23 @@ public class MainMapPresenter {
 
         this.toast = Toast.makeText(this.getContext(), text, Toast.LENGTH_SHORT);
         toast.show();
+    }
+
+    public void setDrawerOptionState(String key, boolean state){
+        for(IMainDrawerItem item : this.getActivity().mainDrawerActionItemsList){
+            if(item.getTitle().equals(key)){
+                item.setActive(state);
+            }
+        }
+        this.getActivity().syncDrawerItems();
+    }
+
+    public void cancelDownloader(){
+        if(this.markersDownloader != null){
+            this.markersDownloader.cancel(true);
+        }
+        if(this.uuidDownloader != null){
+            this.uuidDownloader.cancel(true);
+        }
     }
 }

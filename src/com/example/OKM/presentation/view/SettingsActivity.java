@@ -23,7 +23,7 @@ public class SettingsActivity extends AppCompatActivity {
         assert getSupportActionBar() != null;
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(R.string.settings);
+        getSupportActionBar().setTitle(R.string.drawer_settings);
 
         getFragmentManager().beginTransaction().replace(R.id.settingsFrame, new SettingsFragment()).commit();
 

@@ -23,4 +23,8 @@ public class CacheMarkerCollectionModel {
     public void clear(){
         this.list.clear();
     }
+
+    public void append(ArrayList<CacheMakerModel> listToAppend){
+        list.addAll(listToAppend);
+    }
 }

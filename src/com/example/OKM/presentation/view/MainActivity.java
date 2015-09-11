@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private ListView mDrawerActionListView, mDrawerIntentListView;
     private RelativeLayout mDrawerManuLayout;
     private MainDrawerListAdapter drawerActionAdapter, drawerIntentAdapter;
-    private ArrayList<IMainDrawerItem> mainDrawerActionItemsList, mainDrawerIntentItemsList;
+    public ArrayList<IMainDrawerItem> mainDrawerActionItemsList, mainDrawerIntentItemsList;
     private MainMapPresenter presenter;
     private DrawerLayout mDrawerLayout;
 
@@ -149,5 +149,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     public void hideNavigationDrawer(){
         this.mDrawerLayout.closeDrawers();
+    }
+
+    public void syncDrawerItems(){
+        drawerActionAdapter.notifyDataSetChanged();
+        drawerIntentAdapter.notifyDataSetChanged();
     }
 }
