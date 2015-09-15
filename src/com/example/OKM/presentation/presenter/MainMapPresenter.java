@@ -105,7 +105,7 @@ public class MainMapPresenter {
             final PreferencesService preferencesService = new PreferencesService(this.getContext());
             final String uuid = preferencesService.getUuid();
 
-            if(uuid == null && preferencesService.getUsername() != null){
+            if(uuid == null && preferencesService.getUsername() != null && preferencesService.isHideFound()){
                 try{
                     String url = okapiService.getUuidURL(this.mainActivity, preferencesService.getUsername());
 

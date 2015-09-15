@@ -1,22 +1,24 @@
 package com.example.OKM.domain.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by kubut on 2015-09-04.
  */
 public class CacheMarkerCollectionModel {
-    private ArrayList<CacheMakerModel> list;
+    private Set<CacheMakerModel> list;
 
     public CacheMarkerCollectionModel(){
-        list = new ArrayList<>();
+        list = new HashSet<>();
     }
 
     public void addCache(CacheMakerModel cache){
         this.list.add(cache);
     }
 
-    public ArrayList<CacheMakerModel> getList(){
+    public Set<CacheMakerModel> getList(){
         return this.list;
     }
 
@@ -24,7 +26,7 @@ public class CacheMarkerCollectionModel {
         this.list.clear();
     }
 
-    public void append(ArrayList<CacheMakerModel> listToAppend){
+    public void append(Set<CacheMakerModel> listToAppend){
         list.addAll(listToAppend);
     }
 

@@ -23,6 +23,8 @@ public class MapInteractor  {
 
     public void setCachesOnMap(CacheMarkerCollectionModel list){
         if(this.map != null){
+            this.map.clear();
+
             for(CacheMakerModel cache : list.getList()){
                 this.map.addMarker(new MarkerOptions()
                                 .position(cache.getPosition())

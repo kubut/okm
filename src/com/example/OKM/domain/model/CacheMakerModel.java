@@ -4,6 +4,8 @@ import android.content.Context;
 import com.example.OKM.domain.valueObject.CacheTypeValue;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.util.Objects;
+
 /**
  * Created by kubut on 2015-09-04.
  */
@@ -36,6 +38,21 @@ public class CacheMakerModel {
         this.lastFound = lastFound;
     }
 
+    @Override
+    public boolean equals(Object other){
+        if(other == null) return false;
+        if(other == this) return true;
+        if(!(other instanceof CacheMakerModel)) return false;
+
+        CacheMakerModel otherObj = (CacheMakerModel) other;
+
+        return this.code.equals(otherObj.getCode());
+    }
+
+    @Override
+    public int hashCode(){
+        return this.code.hashCode();
+    }
 
     public LatLng getPosition() {
         return position;
