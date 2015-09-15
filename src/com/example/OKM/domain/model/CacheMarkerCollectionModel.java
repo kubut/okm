@@ -27,4 +27,8 @@ public class CacheMarkerCollectionModel {
     public void append(ArrayList<CacheMakerModel> listToAppend){
         list.addAll(listToAppend);
     }
+
+    public boolean isEmpty(){
+        return this.getList().isEmpty();
+    }
 }

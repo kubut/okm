@@ -43,19 +43,20 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
-        map = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        final Toolbar toolbar   = (Toolbar) findViewById(R.id.app_bar);
+        this.mDrawerLayout      = (DrawerLayout) findViewById(R.id.main_layout);
+        map                     = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        this.progressBar        = (ProgressView) findViewById(R.id.progressBar);
+
         if(map != null){
             map.getMapAsync(this);
         }
 
         presenter = (MainMapPresenter) getLastCustomNonConfigurationInstance();
         if(presenter == null){
-            presenter = new MainMapPresenter();
+            presenter = new MainMapPresenter(this);
         }
         presenter.connectContext(this, map);
-
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
-        this.mDrawerLayout = (DrawerLayout) findViewById(R.id.main_layout);
 
         setSupportActionBar(toolbar);
 
@@ -64,9 +65,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(null);
 
-        this.progressBar = (ProgressView) findViewById(R.id.progressBar);
-
         this.initializeDrawerMenu(mDrawerLayout, toolbar);
+
+        presenter.sync();
     }
 
     @Override

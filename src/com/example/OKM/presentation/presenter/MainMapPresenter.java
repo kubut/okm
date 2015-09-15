@@ -34,11 +34,23 @@ public class MainMapPresenter {
     private CacheMarkerCollectionModel markerList;
     private AsyncTask markersDownloader, uuidDownloader;
     private Toast toast;
+    private boolean downloadTask, isGPS, isSattelite;
 
-    public MainMapPresenter(){
+    public MainMapPresenter(MainActivity activity){
         this.okapiService = new OkapiService();
         this.mapInteractor = new MapInteractor();
         this.markerList = new CacheMarkerCollectionModel();
+        this.mainActivity = activity;
+        this.downloadTask = false;
+        this.isGPS = false;
+        this.isSattelite = false;
+    }
+
+    public void sync(){
+        this.syncProgressBar();
+        this.applyCaches();
+        this.setGpsMode(this.isGPS);
+        this.setSatelliteMode(this.isSattelite);
     }
 
     public void connectContext(MainActivity mainActivity, SupportMapFragment map){
@@ -57,6 +69,10 @@ public class MainMapPresenter {
     }
 
     public void setSatelliteMode(boolean modeOn){
+        this.isSattelite = modeOn;
+
+        this.setDrawerOptionState(getContext().getString(R.string.drawer_satellite), modeOn);
+
         if(mapFragment == null || mapFragment.getMap() == null){
             return;
         }
@@ -69,16 +85,21 @@ public class MainMapPresenter {
     }
 
     public void setGpsMode(boolean modeOn){
+        this.isGPS = modeOn;
+
         if(mapFragment == null || mapFragment.getMap() == null){
             return;
         }
 
         mapFragment.getMap().setMyLocationEnabled(modeOn);
+        this.setDrawerOptionState(getContext().getString(R.string.drawer_gps), modeOn);
     }
 
     public void setCaches(boolean show){
+        this.downloadTask = show;
+
         if(show){
-            this.getActivity().displayProgressBar(true);
+            this.syncProgressBar();
             this.showToast(this.getContext().getString(R.string.toast_downloading));
 
             final PreferencesService preferencesService = new PreferencesService(this.getContext());
@@ -134,13 +155,20 @@ public class MainMapPresenter {
                     setDrawerOptionState(getContext().getString(R.string.drawer_caches), false);
                     e.printStackTrace();
                 }
-                getActivity().displayProgressBar(false);
+                downloadTask = false;
+                syncProgressBar();
             }
         }.execute(url);
     }
 
+    public void syncProgressBar(){
+        this.getActivity().displayProgressBar(this.downloadTask);
+    }
+
     public void applyCaches(){
         mapInteractor.setCachesOnMap(markerList);
+
+        this.setDrawerOptionState(getContext().getString(R.string.drawer_caches), !this.markerList.isEmpty() || this.downloadTask);
     }
 
     public Context getContext(){
@@ -165,6 +193,10 @@ public class MainMapPresenter {
     }
 
     public void setDrawerOptionState(String key, boolean state){
+        if(this.getActivity().mainDrawerActionItemsList == null){
+            return;
+        }
+
         for(IMainDrawerItem item : this.getActivity().mainDrawerActionItemsList){
             if(item.getTitle().equals(key)){
                 item.setActive(state);
@@ -175,11 +207,11 @@ public class MainMapPresenter {
 
     public void cancelDownloader(){
         if(this.markersDownloader != null){
-            this.markersDownloader.cancel(true);
+            this.markersDownloader.cancel(false);
         }
         if(this.uuidDownloader != null){
-            this.uuidDownloader.cancel(true);
+            this.uuidDownloader.cancel(false);
         }
-        this.getActivity().displayProgressBar(false);
+        this.syncProgressBar();
     }
 }
