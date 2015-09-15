@@ -3,6 +3,7 @@ package com.example.OKM.presentation.interactor;
 import com.example.OKM.domain.model.CacheMakerModel;
 import com.example.OKM.domain.model.CacheMarkerCollectionModel;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -26,6 +27,7 @@ public class MapInteractor  {
                 this.map.addMarker(new MarkerOptions()
                                 .position(cache.getPosition())
                                 .title(cache.getTitle())
+                                .icon(BitmapDescriptorFactory.fromResource(cache.getType().getIcon()))
                 );
             }
         }

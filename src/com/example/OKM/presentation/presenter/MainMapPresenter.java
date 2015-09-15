@@ -147,7 +147,7 @@ public class MainMapPresenter {
                 try{
                     if(!this.isCancelled()){
                         JsonTransformService transformService = new JsonTransformService();
-                        markerList.append(transformService.getCacheMarkersByJson(new JSONObject(result)));
+                        markerList.append(transformService.getCacheMarkersByJson(getContext(), new JSONObject(result)));
                         applyCaches();
                     }
                 } catch (Exception e){

@@ -49,6 +49,14 @@
         <item>opencaching.us</item>
     </string-array>
 
+    <!-- Caches types-->
+    <string name="Multi">Multi</string>
+    <string name="Traditional">Tradycyjna</string>
+    <string name="Quiz">Quiz</string>
+    <string name="Virtual">Wirtualna</string>
+    <string name="Event">Wydarzenie</string>
+    <string name="Other">Nietypowa</string>
+
     <!-- OKAPI urls-->
     <string name="okapi_getNearbyCachesNotFound" formatted="false">services/caches/shortcuts/search_and_retrieve?search_method=services/caches/search/nearest&amp;search_params={\"limit\":\"[$LIMIT$]\",\"langpref\":\"pl\",\"not_found_by\":\"[$UUID$]\",\"owner_uuid\":\"-[$UUID$]\",\"center\":\"[$CENTER$]\"}&amp;retr_method=services/caches/geocaches&amp;retr_params={\"fields\":\"last_found|code|name|size2|type|owner|location\"}&amp;wrap=false</string>
     <string name="okapi_getNearbyCaches" formatted="false">services/caches/shortcuts/search_and_retrieve?search_method=services/caches/search/nearest&amp;search_params={\"limit\":\"[$LIMIT$]\",\"langpref\":\"pl\",\"center\":\"[$CENTER$]\"}&amp;retr_method=services/caches/geocaches&amp;retr_params={\"fields\":\"last_found|code|name|size2|type|owner|location\"}&amp;wrap=false</string>

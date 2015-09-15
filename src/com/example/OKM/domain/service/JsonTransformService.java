@@ -1,5 +1,6 @@
 package com.example.OKM.domain.service;
 
+import android.content.Context;
 import com.example.OKM.domain.model.CacheMakerModel;
 import com.example.OKM.domain.model.CacheMarkerCollectionModel;
 import com.google.android.gms.maps.model.LatLng;
@@ -12,7 +13,7 @@ import java.util.Iterator;
  * Created by kubut on 2015-09-07.
  */
 public class JsonTransformService {
-    public ArrayList<CacheMakerModel> getCacheMarkersByJson(JSONObject jsonArray){
+    public ArrayList<CacheMakerModel> getCacheMarkersByJson(Context context, JSONObject jsonArray){
         Iterator iterator = jsonArray.keys();
         ArrayList<CacheMakerModel> list = new ArrayList<>();
 
@@ -32,6 +33,7 @@ public class JsonTransformService {
                 }
 
                 CacheMakerModel cache = new CacheMakerModel(
+                        context,
                         new LatLng(Double.parseDouble(cacheLocation[0]), Double.parseDouble(cacheLocation[1])),
                         jsonCache.getString("name"),
                         jsonCache.getString("code"),

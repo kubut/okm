@@ -1,5 +1,7 @@
 package com.example.OKM.domain.model;
 
+import android.content.Context;
+import com.example.OKM.domain.valueObject.CacheTypeValue;
 import com.google.android.gms.maps.model.LatLng;
 
 /**
@@ -9,13 +11,14 @@ public class CacheMakerModel {
     private LatLng position;
     private String title;
     private String code;
-    private String type;
+    private CacheTypeValue type;
     private String owner;
     private String lastFound;
     private String size;
 
 
     public CacheMakerModel(
+            Context context,
             LatLng position,
             String title,
             String code,
@@ -28,7 +31,7 @@ public class CacheMakerModel {
         this.code = code;
         this.size = size;
         this.title = title;
-        this.type = type;
+        this.type = new CacheTypeValue(context, type);
         this.owner = owner;
         this.lastFound = lastFound;
     }
@@ -58,11 +61,11 @@ public class CacheMakerModel {
         this.code = code;
     }
 
-    public String getType() {
+    public CacheTypeValue getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(CacheTypeValue type) {
         this.type = type;
     }
 
