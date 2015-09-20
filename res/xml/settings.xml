@@ -21,7 +21,12 @@
             android:entries="@array/settings_servers_list_entries"
             android:entryValues="@array/settings_servers_list_values"
             android:key="prefServer"/>
+    <SwitchPreference
+            android:title="@string/settings_reset_map"
+            android:summary="@string/settings_reset_map_sub"
+            android:key="prefMapAutoPosition"/>
     <Preference
-            android:title="@string/settings_pointless"
-            android:key="prefPointless"/>
+            android:title="@string/settings_set_map"
+            android:summary="@string/settings_set_map_sub"
+            android:key="prefSelectMap"/>
 </PreferenceScreen>

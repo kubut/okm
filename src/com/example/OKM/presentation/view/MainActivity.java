@@ -1,7 +1,11 @@
 package com.example.OKM.presentation.view;
 
 import android.content.Intent;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +25,8 @@ import com.example.OKM.data.factories.MainDrawerIntentItemListFactory;
 import com.example.OKM.domain.model.IMainDrawerItem;
 import com.example.OKM.presentation.adapter.*;
 import com.example.OKM.presentation.presenter.MainMapPresenter;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.*;
 import com.rey.material.widget.ProgressView;
 
@@ -40,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private MainMapPresenter presenter;
     private DrawerLayout mDrawerLayout;
     private ProgressView progressBar;
+    private GoogleApiClient googleApiClient;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -167,7 +174,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     public void onMapReady(GoogleMap map) {
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+        String bestProvider = locationManager.getBestProvider(criteria, false);
+        Location location = locationManager.getLastKnownLocation(bestProvider);
 
+        this.presenter.setLastLocation(location);
+        this.presenter.setMapPosition();
     }
 
     public void goToSettings(){

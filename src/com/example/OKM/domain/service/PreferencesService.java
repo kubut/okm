@@ -3,6 +3,8 @@ package com.example.OKM.domain.service;
 import android.content.Context;
 import com.example.OKM.R;
 import com.example.OKM.data.repositories.PreferencesRepository;
+import com.example.OKM.domain.valueObject.MapPositionValue;
+import com.google.android.gms.maps.model.LatLng;
 
 /**
  * Created by kubut on 2015-08-22.
@@ -33,12 +35,39 @@ public class PreferencesService {
         repository.setSaveMode(saveMode);
     }
 
+    public boolean isMapAutoposition(){
+        return repository.isMapAutoposition();
+    }
+
+    public void setMapAutoposition(boolean autoposition){
+        repository.setMapAutoposition(autoposition);
+    }
+
     public int getCachesLimit(){
         return this.isSaveMode() ? 50 : 200;
     }
 
     public String getUuid() {
         return repository.getUuid();
+    }
+
+    public void setMapPosition(MapPositionValue position){
+        repository.setMapPosition(position.toString());
+    }
+
+    public MapPositionValue getMapPosition(){
+        String encoded = repository.getMapPosition();
+
+        if(encoded == null){
+            return null;
+        }
+
+        String[] parts = encoded.split(";");
+
+        LatLng position = new LatLng(Double.parseDouble(parts[0]), Double.parseDouble(parts[1]));
+        float zoom = Float.parseFloat(parts[2]);
+
+        return new MapPositionValue(position, zoom);
     }
 
     public void setUuid(String uuid){

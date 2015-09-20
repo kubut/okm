@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:okm="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/action_set_map_ok"
+          android:icon="@drawable/tick"
+          android:title="@string/settings_set_map_ok"
+          okm:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/action_set_map_cancel"
+          android:icon="@drawable/cross"
+          android:title="@string/settings_set_map_cancel"
+          okm:showAsAction="ifRoom"/>
+
+</menu>

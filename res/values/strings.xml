@@ -2,6 +2,7 @@
 <resources>
     <!-- general -->
     <string name="app_name">Opencaching Kubut Maps</string>
+    <string name="default_map_position">51.70;18.85;5.5</string>
 
     <!-- drawer -->
     <string name="drawer_open">Open navigation drawer</string>
@@ -25,9 +26,12 @@
     <string name="settings_low_limit_sub">Oszczędzaj transfer pobierając mniej skrzynek</string>
     <string name="settings_hide_found">Ukryj znalezione</string>
     <string name="settings_hide_found_sub">Nie pokazuj na mapie skrzynek które już znalazłeś</string>
-    <string name="settings_pointless">Nie naciskaj mnie</string>
     <string name="settings_language">Język</string>
     <string name="settings_language_sub">Polski</string>
+    <string name="settings_set_map">Ustaw pozycję mapy</string>
+    <string name="settings_set_map_sub">Wybierz jaką mapę chcesz zobaczyć po uruchomieniu aplikacji</string>
+    <string name="settings_reset_map">Automatyczne określanie pozycji</string>
+    <string name="settings_reset_map_sub">Pozycja początkowa mapy będzie określana automatycznie</string>
     <string-array name="settings_languages_list_entries">
         <item>Polski</item>
         <item>Angielski</item>
@@ -48,6 +52,11 @@
         <item>opencaching.de</item>
         <item>opencaching.us</item>
     </string-array>
+
+    <!-- Settings set map-->
+    <string name="settings_set_map_title">Wybierz pozycję</string>
+    <string name="settings_set_map_ok">OK</string>
+    <string name="settings_set_map_cancel">Jednak nie</string>
 
     <!-- Caches types-->
     <string name="Multi">Multi</string>

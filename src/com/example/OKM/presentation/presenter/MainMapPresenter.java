@@ -1,7 +1,9 @@
 package com.example.OKM.presentation.presenter;
 
 import android.content.Context;
+import android.location.Location;
 import android.os.AsyncTask;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 import com.example.OKM.R;
@@ -34,6 +36,7 @@ public class MainMapPresenter {
     private CacheMarkerCollectionModel markerList;
     private AsyncTask markersDownloader, uuidDownloader;
     private Toast toast;
+    private PreferencesService preferencesService;
     private boolean downloadTask, isGPS, isSattelite;
 
     public MainMapPresenter(MainActivity activity){
@@ -58,7 +61,7 @@ public class MainMapPresenter {
         this.mapFragment = map;
 
         if(map != null && map.getMap() != null){
-            this.mapInteractor.connectMap(map.getMap());
+            this.mapInteractor.connectMap(map.getMap(), mainActivity.getApplicationContext());
         }
     }
 
@@ -213,5 +216,19 @@ public class MainMapPresenter {
             this.uuidDownloader.cancel(false);
         }
         this.syncProgressBar();
+    }
+
+    public void setMapPosition(){
+        this.preferencesService = new PreferencesService(this.getContext());
+
+        if(this.preferencesService.isMapAutoposition()){
+            this.mapInteractor.setLastMapPosition();
+        } else {
+            this.mapInteractor.setMapPosition(this.preferencesService.getMapPosition());
+        }
+    }
+
+    public void setLastLocation(@Nullable Location location){
+        this.mapInteractor.setLastLocation(location);
     }
 }

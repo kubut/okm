@@ -15,6 +15,8 @@ public class PreferencesRepository {
     public static final String SERVER = "opencaching.us";
     public static final String UUID = null;
     public static final boolean HIDE_FOUND = false;
+    public static final String MAP_POSITION = null;
+    public static final boolean MAP_AUTOPOSITION = true;
 
     Context context;
     SharedPreferences sharedPref;
@@ -33,6 +35,26 @@ public class PreferencesRepository {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putBoolean("prefHideFound", hideFound);
         editor.apply();
+    }
+
+    public boolean isMapAutoposition(){
+        return sharedPref.getBoolean("prefMapAutoPosition", MAP_AUTOPOSITION);
+    }
+
+    public void setMapAutoposition(boolean autoposition){
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putBoolean("prefMapAutoPosition", autoposition);
+        editor.apply();
+    }
+
+    public void setMapPosition(String mapPosition){
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("prefMapPosition", mapPosition);
+        editor.apply();
+    }
+
+    public String getMapPosition(){
+        return sharedPref.getString("prefMapPosition", MAP_POSITION);
     }
 
     public String getUsername(){
