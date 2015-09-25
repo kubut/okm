@@ -58,13 +58,7 @@ public class PreferencesRepository {
     }
 
     public String getUsername(){
-        String username = sharedPref.getString("prefUsername", USERNAME);
-
-        if(username.trim().equals("")){
-            username = USERNAME;
-        }
-
-        return username;
+        return sharedPref.getString("prefUsername", USERNAME);
     }
 
     public void setUsername(String username){

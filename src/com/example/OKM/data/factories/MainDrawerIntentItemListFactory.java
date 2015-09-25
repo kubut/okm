@@ -20,10 +20,10 @@ public class MainDrawerIntentItemListFactory implements IMainDrawerItemListFacto
 
     @Override
     public ArrayList<IMainDrawerItem> getItemsList() {
-        ArrayList<IMainDrawerItem> itemsList = new ArrayList<>();
+        ArrayList<IMainDrawerItem> itemsList = new ArrayList<IMainDrawerItem>();
 
         // settings
-        itemsList.add(new MainDrawerItemModel( this.presenter.getContext().getString(R.string.drawer_settings), R.drawable.settings, this.presenter ){
+        itemsList.add(new MainDrawerItemModel( this.presenter.getContext().getString(R.string.drawer_settings), R.drawable.ic_settings_black_36dp, this.presenter ){
             @Override
             public void click(){
                 this.getPresenter().getActivity().goToSettings();
@@ -31,7 +31,7 @@ public class MainDrawerIntentItemListFactory implements IMainDrawerItemListFacto
         });
 
         // exit
-        itemsList.add(new MainDrawerItemModel( this.presenter.getContext().getString(R.string.drawer_exit), R.drawable.exit, this.presenter ){
+        itemsList.add(new MainDrawerItemModel( this.presenter.getContext().getString(R.string.drawer_exit), R.drawable.ic_exit_to_app_black_36dp, this.presenter ){
             @Override
             public void click(){
                 Intent intent = new Intent(Intent.ACTION_MAIN);

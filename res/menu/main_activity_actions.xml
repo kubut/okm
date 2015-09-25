@@ -3,7 +3,7 @@
       xmlns:okm="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/action_appendCaches"
-          android:icon="@drawable/download_ico"
+          android:icon="@drawable/ic_get_app_black_36dp"
           android:title="@string/drawer_caches"
           okm:showAsAction="ifRoom"/>
 

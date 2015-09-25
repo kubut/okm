@@ -19,10 +19,10 @@ public class MainDrawerActionItemListFactory implements IMainDrawerItemListFacto
 
     @Override
     public ArrayList<IMainDrawerItem> getItemsList() {
-        ArrayList<IMainDrawerItem> itemsList = new ArrayList<>();
+        ArrayList<IMainDrawerItem> itemsList = new ArrayList<IMainDrawerItem>();
 
         // Satellite
-        itemsList.add(new MainDrawerItemModel( this.presenter.getContext().getString(R.string.drawer_satellite), R.drawable.globe, this.presenter ){
+        itemsList.add(new MainDrawerItemModel( this.presenter.getContext().getString(R.string.drawer_satellite), R.drawable.ic_satellite_black_36dp, this.presenter ){
             @Override
             public void click(){
                 super.click();
@@ -31,7 +31,7 @@ public class MainDrawerActionItemListFactory implements IMainDrawerItemListFacto
         });
 
         // GPS
-        itemsList.add(new MainDrawerItemModel( this.presenter.getContext().getString(R.string.drawer_gps), R.drawable.gps, this.presenter ){
+        itemsList.add(new MainDrawerItemModel( this.presenter.getContext().getString(R.string.drawer_gps), R.drawable.ic_gps_fixed_black_36dp, this.presenter ){
             @Override
             public void click(){
                 super.click();
@@ -40,7 +40,7 @@ public class MainDrawerActionItemListFactory implements IMainDrawerItemListFacto
         });
 
         // Caches
-        itemsList.add(new MainDrawerItemModel( this.presenter.getContext().getString(R.string.drawer_caches), R.drawable.download, this.presenter ){
+        itemsList.add(new MainDrawerItemModel( this.presenter.getContext().getString(R.string.drawer_caches), R.drawable.ic_get_app_black_36dp, this.presenter ){
             @Override
             public void click(){
                 super.click();

@@ -1,6 +1,7 @@
 package com.example.OKM.domain.service;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import com.example.OKM.R;
 import com.example.OKM.data.repositories.PreferencesRepository;
 import com.example.OKM.domain.valueObject.MapPositionValue;
@@ -18,8 +19,17 @@ public class PreferencesService {
         repository = new PreferencesRepository(context);
     }
 
+    @Nullable
     public String getUsername(){
-        return repository.getUsername().trim();
+        String username = repository.getUsername();
+
+        if(username != null){
+            username = username.trim();
+
+            return username.equals("") ? null : username;
+        } else {
+            return null;
+        }
     }
 
     public void setUsername(String username){
