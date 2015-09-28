@@ -5,6 +5,8 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.example.OKM.R;
 import com.example.OKM.data.services.OkapiCommunication;
@@ -18,6 +20,7 @@ import com.example.OKM.presentation.view.MainActivity;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import org.json.JSONObject;
 
@@ -37,7 +40,8 @@ public class MainMapPresenter {
     private AsyncTask markersDownloader, uuidDownloader;
     private Toast toast;
     private PreferencesService preferencesService;
-    private boolean downloadTask, isGPS, isSattelite;
+    private boolean downloadTask, isGPS, isSattelite, isInfowindow;
+    private Marker selectedMarker;
 
     public MainMapPresenter(MainActivity activity){
         this.okapiService = new OkapiService();
@@ -47,6 +51,7 @@ public class MainMapPresenter {
         this.downloadTask = false;
         this.isGPS = false;
         this.isSattelite = false;
+        this.isInfowindow = false;
     }
 
     public void sync(){
@@ -54,6 +59,10 @@ public class MainMapPresenter {
         this.applyCaches();
         this.setGpsMode(this.isGPS);
         this.setSatelliteMode(this.isSattelite);
+        this.setInfowindow(this.selectedMarker);
+        if(this.isInfowindow){
+            this.getActivity().showInfowindow(false);
+        }
     }
 
     public void connectContext(MainActivity mainActivity, SupportMapFragment map){
@@ -230,5 +239,31 @@ public class MainMapPresenter {
 
     public void setLastLocation(@Nullable Location location){
         this.mapInteractor.setLastLocation(location);
+    }
+
+    public void onMarkerClick(Marker marker){
+        this.selectedMarker = marker;
+        this.setInfowindow(marker);
+
+        if(!this.isInfowindow){
+            this.getActivity().showInfowindow(true);
+            this.isInfowindow = true;
+        }
+    }
+
+    public void onMapClick(){
+        if(isInfowindow){
+            this.getActivity().hideInfowindow();
+            this.isInfowindow = false;
+            this.selectedMarker = null;
+        }
+    }
+
+    public void setInfowindow(@Nullable Marker marker){
+        if(marker != null){
+            LinearLayout infowindow = this.getActivity().getInfowindowLayout();
+            TextView title = (TextView) infowindow.findViewById(R.id.infoCacheTitle);
+            title.setText(marker.getTitle());
+        }
     }
 }

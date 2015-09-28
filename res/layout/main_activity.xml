@@ -44,6 +44,14 @@
                     app:pv_progressStyle="@style/ProgressBarStyle"
                     />
 
+
+            <include
+                    android:id="@+id/infowindow"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_gravity="bottom"
+                    android:layout_alignParentBottom="true"
+                    layout="@layout/main_infowindow"/>
         </RelativeLayout>
 
         <include

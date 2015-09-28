@@ -10,11 +10,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
+import android.view.*;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import com.example.OKM.R;
@@ -28,6 +28,8 @@ import com.example.OKM.presentation.presenter.MainMapPresenter;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.*;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.rey.material.widget.ProgressView;
 
 import java.util.ArrayList;
@@ -46,7 +48,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private MainMapPresenter presenter;
     private DrawerLayout mDrawerLayout;
     private ProgressView progressBar;
-    private GoogleApiClient googleApiClient;
+    private Animation animationUp, animationBottom;
+    private LinearLayout infowindow;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,8 +58,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         final Toolbar toolbar   = (Toolbar) findViewById(R.id.app_bar);
         this.mDrawerLayout      = (DrawerLayout) findViewById(R.id.main_layout);
-        map                     = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        this.infowindow         = (LinearLayout) findViewById(R.id.infowindow);
+        this.map                = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         this.progressBar        = (ProgressView) findViewById(R.id.progressBar);
+        this.animationUp        = AnimationUtils.loadAnimation(this, R.anim.bottom_up);
+        this.animationBottom    = AnimationUtils.loadAnimation(this, R.anim.up_bottom);
+
+        this.infowindow.setVisibility(View.GONE);
 
         if(map != null){
             map.getMapAsync(this);
@@ -181,6 +189,21 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         this.presenter.setLastLocation(location);
         this.presenter.setMapPosition();
+
+        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                presenter.onMarkerClick(marker);
+                return true;
+            }
+        });
+
+        map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                presenter.onMapClick();
+            }
+        });
     }
 
     public void goToSettings(){
@@ -203,5 +226,21 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         } else {
             this.progressBar.setVisibility(View.INVISIBLE);
         }
+    }
+
+    public LinearLayout getInfowindowLayout(){
+        return this.infowindow;
+    }
+
+    public void hideInfowindow(){
+        this.infowindow.startAnimation(this.animationBottom);
+        this.infowindow.setVisibility(View.GONE);
+    }
+
+    public void showInfowindow(boolean animation){
+        if(animation){
+            this.infowindow.startAnimation(this.animationUp);
+        }
+        this.infowindow.setVisibility(View.VISIBLE);
     }
 }

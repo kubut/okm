@@ -11,7 +11,7 @@ public class CacheMarkerCollectionModel {
     private Set<CacheMakerModel> list;
 
     public CacheMarkerCollectionModel(){
-        list = new HashSet<>();
+        list = new HashSet<CacheMakerModel>();
     }
 
     public void addCache(CacheMakerModel cache){
