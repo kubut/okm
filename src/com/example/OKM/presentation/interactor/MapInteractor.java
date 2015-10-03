@@ -2,14 +2,11 @@ package com.example.OKM.presentation.interactor;
 
 import android.content.Context;
 import android.location.Location;
-import android.location.LocationManager;
 import android.support.annotation.Nullable;
-import android.view.ContextThemeWrapper;
 import com.example.OKM.R;
 import com.example.OKM.domain.model.CacheMakerModel;
 import com.example.OKM.domain.model.CacheMarkerCollectionModel;
 import com.example.OKM.domain.valueObject.MapPositionValue;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -45,7 +42,7 @@ public class MapInteractor {
             for(CacheMakerModel cache : list.getList()){
                 this.map.addMarker(new MarkerOptions()
                                 .position(cache.getPosition())
-                                .title(cache.getTitle())
+                                .title(cache.getCode())
                                 .icon(BitmapDescriptorFactory.fromResource(cache.getType().getIcon()))
                 );
             }

@@ -7,6 +7,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -50,13 +51,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private ProgressView progressBar;
     private Animation animationUp, animationBottom;
     private LinearLayout infowindow;
+    private Toolbar toolbar, toolbar_infowindow;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
-        final Toolbar toolbar   = (Toolbar) findViewById(R.id.app_bar);
+        this.toolbar            = (Toolbar) findViewById(R.id.app_bar);
+        this.toolbar_infowindow = (Toolbar) findViewById(R.id.app_bar_infowindow);
         this.mDrawerLayout      = (DrawerLayout) findViewById(R.id.main_layout);
         this.infowindow         = (LinearLayout) findViewById(R.id.infowindow);
         this.map                = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
@@ -65,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         this.animationBottom    = AnimationUtils.loadAnimation(this, R.anim.up_bottom);
 
         this.infowindow.setVisibility(View.GONE);
+        this.toolbar_infowindow.setVisibility(View.GONE);
 
         if(map != null){
             map.getMapAsync(this);
@@ -95,16 +99,27 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void onDestroy(){
-        super.onDestroy();
+        presenter.saveMapPosition();
         presenter.disconnectContext();
+        super.onDestroy();
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu items for use in the action bar
+    public boolean onPrepareOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_activity_actions, menu);
-        return super.onCreateOptionsMenu(menu);
+        MenuItem downloadItem = menu.findItem(R.id.action_appendCaches);
+        MenuItem infoItem = menu.findItem(R.id.action_cacheInfo);
+
+        if(this.presenter.isInfowindowOpen()){
+            downloadItem.setVisible(false);
+            infoItem.setVisible(true);
+        } else {
+            downloadItem.setVisible(true);
+            infoItem.setVisible(false);
+        }
+
+        return true;
     }
 
     @Override
@@ -113,6 +128,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         switch (item.getItemId()) {
             case R.id.action_appendCaches:
                 this.presenter.setCaches(true);
+                return true;
+            case R.id.action_cacheInfo:
+                this.goToCacheInfo();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -211,6 +229,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         startActivity(intent);
     }
 
+    public void goToCacheInfo(){
+
+    }
+
     public void hideNavigationDrawer(){
         this.mDrawerLayout.closeDrawers();
     }
@@ -230,6 +252,18 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     public LinearLayout getInfowindowLayout(){
         return this.infowindow;
+    }
+
+    public void setToolbarState(boolean info){
+        if(info){
+            this.toolbar.setVisibility(View.GONE);
+            this.toolbar_infowindow.setVisibility(View.VISIBLE);
+            setSupportActionBar(this.toolbar_infowindow);
+        } else {
+            this.toolbar_infowindow.setVisibility(View.GONE);
+            this.toolbar.setVisibility(View.VISIBLE);
+            setSupportActionBar(this.toolbar);
+        }
     }
 
     public void hideInfowindow(){

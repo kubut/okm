@@ -10,6 +10,7 @@
     <string name="drawer_satellite">Satelita</string>
     <string name="drawer_gps">GPS</string>
     <string name="drawer_caches">Skrzynki</string>
+    <string name="drawer_cache_info">Opis</string>
     <string name="drawer_exit">Zamknij</string>
     <string name="drawer_settings">Ustawienia</string>
 
@@ -65,6 +66,22 @@
     <string name="Virtual">Wirtualna</string>
     <string name="Event">Wydarzenie</string>
     <string name="Other">Nietypowa</string>
+
+    <!-- Caches sizes -->
+    <string name="size_nano">Nano</string>
+    <string name="size_micro">Mikro</string>
+    <string name="size_small">Mała</string>
+    <string name="size_regular">Normalna</string>
+    <string name="size_large">Duża</string>
+    <string name="size_xlarge">Ogromna</string>
+    <string name="size_other">Inna</string>
+    <string name="size_symbol_nano">1</string>
+    <string name="size_symbol_micro">2</string>
+    <string name="size_symbol_small">3</string>
+    <string name="size_symbol_regular">4</string>
+    <string name="size_symbol_large">5</string>
+    <string name="size_symbol_xlarge">6</string>
+    <string name="size_symbol_other">0</string>
 
     <!-- OKAPI urls-->
     <string name="okapi_getNearbyCachesNotFound" formatted="false">services/caches/shortcuts/search_and_retrieve?search_method=services/caches/search/nearest&amp;search_params={\"limit\":\"[$LIMIT$]\",\"langpref\":\"pl\",\"not_found_by\":\"[$UUID$]\",\"owner_uuid\":\"-[$UUID$]\",\"center\":\"[$CENTER$]\"}&amp;retr_method=services/caches/geocaches&amp;retr_params={\"fields\":\"last_found|code|name|size2|type|owner|location\"}&amp;wrap=false</string>

@@ -7,4 +7,9 @@
           android:title="@string/drawer_caches"
           okm:showAsAction="ifRoom"/>
 
+    <item android:id="@+id/action_cacheInfo"
+          android:icon="@drawable/ic_info_outline_black_36dp"
+          android:title="@string/drawer_cache_info"
+          android:visible="false"
+          okm:showAsAction="ifRoom"/>
 </menu>

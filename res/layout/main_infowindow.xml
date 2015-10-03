@@ -1,11 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
-              android:background="@color/colorPrimary"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-    <TextView
-            android:id="@+id/infoCacheTitle"
+    <View
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:id="@+id/infowindowShadow"
+            android:layout_height="4dp"
+            android:rotation="180"
+            android:background="@drawable/shadow"/>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/colorPrimary"
+            android:padding="10dp">
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:background="#0000ff"
+                android:orientation="horizontal">
+            <LinearLayout
+                    android:layout_weight="3"
+                    android:layout_width="0dp"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent">
+                <TextView
+                        android:id="@+id/infoCacheType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                <TextView
+                        android:id="@+id/infoCacheSize"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                <TextView
+                        android:id="@+id/infoCacheOwner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                <TextView
+                        android:id="@+id/infoCacheLastfound"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:orientation="vertical"
+                    android:background="#ff0000"
+                    android:layout_height="match_parent">
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
 </LinearLayout>

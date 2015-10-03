@@ -4,29 +4,28 @@ import android.content.Context;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
-import android.util.Log;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.OKM.R;
 import com.example.OKM.data.services.OkapiCommunication;
+import com.example.OKM.domain.model.CacheMakerModel;
 import com.example.OKM.domain.model.CacheMarkerCollectionModel;
 import com.example.OKM.domain.model.IMainDrawerItem;
 import com.example.OKM.domain.service.JsonTransformService;
 import com.example.OKM.domain.service.OkapiService;
 import com.example.OKM.domain.service.PreferencesService;
+import com.example.OKM.domain.valueObject.MapPositionValue;
 import com.example.OKM.presentation.interactor.MapInteractor;
 import com.example.OKM.presentation.view.MainActivity;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 import org.json.JSONObject;
-
-import java.io.Console;
-import java.lang.reflect.Method;
-import java.util.concurrent.Callable;
 
 /**
  * Created by kubut on 2015-07-12.
@@ -42,6 +41,7 @@ public class MainMapPresenter {
     private PreferencesService preferencesService;
     private boolean downloadTask, isGPS, isSattelite, isInfowindow;
     private Marker selectedMarker;
+    private MapPositionValue mapPosition;
 
     public MainMapPresenter(MainActivity activity){
         this.okapiService = new OkapiService();
@@ -60,8 +60,12 @@ public class MainMapPresenter {
         this.setGpsMode(this.isGPS);
         this.setSatelliteMode(this.isSattelite);
         this.setInfowindow(this.selectedMarker);
+        this.syncToolbar();
         if(this.isInfowindow){
             this.getActivity().showInfowindow(false);
+        }
+        if(this.mapPosition != null){
+            this.mapInteractor.setMapPosition(this.mapPosition);
         }
     }
 
@@ -147,6 +151,7 @@ public class MainMapPresenter {
             this.cancelDownloader();
             markerList.clear();
             mapFragment.getMap().clear();
+            this.hideInfowindow();
         }
     }
 
@@ -175,6 +180,29 @@ public class MainMapPresenter {
 
     public void syncProgressBar(){
         this.getActivity().displayProgressBar(this.downloadTask);
+    }
+
+    public void syncToolbar(){
+        this.getActivity().setToolbarState(this.isInfowindow);
+        ActionBar actionBar = this.getActivity().getSupportActionBar();
+        String title = null;
+        String subtitle = null;
+
+        if(this.selectedMarker != null && this.isInfowindow){
+            CacheMakerModel cache = this.markerList.getMarker(this.selectedMarker.getTitle());
+
+            if(cache == null){
+                return;
+            }
+
+            title = cache.getTitle();
+            subtitle = cache.getCode();
+        }
+
+        if(actionBar != null){
+            actionBar.setTitle(title);
+            actionBar.setSubtitle(subtitle);
+        }
     }
 
     public void applyCaches(){
@@ -228,12 +256,16 @@ public class MainMapPresenter {
     }
 
     public void setMapPosition(){
-        this.preferencesService = new PreferencesService(this.getContext());
-
-        if(this.preferencesService.isMapAutoposition()){
-            this.mapInteractor.setLastMapPosition();
+        if(this.mapPosition != null){
+            this.mapInteractor.setMapPosition(this.mapPosition);
         } else {
-            this.mapInteractor.setMapPosition(this.preferencesService.getMapPosition());
+            this.preferencesService = new PreferencesService(this.getContext());
+
+            if(this.preferencesService.isMapAutoposition()){
+                this.mapInteractor.setLastMapPosition();
+            } else {
+                this.mapInteractor.setMapPosition(this.preferencesService.getMapPosition());
+            }
         }
     }
 
@@ -242,28 +274,73 @@ public class MainMapPresenter {
     }
 
     public void onMarkerClick(Marker marker){
+        if(!this.isInfowindow){
+            this.isInfowindow = true;
+            this.syncToolbar();
+            this.getActivity().showInfowindow(true);
+        }
+
         this.selectedMarker = marker;
         this.setInfowindow(marker);
-
-        if(!this.isInfowindow){
-            this.getActivity().showInfowindow(true);
-            this.isInfowindow = true;
-        }
     }
 
     public void onMapClick(){
+        this.hideInfowindow();
+    }
+
+    public void hideInfowindow(){
         if(isInfowindow){
-            this.getActivity().hideInfowindow();
             this.isInfowindow = false;
+            this.syncToolbar();
+            this.getActivity().hideInfowindow();
             this.selectedMarker = null;
+            this.getActivity().invalidateOptionsMenu();
         }
     }
 
     public void setInfowindow(@Nullable Marker marker){
         if(marker != null){
+            CacheMakerModel cache = this.markerList.getMarker(marker.getTitle());
+
+            if(cache == null){
+                return;
+            }
+
             LinearLayout infowindow = this.getActivity().getInfowindowLayout();
-            TextView title = (TextView) infowindow.findViewById(R.id.infoCacheTitle);
-            title.setText(marker.getTitle());
+            TextView type = (TextView) infowindow.findViewById(R.id.infoCacheType);
+            TextView size = (TextView) infowindow.findViewById(R.id.infoCacheSize);
+            TextView owner = (TextView) infowindow.findViewById(R.id.infoCacheOwner);
+            TextView found = (TextView) infowindow.findViewById(R.id.infoCacheLastfound);
+
+            ActionBar actionBar = this.getActivity().getSupportActionBar();
+
+            if(actionBar != null){
+                actionBar.setTitle(cache.getTitle());
+                actionBar.setSubtitle(cache.getCode());
+            }
+
+            this.getActivity().invalidateOptionsMenu();
+
+            type.setText(cache.getType().getName());
+            size.setText(cache.getSize().getName() + " : " + cache.getSize().getSymbol());
+            owner.setText(cache.getOwner());
+            found.setText(cache.getLastFound());
+        }
+    }
+
+    public boolean isInfowindowOpen(){
+        return  this.isInfowindow;
+    }
+
+    public void saveMapPosition(){
+        GoogleMap map =  this.mapFragment.getMap();
+        if(map != null){
+            CameraPosition cameraPosition = map.getCameraPosition();
+
+            this.mapPosition = new MapPositionValue(
+                    cameraPosition.target,
+                    cameraPosition.zoom
+            );
         }
     }
 }

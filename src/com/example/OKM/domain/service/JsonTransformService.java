@@ -6,18 +6,15 @@ import com.example.OKM.domain.model.CacheMarkerCollectionModel;
 import com.google.android.gms.maps.model.LatLng;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by kubut on 2015-09-07.
  */
 public class JsonTransformService {
-    public Set<CacheMakerModel> getCacheMarkersByJson(Context context, JSONObject jsonArray){
+    public HashMap<String, CacheMakerModel> getCacheMarkersByJson(Context context, JSONObject jsonArray){
         Iterator iterator = jsonArray.keys();
-        Set<CacheMakerModel> list = new HashSet<>();
+        HashMap<String, CacheMakerModel> list = new HashMap<>();
 
         while (iterator.hasNext()){
             String key = (String)iterator.next();
@@ -45,7 +42,7 @@ public class JsonTransformService {
                         jsonCache.getString("size2")
                         );
 
-                list.add(cache);
+                list.put(cache.getCode(), cache);
             } catch (Exception e){
                 e.printStackTrace();
             }
