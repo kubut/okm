@@ -52,7 +52,7 @@
             <include
                     android:id="@+id/infowindow"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
+                    android:layout_height="100dp"
                     android:layout_gravity="bottom"
                     android:layout_alignParentBottom="true"
                     layout="@layout/main_infowindow"/>

@@ -135,14 +135,14 @@ public class MainMapPresenter {
 
                                 getAndApplyCaches(newUuid);
                             } catch (Exception e){
-                                getAndApplyCaches(uuid);
+                                getAndApplyCaches(null);
                                 e.printStackTrace();
                             }
                         }
                     }.execute(url);
                 } catch (Exception e){
                     e.printStackTrace();
-                    getAndApplyCaches(uuid);
+                    getAndApplyCaches(null);
                 }
             } else {
                 getAndApplyCaches(uuid);
@@ -322,7 +322,7 @@ public class MainMapPresenter {
             this.getActivity().invalidateOptionsMenu();
 
             type.setText(cache.getType().getName());
-            size.setText(cache.getSize().getName() + " : " + cache.getSize().getSymbol());
+            size.setText(cache.getSize().getName());
             owner.setText(cache.getOwner());
             found.setText(cache.getLastFound());
         }

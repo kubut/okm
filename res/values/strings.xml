@@ -59,6 +59,13 @@
     <string name="settings_set_map_ok">OK</string>
     <string name="settings_set_map_cancel">Jednak nie</string>
 
+    <!-- InfoWindow labels-->
+    <string name="label_type">Typ: </string>
+    <string name="label_size">Rozmiar: </string>
+    <string name="label_last_found">Znaleziono: </string>
+    <string name="label_last_found_none">Bądź pierwszy!</string>
+    <string name="label_owner">Właściciel: </string>
+
     <!-- Caches types-->
     <string name="Multi">Multi</string>
     <string name="Traditional">Tradycyjna</string>
