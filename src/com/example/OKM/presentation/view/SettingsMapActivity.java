@@ -1,27 +1,16 @@
 package com.example.OKM.presentation.view;
 
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
 import com.example.OKM.R;
-import com.example.OKM.domain.model.IMainDrawerItem;
-import com.example.OKM.presentation.adapter.MainDrawerListAdapter;
-import com.example.OKM.presentation.presenter.MainMapPresenter;
 import com.example.OKM.presentation.presenter.SettingsMapPresenter;
-import com.example.OKM.presentation.presenter.SettingsPresenter;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.rey.material.widget.ProgressView;
-
-import java.util.ArrayList;
 
 /**
  * Created by kubut on 2015-09-16.

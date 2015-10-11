@@ -3,7 +3,6 @@ package com.example.OKM.data.repositories;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import com.example.OKM.R;
 
 /**
  * Created by kubut on 2015-08-22.

@@ -2,8 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/primary_material_light">
+              android:layout_height="match_parent">
     <View
             android:layout_width="match_parent"
             android:id="@+id/infowindowShadow"
@@ -16,7 +15,8 @@
                 android:layout_height="wrap_content"
                 android:baselineAligned="false"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:background="@color/primary_material_light">
             <LinearLayout
                     android:orientation="vertical"
                     android:layout_weight="3"
@@ -112,9 +112,22 @@
             <LinearLayout
                     android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:background="#ff0000"
                     android:orientation="vertical"
                     android:layout_height="match_parent">
+                <ImageView
+                        android:id="@+id/compass"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:src="@drawable/compass"
+                        android:layout_gravity="center_horizontal"/>
+                <TextView
+                        android:id="@+id/distance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/textColorPrimary"
+                        android:textSize="12sp"
+                        android:text="@string/toast_no_gps"
+                        android:layout_gravity="center"/>
 
             </LinearLayout>
         </LinearLayout>

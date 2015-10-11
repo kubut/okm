@@ -2,11 +2,11 @@ package com.example.OKM.domain.service;
 
 import android.content.Context;
 import com.example.OKM.domain.model.CacheMakerModel;
-import com.example.OKM.domain.model.CacheMarkerCollectionModel;
 import com.google.android.gms.maps.model.LatLng;
 import org.json.JSONObject;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * Created by kubut on 2015-09-07.

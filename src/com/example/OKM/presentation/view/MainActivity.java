@@ -5,36 +5,32 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.*;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
+import android.widget.*;
 import com.example.OKM.R;
-
 import com.example.OKM.data.factories.IMainDrawerItemListFactory;
 import com.example.OKM.data.factories.MainDrawerActionItemListFactory;
 import com.example.OKM.data.factories.MainDrawerIntentItemListFactory;
 import com.example.OKM.domain.model.IMainDrawerItem;
-import com.example.OKM.presentation.adapter.*;
+import com.example.OKM.presentation.adapter.MainDrawerListAdapter;
 import com.example.OKM.presentation.presenter.MainMapPresenter;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.*;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.rey.material.widget.ProgressView;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  * Created by kubut on 2015-07-12.
@@ -90,6 +86,24 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         this.initializeDrawerMenu(mDrawerLayout, toolbar);
 
         presenter.sync();
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        this.presenter.unregisterLocationTimer();
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        this.presenter.unregisterLocationTimer();
+    }
+
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        this.presenter.registerLocationTimer();
     }
 
     @Override
@@ -254,6 +268,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         return this.infowindow;
     }
 
+    public TextView getDistanceLabel(){
+        return (TextView) this.infowindow.findViewById(R.id.distance);
+    }
+
+    public ImageView getCompass(){
+        return (ImageView) this.infowindow.findViewById(R.id.compass);
+    }
+
     public void setToolbarState(boolean info){
         if(info){
             this.toolbar.setVisibility(View.GONE);
@@ -276,5 +298,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             this.infowindow.startAnimation(this.animationUp);
         }
         this.infowindow.setVisibility(View.VISIBLE);
+    }
+
+    public void animateCompass(Animation animation){
+        this.getCompass().startAnimation(animation);
     }
 }

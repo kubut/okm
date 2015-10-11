@@ -1,7 +1,5 @@
 package com.example.OKM.presentation.presenter;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;

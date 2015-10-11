@@ -1,12 +1,16 @@
 package com.example.OKM.presentation.presenter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.location.Location;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,8 +20,11 @@ import com.example.OKM.domain.model.CacheMakerModel;
 import com.example.OKM.domain.model.CacheMarkerCollectionModel;
 import com.example.OKM.domain.model.IMainDrawerItem;
 import com.example.OKM.domain.service.JsonTransformService;
+import com.example.OKM.domain.service.LocationHelper;
 import com.example.OKM.domain.service.OkapiService;
 import com.example.OKM.domain.service.PreferencesService;
+import com.example.OKM.domain.task.CompassListener;
+import com.example.OKM.domain.task.TimerTask;
 import com.example.OKM.domain.valueObject.MapPositionValue;
 import com.example.OKM.presentation.interactor.MapInteractor;
 import com.example.OKM.presentation.view.MainActivity;
@@ -27,12 +34,13 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.Marker;
 import org.json.JSONObject;
 
+import java.util.concurrent.Callable;
+
 /**
  * Created by kubut on 2015-07-12.
  */
 public class MainMapPresenter {
     private MainActivity mainActivity;
-    private SupportMapFragment mapFragment;
     private OkapiService okapiService;
     private MapInteractor mapInteractor;
     private CacheMarkerCollectionModel markerList;
@@ -42,6 +50,10 @@ public class MainMapPresenter {
     private boolean downloadTask, isGPS, isSattelite, isInfowindow;
     private Marker selectedMarker;
     private MapPositionValue mapPosition;
+    private Thread thread;
+    private GoogleMap googleMap;
+    private SensorManager sensorManager;
+    private CompassListener compassListener;
 
     public MainMapPresenter(MainActivity activity){
         this.okapiService = new OkapiService();
@@ -71,17 +83,23 @@ public class MainMapPresenter {
 
     public void connectContext(MainActivity mainActivity, SupportMapFragment map){
         this.mainActivity = mainActivity;
-        this.mapFragment = map;
+        this.preferencesService = new PreferencesService(this.getContext());
 
         if(map != null && map.getMap() != null){
-            this.mapInteractor.connectMap(map.getMap(), mainActivity.getApplicationContext());
+            this.googleMap = map.getMap();
+            this.mapInteractor.connectMap(this.googleMap, mainActivity.getApplicationContext());
+        }
+
+        if(this.isInfowindow){
+            this.registerLocationTimer();
         }
     }
 
     public void disconnectContext(){
         this.mainActivity = null;
-        this.mapFragment = null;
         this.mapInteractor.disconnectMap();
+        this.googleMap = null;
+        this.unregisterLocationTimer();
     }
 
     public void setSatelliteMode(boolean modeOn){
@@ -89,25 +107,31 @@ public class MainMapPresenter {
 
         this.setDrawerOptionState(getContext().getString(R.string.drawer_satellite), modeOn);
 
-        if(mapFragment == null || mapFragment.getMap() == null){
+        if(this.googleMap == null){
             return;
         }
 
         if(modeOn){
-            mapFragment.getMap().setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+            this.googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
         } else {
-            mapFragment.getMap().setMapType(GoogleMap.MAP_TYPE_NORMAL);
+            this.googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         }
     }
 
     public void setGpsMode(boolean modeOn){
         this.isGPS = modeOn;
 
-        if(mapFragment == null || mapFragment.getMap() == null){
+        if(!modeOn){
+            this.unregisterLocationTimer();
+        } else {
+            this.registerLocationTimer();
+        }
+
+        if(this.googleMap == null){
             return;
         }
 
-        mapFragment.getMap().setMyLocationEnabled(modeOn);
+        this.googleMap.setMyLocationEnabled(modeOn);
         this.setDrawerOptionState(getContext().getString(R.string.drawer_gps), modeOn);
     }
 
@@ -118,7 +142,6 @@ public class MainMapPresenter {
             this.syncProgressBar();
             this.showToast(this.getContext().getString(R.string.toast_downloading));
 
-            final PreferencesService preferencesService = new PreferencesService(this.getContext());
             final String uuid = preferencesService.getUuid();
 
             if(uuid == null && preferencesService.getUsername() != null && preferencesService.isHideFound()){
@@ -150,13 +173,13 @@ public class MainMapPresenter {
         } else {
             this.cancelDownloader();
             markerList.clear();
-            mapFragment.getMap().clear();
+            this.googleMap.clear();
             this.hideInfowindow();
         }
     }
 
     public void getAndApplyCaches(String uuid){
-        String url = okapiService.getCacheCollectionURL(this.mainActivity, mapFragment.getMap().getCameraPosition().target, uuid);
+        String url = okapiService.getCacheCollectionURL(this.mainActivity, this.googleMap.getCameraPosition().target, uuid);
 
         markersDownloader = new OkapiCommunication(){
             @Override
@@ -286,6 +309,7 @@ public class MainMapPresenter {
 
     public void onMapClick(){
         this.hideInfowindow();
+        this.unregisterLocationTimer();
     }
 
     public void hideInfowindow(){
@@ -325,6 +349,8 @@ public class MainMapPresenter {
             size.setText(cache.getSize().getName());
             owner.setText(cache.getOwner());
             found.setText(cache.getLastFound());
+
+            this.registerLocationTimer();
         }
     }
 
@@ -333,9 +359,8 @@ public class MainMapPresenter {
     }
 
     public void saveMapPosition(){
-        GoogleMap map =  this.mapFragment.getMap();
-        if(map != null){
-            CameraPosition cameraPosition = map.getCameraPosition();
+        if(this.googleMap != null){
+            CameraPosition cameraPosition = this.googleMap.getCameraPosition();
 
             this.mapPosition = new MapPositionValue(
                     cameraPosition.target,
@@ -343,4 +368,92 @@ public class MainMapPresenter {
             );
         }
     }
+
+    public boolean isGPSEnabled(){
+        return this.isGPS;
+    }
+
+    public void updateDistance(GoogleMap map){
+        Location myLocation = map.getMyLocation();
+        Location markerLocation = LocationHelper.getLocationFromLatLng(this.selectedMarker.getPosition());
+
+        this.getActivity().getDistanceLabel().setText(LocationHelper.getDistance(myLocation, markerLocation));
+    }
+
+    public void registerLocationTimer(){
+        this.unregisterLocationTimer();
+
+        SensorManager sensorManager = this.getSensorManager();
+
+        sensorManager.registerListener(
+                this.getCompassListener(),
+                sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),
+                SensorManager.SENSOR_DELAY_GAME
+        );
+
+        if(this.isGPSEnabled() && this.googleMap != null && this.selectedMarker != null){
+            if(!this.googleMap.isMyLocationEnabled()){
+                this.googleMap.setMyLocationEnabled(true);
+            }
+            updateDistance(this.googleMap);
+
+            thread = new Thread(new TimerTask(
+                    new Handler(),
+                    500,
+                    new Callable() {
+                        @Override
+                        public Object call() throws Exception {
+                            updateDistance(googleMap);
+                            return null;
+                        }
+                    }
+            ));
+            thread.start();
+
+            this.setCompassMode(true);
+        } else {
+            this.setCompassMode(false);
+        }
+    }
+
+    public void unregisterLocationTimer(){
+        this.setCompassMode(false);
+        this.getSensorManager().unregisterListener(this.getCompassListener());
+        if(this.thread != null){
+            thread.interrupt();
+        }
+    }
+
+    public void setCompassMode(boolean modeOn){
+        int color;
+        TextView distanceLabel = this.getActivity().getDistanceLabel();
+
+        if(modeOn){
+            color = this.getContext().getResources().getColor(R.color.textColorPrimary);
+        } else {
+            color = this.getContext().getResources().getColor(R.color.colorPrimaryLight);
+            distanceLabel.setText(this.getContext().getString(R.string.label_no_gps));
+        }
+
+        PorterDuffColorFilter filter = new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP);
+        this.getActivity().getCompass().setColorFilter(filter);
+        distanceLabel.setTextColor(color);
+    }
+
+    public SensorManager getSensorManager(){
+        if(this.sensorManager == null){
+            this.sensorManager = (SensorManager) this.getActivity().getSystemService(Context.SENSOR_SERVICE);
+        }
+
+        return this.sensorManager;
+    }
+
+    public CompassListener getCompassListener(){
+        if(this.compassListener == null){
+            this.compassListener = new CompassListener(this);
+        }
+
+        return this.compassListener;
+    }
+
 }

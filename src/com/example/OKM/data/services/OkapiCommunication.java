@@ -1,12 +1,10 @@
 package com.example.OKM.data.services;
 
 import android.os.AsyncTask;
-import org.apache.http.client.HttpClient;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by kubut on 2015-09-01.

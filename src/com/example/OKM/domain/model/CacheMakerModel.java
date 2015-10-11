@@ -5,8 +5,6 @@ import com.example.OKM.domain.valueObject.CacheSizeValue;
 import com.example.OKM.domain.valueObject.CacheTypeValue;
 import com.google.android.gms.maps.model.LatLng;
 
-import java.util.Objects;
-
 /**
  * Created by kubut on 2015-09-04.
  */

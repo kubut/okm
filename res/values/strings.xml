@@ -17,6 +17,7 @@
     <!-- toasts-->
     <string name="toast_downloading">Pobieranie...</string>
     <string name="toast_downloading_error">Błąd pobierania</string>
+    <string name="toast_no_gps">Brak włączonego GPS</string>
 
     <!-- Settings-->
     <string name="title_activity_settings">Ustawienia</string>
@@ -65,6 +66,7 @@
     <string name="label_last_found">Znaleziono: </string>
     <string name="label_last_found_none">Bądź pierwszy!</string>
     <string name="label_owner">Właściciel: </string>
+    <string name="label_no_gps">Brak GPS</string>
 
     <!-- Caches types-->
     <string name="Multi">Multi</string>

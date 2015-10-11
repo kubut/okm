@@ -1,11 +1,7 @@
 package com.example.OKM.domain.valueObject;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
 import com.example.OKM.R;
-
-import java.lang.reflect.Field;
 
 /**
  * Created by kubut on 2015-09-15.

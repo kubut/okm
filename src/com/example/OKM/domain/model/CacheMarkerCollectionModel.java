@@ -2,7 +2,8 @@ package com.example.OKM.domain.model;
 
 import android.support.annotation.Nullable;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
 
 /**
  * Created by kubut on 2015-09-04.

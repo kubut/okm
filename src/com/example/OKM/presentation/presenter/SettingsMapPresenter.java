@@ -1,11 +1,8 @@
 package com.example.OKM.presentation.presenter;
 
-import com.example.OKM.domain.model.CacheMarkerCollectionModel;
-import com.example.OKM.domain.service.OkapiService;
 import com.example.OKM.domain.service.PreferencesService;
 import com.example.OKM.domain.valueObject.MapPositionValue;
 import com.example.OKM.presentation.interactor.MapInteractor;
-import com.example.OKM.presentation.view.MainActivity;
 import com.example.OKM.presentation.view.SettingsMapActivity;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;

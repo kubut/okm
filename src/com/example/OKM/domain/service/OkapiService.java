@@ -1,16 +1,10 @@
 package com.example.OKM.domain.service;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import com.example.OKM.R;
-import com.example.OKM.data.services.OkapiCommunication;
-import com.example.OKM.presentation.view.SettingsActivity;
 import com.google.android.gms.maps.model.LatLng;
 
-import java.lang.reflect.Method;
 import java.net.URLEncoder;
-import java.util.Objects;
-import java.util.concurrent.Callable;
 
 /**
  * Created by kubut on 2015-09-01.
