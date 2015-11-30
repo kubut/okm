@@ -124,9 +124,9 @@
                         android:id="@+id/distance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/textColorPrimary"
+                        android:textColor="@color/colorPrimaryLight"
                         android:textSize="12sp"
-                        android:text="@string/toast_no_gps"
+                        android:text="@string/label_no_gps"
                         android:layout_gravity="center"/>
 
             </LinearLayout>

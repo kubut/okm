@@ -91,19 +91,22 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onStop(){
         super.onStop();
-        this.presenter.unregisterLocationTimer();
+        this.presenter.getInfowindowPresenter().stop();
     }
 
     @Override
     public void onPause(){
         super.onPause();
-        this.presenter.unregisterLocationTimer();
+        this.presenter.getInfowindowPresenter().stop();
     }
 
     @Override
-    public void onRestart(){
-        super.onRestart();
-        this.presenter.registerLocationTimer();
+    public void onResume(){
+        super.onResume();
+        if(this.presenter.getInfowindowPresenter().isOpen()){
+            this.presenter.getInfowindowPresenter().sync();
+            this.showInfowindow(false);
+        }
     }
 
     @Override
@@ -125,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         MenuItem downloadItem = menu.findItem(R.id.action_appendCaches);
         MenuItem infoItem = menu.findItem(R.id.action_cacheInfo);
 
-        if(this.presenter.isInfowindowOpen()){
+        if(this.presenter.getInfowindowPresenter().isOpen()){
             downloadItem.setVisible(false);
             infoItem.setVisible(true);
         } else {
@@ -225,7 +228,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                presenter.onMarkerClick(marker);
+                presenter.getInfowindowPresenter().show(marker);
                 return true;
             }
         });
@@ -233,7 +236,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
-                presenter.onMapClick();
+                presenter.getInfowindowPresenter().close();
             }
         });
     }
@@ -268,10 +271,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         return this.infowindow;
     }
 
-    public TextView getDistanceLabel(){
-        return (TextView) this.infowindow.findViewById(R.id.distance);
-    }
-
     public ImageView getCompass(){
         return (ImageView) this.infowindow.findViewById(R.id.compass);
     }
@@ -301,6 +300,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     public void animateCompass(Animation animation){
+        this.presenter.getInfowindowPresenter().syncCompassMode();
         this.getCompass().startAnimation(animation);
     }
 }
