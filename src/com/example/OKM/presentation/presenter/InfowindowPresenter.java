@@ -16,9 +16,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.example.OKM.R;
 import com.example.OKM.domain.model.CacheMakerModel;
+import com.example.OKM.domain.model.CompassModel;
 import com.example.OKM.domain.service.LocationHelper;
 import com.example.OKM.domain.task.CompassListener;
 import com.example.OKM.domain.task.TimerTask;
+import com.example.OKM.presentation.view.MainActivity;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
 
@@ -30,24 +32,18 @@ import java.util.concurrent.Callable;
 public class InfowindowPresenter {
     private MainMapPresenter mainMapPresenter;
     private CacheMakerModel selectedMarker;
-    private TextView type, size, owner, found, distance;
+    private TextView type, size, owner, found;
     private ActionBar actionBar;
     private SensorManager sensorManager;
     private CompassListener compassListener;
     private Thread thread;
-    private Boolean actual, compassMode;
-    private ImageView compass;
-    private float degree;
+    private CompassModel compassModel;
 
     public InfowindowPresenter(MainMapPresenter mainMapPresenter){
         this.mainMapPresenter = mainMapPresenter;
-        this.compassMode = false;
-        this.actual = false;
+        this.compassModel = new CompassModel(this);
         this.sync();
-
-        int color = this.mainMapPresenter.getContext().getResources().getColor(R.color.colorPrimaryLight);
-        PorterDuffColorFilter filter = new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP);
-        this.compass.setColorFilter(filter);
+        this.compassModel.setColor();
     }
 
     public void sync(){
@@ -56,16 +52,16 @@ public class InfowindowPresenter {
         this.size = (TextView) infowindow.findViewById(R.id.infoCacheSize);
         this.owner = (TextView) infowindow.findViewById(R.id.infoCacheOwner);
         this.found = (TextView) infowindow.findViewById(R.id.infoCacheLastfound);
-        this.distance = (TextView) infowindow.findViewById(R.id.distance);
-        this.compass = (ImageView) infowindow.findViewById(R.id.compass);
         this.actionBar = this.mainMapPresenter.getActivity().getSupportActionBar();
 
-        this.compassMode = null;
+        this.compassModel.sync(
+                (ImageView) infowindow.findViewById(R.id.compass),
+                (TextView) infowindow.findViewById(R.id.distance)
+        );
 
         if(this.isOpen()){
             this.syncInfo();
             this.startLocationTask();
-            this.syncCompassMode();
         }
 
         this.syncToolbar();
@@ -85,7 +81,7 @@ public class InfowindowPresenter {
         this.syncToolbar();
         this.syncInfo();
         this.startLocationTask();
-        this.syncCompassMode();
+        this.compassModel.syncMode();
     }
 
     public void close(){
@@ -100,6 +96,7 @@ public class InfowindowPresenter {
 
     public void stop(){
         this.stopLocationTask();
+        this.compassModel.reset();
     }
 
     public void start(){
@@ -112,44 +109,16 @@ public class InfowindowPresenter {
         return this.selectedMarker != null;
     }
 
-    public void updateDistance(GoogleMap map){
-        Location myLocation = map.getMyLocation();
-        Location markerLocation = LocationHelper.getLocationFromLatLng(this.selectedMarker.getPosition());
-
-        this.actual = myLocation != null;
-
-        if(this.actual){
-            this.distance.setText(LocationHelper.getDistance(myLocation, markerLocation));
-        }
+    public CompassModel getCompass(){
+        return this.compassModel;
     }
 
-    public void updateCompass(RotateAnimation animation, float degree){
-        if(this.actual){
-            this.mainMapPresenter.getActivity().animateCompass(animation);
-            this.degree = degree;
-        }
+    public MainActivity getActivity(){
+        return this.mainMapPresenter.getActivity();
     }
 
-    public void syncCompassMode(){
-        int color;
-
-        if(this.compassMode != null && this.actual == this.compassMode){
-            return;
-        }
-
-        this.compassMode = this.actual;
-
-        if(this.actual){
-            color = this.mainMapPresenter.getContext().getResources().getColor(R.color.textColorPrimary);
-        } else {
-            color = this.mainMapPresenter.getContext().getResources().getColor(R.color.colorPrimaryLight);
-            this.compass.invalidate();
-            this.distance.setText(this.mainMapPresenter.getContext().getString(R.string.label_no_gps));
-        }
-
-        PorterDuffColorFilter filter = new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP);
-        this.compass.setColorFilter(filter);
-        this.distance.setTextColor(color);
+    public Context getContext(){
+        return this.mainMapPresenter.getContext();
     }
 
     private void syncToolbar(){
@@ -201,7 +170,7 @@ public class InfowindowPresenter {
             if(!googleMap.isMyLocationEnabled()){
                 googleMap.setMyLocationEnabled(true);
             }
-            updateDistance(googleMap);
+            this.compassModel.updateDistance(googleMap, this.selectedMarker.getPosition());
 
             thread = new Thread(new TimerTask(
                     new Handler(),
@@ -209,7 +178,7 @@ public class InfowindowPresenter {
                     new Callable() {
                         @Override
                         public Object call() throws Exception {
-                            updateDistance(googleMap);
+                            compassModel.updateDistance(googleMap, selectedMarker.getPosition());
                             return null;
                         }
                     }
@@ -217,12 +186,11 @@ public class InfowindowPresenter {
             thread.start();
         }
 
-        this.syncCompassMode();
+        this.compassModel.syncMode();
     }
 
     private void stopLocationTask(){
-        this.actual = false;
-        this.syncCompassMode();
+        this.compassModel.syncMode();
         this.getSensorManager().unregisterListener(this.getCompassListener());
         if(this.thread != null){
             thread.interrupt();

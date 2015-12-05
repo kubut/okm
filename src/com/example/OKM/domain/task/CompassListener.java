@@ -30,7 +30,7 @@ public class CompassListener implements SensorEventListener {
 
             RotateAnimation rotateAnimation = new RotateAnimation(
                     this.currentDegree,
-                    -degree,
+                    degree,
                     Animation.RELATIVE_TO_SELF,
                     0.5f,
                     Animation.RELATIVE_TO_SELF,
@@ -42,7 +42,7 @@ public class CompassListener implements SensorEventListener {
 
             this.currentDegree = degree;
 
-            this.mainMapPresenter.getInfowindowPresenter().updateCompass(rotateAnimation, degree);
+            this.mainMapPresenter.getInfowindowPresenter().getCompass().updateCompass(rotateAnimation, degree);
         }
     }
 
