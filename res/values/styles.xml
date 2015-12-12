@@ -10,6 +10,11 @@
         <item name="lpd_strokeSecondaryColor">#00000000</item>
     </style>
 
+    <style name="ProgressCircleStyle" parent="Material.Drawable.CircularProgress">
+        <item name="cpd_strokeColor">@color/textColorPrimary</item>
+        <item name="cpd_strokeSecondaryColor">#00000000</item>
+    </style>
+
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">18sp</item>
     </style>

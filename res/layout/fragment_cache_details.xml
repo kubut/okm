@@ -4,10 +4,10 @@
              android:layout_height="match_parent"
              tools:context="com.example.OKM.presentation.view.CacheDetailsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <WebView
+            android:id="@+id/cache_description"
+            android:background="@android:color/transparent"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment"/>
+            android:layout_height="wrap_content"/>
 
 </FrameLayout>

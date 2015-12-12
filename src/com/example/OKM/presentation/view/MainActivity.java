@@ -248,7 +248,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     public void goToCacheInfo(){
+        String code = this.presenter.getInfowindowPresenter().getSelectedMarkerCode();
+        String name = this.presenter.getInfowindowPresenter().getSelectedMarkerName();
 
+        if(code != null && name != null){
+            Intent intent = new Intent(this.getApplicationContext(), CacheActivity.class);
+            intent.putExtra("code", code);
+            intent.putExtra("name", name);
+            startActivity(intent);
+        }
     }
 
     public void hideNavigationDrawer(){

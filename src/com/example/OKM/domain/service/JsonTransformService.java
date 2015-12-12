@@ -2,6 +2,9 @@ package com.example.OKM.domain.service;
 
 import android.content.Context;
 import com.example.OKM.domain.model.CacheMakerModel;
+import com.example.OKM.domain.model.CacheModel;
+import com.example.OKM.domain.valueObject.CacheSizeValue;
+import com.example.OKM.domain.valueObject.CacheTypeValue;
 import com.google.android.gms.maps.model.LatLng;
 import org.json.JSONObject;
 
@@ -53,5 +56,25 @@ public class JsonTransformService {
 
     public String getUuidByJson(JSONObject jsonObject) throws Exception{
         return jsonObject.getString("uuid");
+    }
+
+    //TODO: add attrs
+    public CacheModel getCacheModelByJson(Context context, JSONObject jsonObject) throws Exception{
+        String cacheLocation[] = jsonObject.getString("location").split("\\|");
+        LatLng cachePosition = new LatLng(Double.parseDouble(cacheLocation[0]), Double.parseDouble(cacheLocation[1]));
+        JSONObject owner = jsonObject.getJSONObject("owner");
+
+        CacheModel cacheModel = new CacheModel();
+
+        cacheModel.setCode(jsonObject.getString("code"));
+        cacheModel.setName(jsonObject.getString("name"));
+        cacheModel.setLocation(cachePosition);
+        cacheModel.setType(new CacheTypeValue(context, jsonObject.getString("type")));
+        cacheModel.setSize(new CacheSizeValue(context, jsonObject.getString("size2")));
+        cacheModel.setUrl(jsonObject.getString("url"));
+        cacheModel.setOwner(owner.getString("username"));
+        cacheModel.setDescription(jsonObject.getString("description"));
+
+        return cacheModel;
     }
 }

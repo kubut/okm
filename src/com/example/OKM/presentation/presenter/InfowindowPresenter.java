@@ -7,6 +7,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.location.Location;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.Surface;
@@ -119,6 +120,24 @@ public class InfowindowPresenter {
 
     public Context getContext(){
         return this.mainMapPresenter.getContext();
+    }
+
+    @Nullable
+    public String getSelectedMarkerCode(){
+        if(selectedMarker != null){
+            return selectedMarker.getCode();
+        } else {
+            return null;
+        }
+    }
+
+    @Nullable
+    public String getSelectedMarkerName(){
+        if(selectedMarker != null){
+            return selectedMarker.getTitle();
+        } else {
+            return null;
+        }
     }
 
     private void syncToolbar(){

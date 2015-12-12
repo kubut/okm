@@ -1,16 +1,116 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                tools:context="com.example.OKM.presentation.view.CacheActivity">
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-            android:text="@string/hello_world"
+    <!--TabView-->
+    <android.support.design.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <!--Toolbar and tabs-->
+            <android.support.design.widget.AppBarLayout
+                    android:id="@+id/app_bar_lay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <android.support.v7.widget.Toolbar
+                        android:id="@+id/toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:background="?attr/colorPrimary"
+                        app:layout_scrollFlags="scroll|enterAlways"
+                        app:titleTextAppearance="@style/Toolbar.TitleText"
+                        app:subtitleTextAppearance="@style/Toolbar.SubtitleText"/>
+
+                <android.support.design.widget.TabLayout
+                        android:id="@+id/tabs"
+                        android:visibility="invisible"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:tabMode="fixed"
+                        app:tabGravity="fill"/>
+
+            </android.support.design.widget.AppBarLayout>
+
+            <!--Bottom panel-->
+            <include
+                    layout="@layout/main_infowindow"
+                    android:id="@+id/bottom_panel"
+                    android:visibility="invisible"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:layout_alignParentBottom="true"/>
+
+            <!-- Tab page container-->
+            <android.support.v4.view.ViewPager
+                    android:id="@+id/viewpager"
+                    android:visibility="invisible"
+                    android:layout_above="@id/bottom_panel"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/app_bar_lay"/>
+
+        </RelativeLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+    <!--Progress Circle-->
+    <com.rey.material.widget.ProgressView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:id="@+id/progressCircle"
+            app:pv_autostart="true"
+            app:pv_circular="true"
+            app:pv_progressStyle="@style/ProgressCircleStyle"
+            app:pv_progressMode="indeterminate"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"/>
+
+    <!--Try Again-->
+    <RelativeLayout
+            android:id="@+id/tryAgainView"
+            android:visibility="invisible"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true">
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_mood_bad_black_48dp"
+                android:layout_above="@+id/tryAgainText"
+                android:layout_centerHorizontal="true"/>
+        <TextView
+                android:id="@+id/tryAgainText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cache_try_again_text"
+                android:textSize="25sp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"/>
+        <com.rey.material.widget.Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cache_try_again_button"
+                app:rd_enable="true"
+                android:id="@+id/tryAgainButton"
+                android:layout_marginBottom="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:onClick="loadCache"
+        />
+    </RelativeLayout>
 
 </RelativeLayout>
+
