@@ -40,12 +40,11 @@
 
             <!--Bottom panel-->
             <include
-                    layout="@layout/main_infowindow"
+                    layout="@layout/activity_cache_bottom_panel"
                     android:id="@+id/bottom_panel"
                     android:visibility="invisible"
                     android:layout_height="wrap_content"
                     android:layout_width="fill_parent"
-                    android:layout_gravity="center_horizontal|bottom"
                     android:layout_alignParentBottom="true"/>
 
             <!-- Tab page container-->

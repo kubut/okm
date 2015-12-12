@@ -9,7 +9,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import com.example.OKM.R;
+import com.example.OKM.domain.model.CacheModel;
 import com.example.OKM.presentation.presenter.CachePresenter;
 import com.example.OKM.presentation.adapter.ViewPagerAdapter;
 import com.rey.material.widget.ProgressView;
@@ -119,6 +121,18 @@ public class CacheActivity extends AppCompatActivity {
         this.tabLayout.setVisibility(View.GONE);
         this.bottomPanel.setVisibility(View.GONE);
 
+    }
+
+    public void setCacheDetails(CacheModel cacheModel){
+        TextView type = (TextView) this.bottomPanel.findViewById(R.id.infoCacheType);
+        TextView size = (TextView) this.bottomPanel.findViewById(R.id.infoCacheSize);
+        TextView owner = (TextView) this.bottomPanel.findViewById(R.id.infoCacheOwner);
+
+        type.setText(cacheModel.getType().getName());
+        size.setText(cacheModel.getSize().getName());
+        owner.setText(cacheModel.getOwner());
+
+        this.getTabDetails().setView(cacheModel);
     }
 
     public ICacheTabs getTabDetails(){

@@ -46,7 +46,7 @@ public class CachePresenter {
     }
 
     public void setCacheDetails(CacheModel cacheModel){
-        this.getActivity().getTabDetails().setView(cacheModel);
+        this.getActivity().setCacheDetails(cacheModel);
         this.getActivity().switchToCache();
     }
 

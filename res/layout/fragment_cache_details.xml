@@ -3,7 +3,6 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              tools:context="com.example.OKM.presentation.view.CacheDetailsFragment">
-
     <WebView
             android:id="@+id/cache_description"
             android:background="@android:color/transparent"
