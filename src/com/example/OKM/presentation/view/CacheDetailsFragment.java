@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import com.example.OKM.R;
 import com.example.OKM.domain.model.CacheModel;
+import com.example.OKM.domain.service.HtmlParser;
 
 public class CacheDetailsFragment extends Fragment implements ICacheTabs{
     private WebView descriptionView;

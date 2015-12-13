@@ -1,6 +1,7 @@
 package com.example.OKM.domain.service;
 
 import android.content.Context;
+import android.text.Html;
 import com.example.OKM.domain.model.CacheMakerModel;
 import com.example.OKM.domain.model.CacheModel;
 import com.example.OKM.domain.valueObject.CacheSizeValue;
@@ -73,7 +74,7 @@ public class JsonTransformService {
         cacheModel.setSize(new CacheSizeValue(context, jsonObject.getString("size2")));
         cacheModel.setUrl(jsonObject.getString("url"));
         cacheModel.setOwner(owner.getString("username"));
-        cacheModel.setDescription(jsonObject.getString("description"));
+        cacheModel.setDescription(HtmlParser.parseHtml(jsonObject.getString("description"), context));
 
         return cacheModel;
     }
