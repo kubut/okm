@@ -14,6 +14,10 @@ public class CacheModel {
     private CacheTypeValue type;
     private CacheSizeValue size;
 
+    public boolean isHint(){
+        return this.hint != null && !this.hint.equals("");
+    }
+
     public String getCode() {
         return code;
     }

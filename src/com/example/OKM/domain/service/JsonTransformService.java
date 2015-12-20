@@ -74,6 +74,7 @@ public class JsonTransformService {
         cacheModel.setSize(new CacheSizeValue(context, jsonObject.getString("size2")));
         cacheModel.setUrl(jsonObject.getString("url"));
         cacheModel.setOwner(owner.getString("username"));
+        cacheModel.setHint(jsonObject.getString("hint2"));
         cacheModel.setDescription(HtmlParser.parseHtml(jsonObject.getString("description"), context));
 
         return cacheModel;

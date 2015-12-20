@@ -99,6 +99,12 @@
     <string name="cache_try_again_button">Spróbuj ponownie</string>
     <string name="cache_try_again_text">Ups... coś poszło nie tak</string>
     <string name="cache_attrs">Atrybuty</string>
+    <string name="cache_menu_nav">Włącz nawigacje</string>
+    <string name="cache_menu_maps">Pokaż na Google Maps</string>
+    <string name="cache_menu_hint">Pokaż podpowiedź</string>
+    <string name="cache_menu_www">Pokaż stronę kesza</string>
+    <string name="cache_dialog_title">Podpowiedź</string>
+    <string name="cache_dialog_ok">Zamknij</string>
 
     <!-- OKAPI urls-->
     <string name="okapi_getNearbyCachesNotFound" formatted="false">services/caches/shortcuts/search_and_retrieve?search_method=services/caches/search/nearest&amp;search_params={\"limit\":\"[$LIMIT$]\",\"langpref\":\"pl\",\"not_found_by\":\"[$UUID$]\",\"owner_uuid\":\"-[$UUID$]\",\"center\":\"[$CENTER$]\"}&amp;retr_method=services/caches/geocaches&amp;retr_params={\"fields\":\"last_found|code|name|size2|type|owner|location\"}&amp;wrap=false</string>

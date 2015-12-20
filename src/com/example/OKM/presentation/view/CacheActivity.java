@@ -6,6 +6,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -26,6 +29,7 @@ public class CacheActivity extends AppCompatActivity {
     private RelativeLayout tryAgainView;
     private String cacheCode;
     private ICacheTabs tabDetails, tabLogs, tabGallery;
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +91,34 @@ public class CacheActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.cache_details_actions, menu);
+        this.menu = menu;
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_nav:
+                this.presenter.goToNavigation();
+                return true;
+            case R.id.action_maps:
+                this.presenter.goToGoogleMaps();
+                return true;
+            case R.id.action_www:
+                this.presenter.goToWebsite();
+                return true;
+            case R.id.action_hint:
+                this.presenter.showHint();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
     public void onDestroy(){
         super.onDestroy();
         this.presenter.disconnectContext();
@@ -124,9 +156,14 @@ public class CacheActivity extends AppCompatActivity {
     }
 
     public void setCacheDetails(CacheModel cacheModel){
-        TextView type = (TextView) this.bottomPanel.findViewById(R.id.infoCacheType);
-        TextView size = (TextView) this.bottomPanel.findViewById(R.id.infoCacheSize);
-        TextView owner = (TextView) this.bottomPanel.findViewById(R.id.infoCacheOwner);
+        TextView type   = (TextView) this.bottomPanel.findViewById(R.id.infoCacheType);
+        TextView size   = (TextView) this.bottomPanel.findViewById(R.id.infoCacheSize);
+        TextView owner  = (TextView) this.bottomPanel.findViewById(R.id.infoCacheOwner);
+        MenuItem hint   = this.menu.findItem(R.id.action_hint);
+
+        if(!cacheModel.isHint()){
+            hint.setVisible(false);
+        }
 
         type.setText(cacheModel.getType().getName());
         size.setText(cacheModel.getSize().getName());
