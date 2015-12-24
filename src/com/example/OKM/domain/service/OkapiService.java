@@ -1,11 +1,13 @@
 package com.example.OKM.domain.service;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import com.example.OKM.R;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.StreetViewPanoramaCamera;
 
 import java.net.URLEncoder;
+import java.util.ArrayList;
 
 /**
  * Created by kubut on 2015-09-01.
@@ -47,9 +49,22 @@ public class OkapiService {
         PreferencesService preferencesService = new PreferencesService(context);
 
         String apiUrl = preferencesService.getServerAPI();
-        String lang = preferencesService.getLanguageSymbol();
+        String lang = preferencesService.getLanguageCode();
         String okapiKey = "&consumer_key=" + context.getString(R.string.okapiKey);
         String serviceUrl = context.getString(R.string.okapi_getCacheDetails).replace("[$CACHE_CODE$]", code);
+
+        serviceUrl = serviceUrl.replace("[$LANG$]", lang);
+
+        return apiUrl + serviceUrl + okapiKey;
+    }
+
+    public String getAttributesURL(Context context, ArrayList<String> acodes){
+        PreferencesService preferencesService = new PreferencesService(context);
+
+        String apiUrl = preferencesService.getServerAPI();
+        String lang = preferencesService.getLanguageCode();
+        String okapiKey = "&consumer_key=" + context.getString(R.string.okapiKey);
+        String serviceUrl = context.getString(R.string.okapi_getAttrsNames).replace("[$ATTRS_ACODES$]", android.text.TextUtils.join("|", acodes));
 
         serviceUrl = serviceUrl.replace("[$LANG$]", lang);
 

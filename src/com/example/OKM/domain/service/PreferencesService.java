@@ -107,6 +107,21 @@ public class PreferencesService {
         return name;
     }
 
+    public String getLanguageCode(){
+        String code = "";
+        String language = this.getLanguageSymbol();
+        String[] symbols = context.getResources().getStringArray(R.array.settings_languages_list_values);
+        String[] codes = context.getResources().getStringArray(R.array.settings_languages_list_codes);
+
+        for(int i=0; i<codes.length; i++){
+            if(symbols[i].equals(language)){
+                code = codes[i];
+            }
+        }
+
+        return code;
+    }
+
     public void setLanguage(String language){
         repository.setLanguage(language);
     }

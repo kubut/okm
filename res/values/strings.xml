@@ -42,6 +42,10 @@
         <item>pl_PL</item>
         <item>en_US</item>
     </string-array>
+    <string-array name="settings_languages_list_codes">
+        <item>pl</item>
+        <item>en</item>
+    </string-array>
     <string name="settings_server">Serwer</string>
     <string name="settings_server_sub">opencaching.pl</string>
     <string-array name="settings_servers_list_entries">
@@ -111,4 +115,5 @@
     <string name="okapi_getNearbyCaches" formatted="false">services/caches/shortcuts/search_and_retrieve?search_method=services/caches/search/nearest&amp;search_params={\"limit\":\"[$LIMIT$]\",\"langpref\":\"pl\",\"center\":\"[$CENTER$]\"}&amp;retr_method=services/caches/geocaches&amp;retr_params={\"fields\":\"last_found|code|name|size2|type|owner|location\"}&amp;wrap=false</string>
     <string name="okapi_getUuid" formatted="false">services/users/by_username?username=[$USER$]&amp;fields=uuid</string>
     <string name="okapi_getCacheDetails" formatted="false">services/caches/geocache?cache_code=[$CACHE_CODE$]&amp;langpref=[$LANG$]&amp;fields=code|name|location|type|url|owner|size2|description|hint2|attr_acodes</string>
+    <string name="okapi_getAttrsNames" formatted="false">services/attrs/attributes?acodes=[$ATTRS_ACODES$]&amp;langpref=[$LANG$]</string>
 </resources>

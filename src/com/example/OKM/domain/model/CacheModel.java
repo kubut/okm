@@ -1,18 +1,30 @@
 package com.example.OKM.domain.model;
 
+import com.example.OKM.domain.valueObject.CacheAttributeValue;
 import com.example.OKM.domain.valueObject.CacheSizeValue;
 import com.example.OKM.domain.valueObject.CacheTypeValue;
 import com.google.android.gms.maps.model.LatLng;
+
+import java.util.ArrayList;
 
 /**
  * Created by Jakub on 05.12.2015.
  */
 //attr_codes
 public class CacheModel {
-    private String code, name, url, owner, description, hint, attrs;
+    private String code, name, url, owner, description, hint;
     private LatLng location;
     private CacheTypeValue type;
     private CacheSizeValue size;
+    private ArrayList<CacheAttributeValue> attrs;
+
+    public CacheModel(){
+        this.attrs = new ArrayList<>();
+    }
+
+    public void appendAttrs(ArrayList<CacheAttributeValue> attrsToAppend){
+        this.attrs.addAll(attrsToAppend);
+    }
 
     public boolean isHint(){
         return this.hint != null && !this.hint.equals("");
@@ -53,12 +65,6 @@ public class CacheModel {
     }
     public void setHint(String hint) {
         this.hint = hint;
-    }
-    public String getAttrs() {
-        return attrs;
-    }
-    public void setAttrs(String attrs) {
-        this.attrs = attrs;
     }
     public LatLng getLocation() {
         return location;

@@ -11,6 +11,7 @@ public class PreferencesRepository {
     public static final String USERNAME = null;
     public static final boolean SAVE_MODE = false;
     public static final String LANGUAGE = "en_US";
+    public static final String LANGUAGE_CODE = "en";
     public static final String SERVER = "opencaching.us";
     public static final String UUID = null;
     public static final boolean HIDE_FOUND = false;
