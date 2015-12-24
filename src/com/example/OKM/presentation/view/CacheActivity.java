@@ -129,6 +129,10 @@ public class CacheActivity extends AppCompatActivity {
         this.switchToLoader();
     }
 
+    public void showAttributes(View v){
+        this.presenter.showAttributes();
+    }
+
     public void switchToCache(){
         this.progressView.setVisibility(View.GONE);
         this.tryAgainView.setVisibility(View.GONE);

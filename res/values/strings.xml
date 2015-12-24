@@ -110,6 +110,33 @@
     <string name="cache_dialog_title">Podpowiedź</string>
     <string name="cache_dialog_ok">Zamknij</string>
 
+    <!-- Attributes icons -->
+    <string name="cache_attr_A70">&#xf1ae;</string>
+    <string name="cache_attr_A5">&#xf0fd;</string>
+    <string name="cache_attr_A18">&#xf193;</string>
+    <string name="cache_attr_A49">&#xf14e;</string>
+    <string name="cache_attr_A50">&#xf040;</string>
+    <string name="cache_attr_A6">&#xf076;</string>
+    <string name="cache_attr_A28">&#xf1bb;</string>
+    <string name="cache_attr_A29">&#xf1da;</string>
+    <string name="cache_attr_A73">&#xf017;</string>
+    <string name="cache_attr_A52">&#xf0eb;</string>
+    <string name="cache_attr_A56">&#xf0ad;</string>
+    <string name="cache_attr_A59">&#xf06a;</string>
+    <string name="cache_attr_A42">&#xf186;</string>
+    <string name="cache_attr_A2">&#xf041;</string>
+    <string name="cache_attr_A7">&#xf025;</string>
+    <string name="cache_attr_A8">&#xf178;</string>
+    <string name="cache_attr_A4">&#xf0e0;</string>
+    <string name="cache_attr_A3">&#xf008;</string>
+    <string name="cache_attr_A27">&#xf206;</string>
+    <string name="cache_attr_A57">&#xf21a;</string>
+    <string name="cache_attr_A9">&#xf1eb;</string>
+    <string name="cache_attr_A10">&#xf287;</string>
+    <string name="cache_attr_A20">&#xf21d;</string>
+    <string name="cache_attr_A51">&#xf149;</string>
+    <string name="cache_attr_A68">&#xf0e7;</string>
+
     <!-- OKAPI urls-->
     <string name="okapi_getNearbyCachesNotFound" formatted="false">services/caches/shortcuts/search_and_retrieve?search_method=services/caches/search/nearest&amp;search_params={\"limit\":\"[$LIMIT$]\",\"langpref\":\"pl\",\"not_found_by\":\"[$UUID$]\",\"owner_uuid\":\"-[$UUID$]\",\"center\":\"[$CENTER$]\"}&amp;retr_method=services/caches/geocaches&amp;retr_params={\"fields\":\"last_found|code|name|size2|type|owner|location\"}&amp;wrap=false</string>
     <string name="okapi_getNearbyCaches" formatted="false">services/caches/shortcuts/search_and_retrieve?search_method=services/caches/search/nearest&amp;search_params={\"limit\":\"[$LIMIT$]\",\"langpref\":\"pl\",\"center\":\"[$CENTER$]\"}&amp;retr_method=services/caches/geocaches&amp;retr_params={\"fields\":\"last_found|code|name|size2|type|owner|location\"}&amp;wrap=false</string>

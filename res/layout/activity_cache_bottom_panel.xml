@@ -93,6 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:textColor="@color/textColorPrimary"
+                android:onClick="showAttributes"
                 android:drawableTop="@drawable/ic_assignment_black_36dp"
                 android:text="@string/cache_attrs"/>
     </LinearLayout>

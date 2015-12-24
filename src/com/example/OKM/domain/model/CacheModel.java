@@ -30,6 +30,9 @@ public class CacheModel {
         return this.hint != null && !this.hint.equals("");
     }
 
+    public ArrayList<CacheAttributeValue> getAttrs(){
+        return this.attrs;
+    }
     public String getCode() {
         return code;
     }

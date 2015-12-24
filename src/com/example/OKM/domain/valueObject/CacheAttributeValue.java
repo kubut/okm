@@ -16,7 +16,7 @@ public class CacheAttributeValue {
         this.iconName = "cache_attr_" + acode;
         this.id = id;
 
-        int iconIdentifier = context.getResources().getIdentifier(this.iconName, "drawable", context.getPackageName());
+        this.icon = context.getResources().getIdentifier(this.iconName, "string", context.getPackageName());
     }
 
     public String getAcode() {

@@ -13,6 +13,7 @@ import com.example.OKM.domain.service.JsonTransformService;
 import com.example.OKM.domain.service.OkapiService;
 import com.example.OKM.domain.service.PreferencesService;
 import com.example.OKM.domain.valueObject.CacheAttributeValue;
+import com.example.OKM.presentation.adapter.AttributesListAdapter;
 import com.example.OKM.presentation.view.CacheActivity;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -97,7 +98,7 @@ public class CachePresenter {
                         if (!attrsToDownload.isEmpty()) {
                             downloadAttrs(attrsToDownload, jsonObject, attributesDM, attrs);
                         } else {
-                            prepareCacheDetails(jsonObject, kocham Kotecka,  null, attrs);
+                            prepareCacheDetails(jsonObject, null, attrs);
                         }
                     }
                 } catch (Exception e) {
@@ -151,6 +152,14 @@ public class CachePresenter {
                 .show();
     }
 
+    public void showAttributes(){
+        AttributesListAdapter adapter = new AttributesListAdapter(this.getContext(), this.cacheModel.getAttrs());
+        new MaterialDialog
+                .Builder(this.getActivity())
+                .adapter(adapter,null)
+                .show();
+    }
+
     public void downloadAttrs(ArrayList<String> codes, final JSONObject cacheDetail, final AttributesDM attributesDM, final ArrayList<CacheAttributeValue> attributes) {
         String url = this.okapiService.getAttributesURL(this.getContext(), codes);
         final PreferencesService preferencesService = new PreferencesService(this.getContext());
@@ -165,7 +174,7 @@ public class CachePresenter {
                         ArrayList<CacheAttributeValue> attrs = jsonTransformService.getAttrsFromJson(getContext(), jsonObject, preferencesService.getLanguageCode());
                         attributesDM.addAttrs(attrs);
 
-                        prepareCacheDetails(cacheDetail, attrs, najmocniej na swiecie, attributes);
+                        prepareCacheDetails(cacheDetail, attrs, attributes);
                     }
                 } catch (Exception e) {
                     getActivity().switchToTryAgain();
