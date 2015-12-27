@@ -7,13 +7,16 @@ import com.example.OKM.data.dataManagers.AttributesDM;
 import com.example.OKM.domain.model.CacheMakerModel;
 import com.example.OKM.domain.model.CacheModel;
 import com.example.OKM.domain.valueObject.CacheAttributeValue;
+import com.example.OKM.domain.valueObject.CacheLogValue;
 import com.example.OKM.domain.valueObject.CacheSizeValue;
 import com.example.OKM.domain.valueObject.CacheTypeValue;
 import com.google.android.gms.maps.model.LatLng;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -99,11 +102,33 @@ public class JsonTransformService {
         cacheModel.setHint(jsonObject.getString("hint2"));
         cacheModel.setDescription(HtmlParser.parseHtml(jsonObject.getString("description"), context));
 
+        cacheModel.appendLogs(this.getCacheLogsValueByJson(context, jsonObject.getJSONArray("latest_logs")));
         cacheModel.appendAttrs(attrs);
         if (addedAttrs != null && !addedAttrs.isEmpty()) {
             cacheModel.appendAttrs(addedAttrs);
         }
 
         return cacheModel;
+    }
+
+    public ArrayList<CacheLogValue> getCacheLogsValueByJson(Context context, JSONArray jsonArray) throws Exception{
+        ArrayList<CacheLogValue> logs = new ArrayList<>();
+        int length = jsonArray.length();
+
+        for (int i = 0; i < length; i++) {
+            JSONObject jsonLog = jsonArray.getJSONObject(i);
+
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+
+            CacheLogValue log = new CacheLogValue(context);
+            log.setComment(HtmlParser.parseHtml(jsonLog.getString("comment"), context));
+            log.setDate(simpleDateFormat.parse(jsonLog.getString("date")));
+            log.setType(jsonLog.getString("type"));
+            log.setUser(jsonLog.getJSONObject("user").getString("username"));
+
+            logs.add(log);
+        }
+
+        return logs;
     }
 }

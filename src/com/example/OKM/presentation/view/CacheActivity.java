@@ -173,11 +173,21 @@ public class CacheActivity extends AppCompatActivity {
         size.setText(cacheModel.getSize().getName());
         owner.setText(cacheModel.getOwner());
 
-        this.getTabDetails().setView(cacheModel);
+        this.getTabDetails().setView(this, cacheModel);
+        this.getTabLogs().setView(this, cacheModel);
+        this.getTabGallery().setView(this, cacheModel);
     }
 
     public ICacheTabs getTabDetails(){
         return this.tabDetails;
+    }
+
+    public ICacheTabs getTabLogs(){
+        return this.tabLogs;
+    }
+
+    public ICacheTabs getTabGallery(){
+        return this.tabGallery;
     }
 
     private void setupViewPager(ViewPager viewPager) {

@@ -6,4 +6,8 @@
     <color name="colorPrimaryLight">#ffc3c3c3</color>
     <color name="textColorPrimary">#3792b4</color>
     <color name="textColorPrimaryInactive">#767676</color>
+
+    <color name="cacheNotFound">#ffaaa5</color>
+    <color name="cacheFound">#b0ffab</color>
+    <color name="cacheOther">#a2adff</color>
 </resources>

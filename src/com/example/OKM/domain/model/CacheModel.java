@@ -1,6 +1,7 @@
 package com.example.OKM.domain.model;
 
 import com.example.OKM.domain.valueObject.CacheAttributeValue;
+import com.example.OKM.domain.valueObject.CacheLogValue;
 import com.example.OKM.domain.valueObject.CacheSizeValue;
 import com.example.OKM.domain.valueObject.CacheTypeValue;
 import com.google.android.gms.maps.model.LatLng;
@@ -17,13 +18,19 @@ public class CacheModel {
     private CacheTypeValue type;
     private CacheSizeValue size;
     private ArrayList<CacheAttributeValue> attrs;
+    private ArrayList<CacheLogValue> logs;
 
     public CacheModel(){
         this.attrs = new ArrayList<>();
+        this.logs = new ArrayList<>();
     }
 
     public void appendAttrs(ArrayList<CacheAttributeValue> attrsToAppend){
         this.attrs.addAll(attrsToAppend);
+    }
+
+    public void appendLogs(ArrayList<CacheLogValue> logsToAppend){
+        this.logs.addAll(logsToAppend);
     }
 
     public boolean isHint(){
@@ -32,6 +39,9 @@ public class CacheModel {
 
     public ArrayList<CacheAttributeValue> getAttrs(){
         return this.attrs;
+    }
+    public ArrayList<CacheLogValue> getLogs(){
+        return this.logs;
     }
     public String getCode() {
         return code;

@@ -1,5 +1,6 @@
 package com.example.OKM.presentation.view;
 
+import android.content.Context;
 import com.example.OKM.domain.model.CacheModel;
 
 /**
@@ -7,5 +8,5 @@ import com.example.OKM.domain.model.CacheModel;
  */
 public interface ICacheTabs {
     void syncView();
-    void setView(CacheModel cacheModel);
+    void setView(Context context, CacheModel cacheModel);
 }
