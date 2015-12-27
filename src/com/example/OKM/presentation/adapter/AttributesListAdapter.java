@@ -6,12 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.OKM.R;
-import com.example.OKM.domain.model.IMainDrawerItem;
 import com.example.OKM.domain.valueObject.CacheAttributeValue;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -36,14 +33,12 @@ public class AttributesListAdapter extends ArrayAdapter<CacheAttributeValue> {
         Typeface font = Typeface.createFromAsset(this.getContext().getAssets(), "fontawesome-webfont.ttf");
 
         TextView title = (TextView) convertView.findViewById(R.id.attributeName);
-//        ImageView icon = (ImageView) convertView.findViewById(R.id.attributeIcon);
         TextView icon = (TextView) convertView.findViewById(R.id.attributeIcon);
         CacheAttributeValue item = getItem(position);
 
         title.setText(item.getName());
         icon.setText(item.getIcon());
         icon.setTypeface(font);
-//        icon.setImageResource(item.getIcon());
 
         return convertView;
     }

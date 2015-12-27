@@ -1,6 +1,7 @@
 package com.example.OKM.presentation.view;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -32,7 +33,7 @@ public class CacheGalleryFragment extends Fragment implements ICacheTabs{
     }
 
     @Override
-    public void setView(CacheModel cacheModel) {
+    public void setView(Context context, CacheModel cacheModel) {
 
     }
 }
