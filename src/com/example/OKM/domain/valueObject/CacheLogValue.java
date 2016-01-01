@@ -14,22 +14,11 @@ import java.util.HashMap;
 public class CacheLogValue {
     private Date date;
     private String user, type, comment;
-    private int cacheColor;
+    private int color;
     private Context context;
-    private HashMap<String, Drawable> drawables;
 
     public CacheLogValue(Context context){
         this.context = context;
-        this.drawables = new HashMap<>();
-    }
-
-    public void addDrawable(String url, Drawable drawable){
-        this.drawables.put(url, drawable);
-    }
-
-    @Nullable
-    public Drawable getDrawableByUrl(String url){
-        return this.drawables.get(url);
     }
 
     public void setType(String type) {
@@ -37,19 +26,19 @@ public class CacheLogValue {
 
         switch (type){
             case "Found it":
-                this.cacheColor = this.context.getResources().getColor(R.color.cacheFound);
+                this.color = this.context.getResources().getColor(R.color.cacheFound);
                 break;
             case "Didn't find it":
-                this.cacheColor = this.context.getResources().getColor(R.color.cacheNotFound);
+                this.color = this.context.getResources().getColor(R.color.cacheNotFound);
                 break;
             default:
-                this.cacheColor = this.context.getResources().getColor(R.color.cacheOther);
+                this.color = this.context.getResources().getColor(R.color.cacheOther);
                 break;
         }
     }
 
-    public int getCacheColor(){
-        return this.cacheColor;
+    public int getColor(){
+        return this.color;
     }
     public Date getDate() {
         return date;

@@ -163,10 +163,13 @@ public class CacheActivity extends AppCompatActivity {
         TextView type   = (TextView) this.bottomPanel.findViewById(R.id.infoCacheType);
         TextView size   = (TextView) this.bottomPanel.findViewById(R.id.infoCacheSize);
         TextView owner  = (TextView) this.bottomPanel.findViewById(R.id.infoCacheOwner);
-        MenuItem hint   = this.menu.findItem(R.id.action_hint);
 
-        if(!cacheModel.isHint()){
-            hint.setVisible(false);
+        if(this.menu != null){
+            MenuItem hint   = this.menu.findItem(R.id.action_hint);
+
+            if(!cacheModel.isHint()){
+                hint.setVisible(false);
+            }
         }
 
         type.setText(cacheModel.getType().getName());

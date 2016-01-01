@@ -18,7 +18,9 @@ public class HtmlParser {
 
         o = o.replaceAll("<(.*?)(style=\"\\.*?\")(.*?)>", "<$1 $3>");
         o = o.replaceAll("<(.*?)(width=\"\\d*?\")(.*?)>", "<$1 $3>");
-        o = o.replaceAll("<(.*?)(height=\"\\d*?\")(.*?)>", "<$1 style=\"max-width: 100%\" $3>");
+        o = o.replaceAll("<(.*?)(height=\"\\d*?\")(.*?)>", "<$1 $3>");
+
+        o = o.replace("<img", "<img style=\"max-width: 100%\"");
         return o;
     }
 }
