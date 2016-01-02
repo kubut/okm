@@ -240,6 +240,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 presenter.getInfowindowPresenter().close();
             }
         });
+
+        map.setBuildingsEnabled(false);
+        map.getUiSettings().setTiltGesturesEnabled(false);
+        map.getUiSettings().setZoomControlsEnabled(true);
     }
 
     public void goToSettings(){
