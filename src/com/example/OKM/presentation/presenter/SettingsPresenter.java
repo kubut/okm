@@ -15,7 +15,7 @@ public class SettingsPresenter {
     SettingsFragment settingsFragment;
     PreferencesService preferencesService;
     EditTextPreference username;
-    ListPreference languagesList, serversList;
+    ListPreference serversList;
     SwitchPreference isMapAutoposition;
     Preference seletMapPosition;
 
@@ -24,7 +24,6 @@ public class SettingsPresenter {
         this.preferencesService = new PreferencesService(this.settingsFragment.getActivity());
 
         username = (EditTextPreference) this.settingsFragment.findPreference("prefUsername");
-        languagesList = (ListPreference) this.settingsFragment.findPreference("prefLanguage");
         serversList = (ListPreference) this.settingsFragment.findPreference("prefServer");
         isMapAutoposition = (SwitchPreference) this.settingsFragment.findPreference("prefMapAutoPosition");
         seletMapPosition = this.settingsFragment.findPreference("prefSelectMap");
@@ -42,10 +41,6 @@ public class SettingsPresenter {
         return username;
     }
 
-    public String getLanguageSummary(){
-        return this.preferencesService.getLanguageName();
-    }
-
     public String getServerSummary(){
         return this.preferencesService.getServerName();
     }
@@ -56,7 +51,6 @@ public class SettingsPresenter {
 
     public void syncPreferencesSummary(){
         username.setSummary(this.getUsernameSummary());
-        languagesList.setSummary(this.getLanguageSummary());
         serversList.setSummary(this.getServerSummary());
         seletMapPosition.setEnabled(!this.isMapSelectDisabled());
     }

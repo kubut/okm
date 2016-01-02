@@ -1,53 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- general -->
-    <string name="app_name">Opencaching Kubut Maps</string>
-    <string name="default_map_position">51.70;18.85;5.5</string>
+    <string name="app_name" translatable="false">Opencaching Kubut Maps</string>
+    <string name="default_map_position">54.50;-2.27;5.5</string>
 
     <!-- drawer -->
-    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_cache_info">Description</string>
+    <string name="drawer_caches">Caches</string>
     <string name="drawer_close">Close navigation drawer</string>
-    <string name="drawer_satellite">Satelita</string>
+    <string name="drawer_exit">Close</string>
     <string name="drawer_gps">GPS</string>
-    <string name="drawer_caches">Skrzynki</string>
-    <string name="drawer_cache_info">Opis</string>
-    <string name="drawer_exit">Zamknij</string>
-    <string name="drawer_settings">Ustawienia</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_satellite">Satellite</string>
+    <string name="drawer_settings">Settings</string>
 
     <!-- toasts-->
-    <string name="toast_downloading">Pobieranie...</string>
-    <string name="toast_downloading_error">Błąd pobierania</string>
-    <string name="toast_no_gps">Brak włączonego GPS</string>
+    <string name="toast_downloading">Downloading...</string>
+    <string name="toast_downloading_error">Downloading error</string>
 
     <!-- Settings-->
-    <string name="title_activity_settings">Ustawienia</string>
-    <string name="settings_downloading">Pobieranie</string>
-    <string name="settings_username">Nazwa użytkownika</string>
-    <string name="settings_username_blank">Brak</string>
-    <string name="settings_low_limit">Tryb oszczędny</string>
-    <string name="settings_low_limit_sub">Oszczędzaj transfer pobierając mniej skrzynek</string>
-    <string name="settings_hide_found">Ukryj znalezione</string>
-    <string name="settings_hide_found_sub">Nie pokazuj na mapie skrzynek które już znalazłeś</string>
-    <string name="settings_language">Język</string>
-    <string name="settings_language_sub">Polski</string>
-    <string name="settings_set_map">Ustaw pozycję mapy</string>
-    <string name="settings_set_map_sub">Wybierz jaką mapę chcesz zobaczyć po uruchomieniu aplikacji</string>
-    <string name="settings_reset_map">Automatyczne określanie pozycji</string>
-    <string name="settings_reset_map_sub">Pozycja początkowa mapy będzie określana automatycznie</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="settings_downloading">Downloading</string>
+    <string name="settings_username">Username</string>
+    <string name="settings_username_blank">Empty</string>
+    <string name="settings_low_limit">Eco mode</string>
+    <string name="settings_low_limit_sub">Save up transfer by downloading less caches</string>
+    <string name="settings_hide_found">Hide found caches</string>
+    <string name="settings_hide_found_sub">Show caches you haven\'t found only</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_set_map">Set map position</string>
+    <string name="settings_set_map_sub">Choose the starting map</string>
+    <string name="settings_reset_map">Map auto-position</string>
+    <string name="settings_reset_map_sub">Map will be centered basing on your location</string>
     <string-array name="settings_languages_list_entries">
-        <item>Polski</item>
-        <item>Angielski</item>
+        <item>Polish</item>
+        <item>English (US)</item>
+        <item>English (GB)</item>
     </string-array>
     <string-array name="settings_languages_list_values">
         <item>pl_PL</item>
         <item>en_US</item>
+        <item>en_GB</item>
     </string-array>
     <string-array name="settings_languages_list_codes">
         <item>pl</item>
         <item>en</item>
+        <item>en</item>
     </string-array>
     <string name="settings_server">Serwer</string>
-    <string name="settings_server_sub">opencaching.pl</string>
     <string-array name="settings_servers_list_entries">
         <item>opencaching.pl</item>
         <item>opencaching.de</item>
@@ -60,88 +60,81 @@
     </string-array>
 
     <!-- Settings set map-->
-    <string name="settings_set_map_title">Wybierz pozycję</string>
+    <string name="settings_set_map_title">Choose position</string>
     <string name="settings_set_map_ok">OK</string>
-    <string name="settings_set_map_cancel">Jednak nie</string>
+    <string name="settings_set_map_cancel">Cancel</string>
 
     <!-- InfoWindow labels-->
-    <string name="label_type">Typ: </string>
-    <string name="label_size">Rozmiar: </string>
-    <string name="label_last_found">Znaleziono: </string>
-    <string name="label_last_found_none">Bądź pierwszy!</string>
-    <string name="label_owner">Właściciel: </string>
-    <string name="label_no_gps">Brak GPS</string>
+    <string name="label_last_found">Found:</string>
+    <string name="label_last_found_none">Be first!</string>
+    <string name="label_no_gps">No GPS</string>
+    <string name="label_owner">Owner:</string>
+    <string name="label_size">Size:</string>
+    <string name="label_type">Type:</string>
 
     <!-- Caches types-->
+    <string name="Event">Event</string>
     <string name="Multi">Multi</string>
-    <string name="Traditional">Tradycyjna</string>
+    <string name="Other">Other</string>
     <string name="Quiz">Quiz</string>
-    <string name="Virtual">Wirtualna</string>
-    <string name="Event">Wydarzenie</string>
-    <string name="Other">Nietypowa</string>
+    <string name="Traditional">Traditional</string>
+    <string name="Virtual">Virtual</string>
 
     <!-- Caches sizes -->
+    <string name="size_large">Large</string>
+    <string name="size_micro">Micro</string>
     <string name="size_nano">Nano</string>
-    <string name="size_micro">Mikro</string>
-    <string name="size_small">Mała</string>
-    <string name="size_regular">Normalna</string>
-    <string name="size_large">Duża</string>
-    <string name="size_xlarge">Ogromna</string>
-    <string name="size_other">Inna</string>
-    <string name="size_symbol_nano">1</string>
-    <string name="size_symbol_micro">2</string>
-    <string name="size_symbol_small">3</string>
-    <string name="size_symbol_regular">4</string>
-    <string name="size_symbol_large">5</string>
-    <string name="size_symbol_xlarge">6</string>
-    <string name="size_symbol_other">0</string>
+    <string name="size_other">Other</string>
+    <string name="size_regular">Regular</string>
+    <string name="size_small">Small</string>
+    <string name="size_xlarge">Huge</string>
     
     <!-- Cache details -->
-    <string name="cache_tabs_logs">Logi</string>
-    <string name="cache_tabs_details">Opis</string>
-    <string name="cache_tabs_gallery">Zdjęcia</string>
-    <string name="cache_try_again_button">Spróbuj ponownie</string>
-    <string name="cache_try_again_text">Ups... coś poszło nie tak</string>
-    <string name="cache_attrs">Atrybuty</string>
-    <string name="cache_menu_nav">Włącz nawigacje</string>
-    <string name="cache_menu_maps">Pokaż na Google Maps</string>
-    <string name="cache_menu_hint">Pokaż podpowiedź</string>
-    <string name="cache_menu_www">Pokaż stronę kesza</string>
-    <string name="cache_dialog_title">Podpowiedź</string>
-    <string name="cache_dialog_ok">Zamknij</string>
-    <string name="cache_gallery_no_photos">Brak zdjęć</string>
+    <string name="cache_tabs_details">Description</string>
+    <string name="cache_tabs_gallery">Photos</string>
+    <string name="cache_tabs_logs">Logs</string>
+    <string name="cache_try_again_button">Try again</string>
+    <string name="cache_try_again_text">Ups... something went wrong</string>
+    <string name="cache_attrs">Attributes</string>
+    <string name="cache_menu_hint">Show hint</string>
+    <string name="cache_menu_maps">Show on Google Maps</string>
+    <string name="cache_menu_nav">Turn on GPS</string>
+    <string name="cache_menu_www">Show cache website</string>
+    <string name="cache_dialog_ok">Close</string>
+    <string name="cache_dialog_title">Hint</string>
+    <string name="cache_gallery_no_photos">No photos</string>
 
     <!-- Attributes icons -->
-    <string name="cache_attr_A70">&#xf1ae;</string>
-    <string name="cache_attr_A5">&#xf0fd;</string>
-    <string name="cache_attr_A18">&#xf193;</string>
-    <string name="cache_attr_A49">&#xf14e;</string>
-    <string name="cache_attr_A50">&#xf040;</string>
-    <string name="cache_attr_A6">&#xf076;</string>
-    <string name="cache_attr_A28">&#xf1bb;</string>
-    <string name="cache_attr_A29">&#xf1da;</string>
-    <string name="cache_attr_A73">&#xf017;</string>
-    <string name="cache_attr_A52">&#xf0eb;</string>
-    <string name="cache_attr_A56">&#xf0ad;</string>
-    <string name="cache_attr_A59">&#xf06a;</string>
-    <string name="cache_attr_A42">&#xf186;</string>
-    <string name="cache_attr_A2">&#xf041;</string>
-    <string name="cache_attr_A7">&#xf025;</string>
-    <string name="cache_attr_A8">&#xf178;</string>
-    <string name="cache_attr_A4">&#xf0e0;</string>
-    <string name="cache_attr_A3">&#xf008;</string>
-    <string name="cache_attr_A27">&#xf206;</string>
-    <string name="cache_attr_A57">&#xf21a;</string>
-    <string name="cache_attr_A9">&#xf1eb;</string>
-    <string name="cache_attr_A10">&#xf287;</string>
-    <string name="cache_attr_A20">&#xf21d;</string>
-    <string name="cache_attr_A51">&#xf149;</string>
-    <string name="cache_attr_A68">&#xf0e7;</string>
+    <string name="cache_attr_A70" translatable="false">&#xf1ae;</string>
+    <string name="cache_attr_A5" translatable="false">&#xf0fd;</string>
+    <string name="cache_attr_A18" translatable="false">&#xf193;</string>
+    <string name="cache_attr_A49" translatable="false">&#xf14e;</string>
+    <string name="cache_attr_A50" translatable="false">&#xf040;</string>
+    <string name="cache_attr_A6" translatable="false">&#xf076;</string>
+    <string name="cache_attr_A28" translatable="false">&#xf1bb;</string>
+    <string name="cache_attr_A29" translatable="false">&#xf1da;</string>
+    <string name="cache_attr_A73" translatable="false">&#xf017;</string>
+    <string name="cache_attr_A52" translatable="false">&#xf0eb;</string>
+    <string name="cache_attr_A56" translatable="false">&#xf0ad;</string>
+    <string name="cache_attr_A59" translatable="false">&#xf06a;</string>
+    <string name="cache_attr_A42" translatable="false">&#xf186;</string>
+    <string name="cache_attr_A2" translatable="false">&#xf041;</string>
+    <string name="cache_attr_A7" translatable="false">&#xf025;</string>
+    <string name="cache_attr_A8" translatable="false">&#xf178;</string>
+    <string name="cache_attr_A4" translatable="false">&#xf0e0;</string>
+    <string name="cache_attr_A3" translatable="false">&#xf008;</string>
+    <string name="cache_attr_A27" translatable="false">&#xf206;</string>
+    <string name="cache_attr_A57" translatable="false">&#xf21a;</string>
+    <string name="cache_attr_A9" translatable="false">&#xf1eb;</string>
+    <string name="cache_attr_A10" translatable="false">&#xf287;</string>
+    <string name="cache_attr_A20" translatable="false">&#xf21d;</string>
+    <string name="cache_attr_A51" translatable="false">&#xf149;</string>
+    <string name="cache_attr_A68" translatable="false">&#xf0e7;</string>
 
     <!-- OKAPI urls-->
-    <string name="okapi_getNearbyCachesNotFound" formatted="false">services/caches/shortcuts/search_and_retrieve?search_method=services/caches/search/nearest&amp;search_params={\"limit\":\"[$LIMIT$]\",\"langpref\":\"pl\",\"not_found_by\":\"[$UUID$]\",\"owner_uuid\":\"-[$UUID$]\",\"center\":\"[$CENTER$]\"}&amp;retr_method=services/caches/geocaches&amp;retr_params={\"fields\":\"last_found|code|name|size2|type|owner|location\"}&amp;wrap=false</string>
-    <string name="okapi_getNearbyCaches" formatted="false">services/caches/shortcuts/search_and_retrieve?search_method=services/caches/search/nearest&amp;search_params={\"limit\":\"[$LIMIT$]\",\"langpref\":\"pl\",\"center\":\"[$CENTER$]\"}&amp;retr_method=services/caches/geocaches&amp;retr_params={\"fields\":\"last_found|code|name|size2|type|owner|location\"}&amp;wrap=false</string>
-    <string name="okapi_getUuid" formatted="false">services/users/by_username?username=[$USER$]&amp;fields=uuid</string>
-    <string name="okapi_getCacheDetails" formatted="false">services/caches/geocache?cache_code=[$CACHE_CODE$]&amp;langpref=[$LANG$]&amp;lpc=20&amp;fields=code|name|location|type|url|owner|size2|description|hint2|attr_acodes|latest_logs|images</string>
-    <string name="okapi_getAttrsNames" formatted="false">services/attrs/attributes?acodes=[$ATTRS_ACODES$]&amp;langpref=[$LANG$]</string>
+    <string name="okapi_getAttrsNames">services/attrs/attributes?acodes=[$ATTRS_ACODES$]&amp;langpref=en</string>
+    <string name="okapi_getCacheDetails">services/caches/geocache?cache_code=[$CACHE_CODE$]&amp;langpref=en&amp;lpc=20&amp;fields=code|name|location|type|url|owner|size2|description|hint2|attr_acodes|latest_logs|images</string>
+    <string name="okapi_getNearbyCaches">services/caches/shortcuts/search_and_retrieve?search_method=services/caches/search/nearest&amp;search_params={\"limit\":\"[$LIMIT$]\",\"langpref\":\"en\",\"center\":\"[$CENTER$]\"}&amp;retr_method=services/caches/geocaches&amp;retr_params={\"fields\":\"last_found|code|name|size2|type|owner|location\"}&amp;wrap=false</string>
+    <string name="okapi_getNearbyCachesNotFound">services/caches/shortcuts/search_and_retrieve?search_method=services/caches/search/nearest&amp;search_params={\"limit\":\"[$LIMIT$]\",\"langpref\":\"en\",\"not_found_by\":\"[$UUID$]\",\"owner_uuid\":\"-[$UUID$]\",\"center\":\"[$CENTER$]\"}&amp;retr_method=services/caches/geocaches&amp;retr_params={\"fields\":\"last_found|code|name|size2|type|owner|location\"}&amp;wrap=false</string>
+    <string name="okapi_getUuid">services/users/by_username?username=[$USER$]&amp;fields=uuid</string>
 </resources>

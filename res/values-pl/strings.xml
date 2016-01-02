@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_map_position">51.70;18.85;5.5</string>
+
+    <!-- drawer -->
+    <string name="drawer_open">Otwórz pasek nawigacji</string>
+    <string name="drawer_close">Zamknij pasek nawigacji</string>
+    <string name="drawer_satellite">Satelita</string>
+    <string name="drawer_gps">GPS</string>
+    <string name="drawer_caches">Skrzynki</string>
+    <string name="drawer_cache_info">Opis</string>
+    <string name="drawer_exit">Zamknij</string>
+    <string name="drawer_settings">Ustawienia</string>
+
+    <!-- toasts-->
+    <string name="toast_downloading">Pobieranie...</string>
+    <string name="toast_downloading_error">Błąd pobierania</string>
+
+    <!-- Settings-->
+    <string name="title_activity_settings">Ustawienia</string>
+    <string name="settings_downloading">Pobieranie</string>
+    <string name="settings_username">Nazwa użytkownika</string>
+    <string name="settings_username_blank">Brak</string>
+    <string name="settings_low_limit">Tryb oszczędny</string>
+    <string name="settings_low_limit_sub">Oszczędzaj transfer pobierając mniej skrzynek</string>
+    <string name="settings_hide_found">Ukryj znalezione</string>
+    <string name="settings_hide_found_sub">Nie pokazuj na mapie skrzynek które już znalazłeś</string>
+    <string name="settings_language">Język</string>
+    <string name="settings_set_map">Ustaw pozycję mapy</string>
+    <string name="settings_set_map_sub">Wybierz jaką mapę chcesz zobaczyć po uruchomieniu aplikacji</string>
+    <string name="settings_reset_map">Automatyczne określanie pozycji</string>
+    <string name="settings_reset_map_sub">Pozycja początkowa mapy będzie określana automatycznie</string>
+    <string-array name="settings_languages_list_entries">
+        <item>Polski</item>
+        <item>Angielski (US)</item>
+        <item>Angielski (GB)</item>
+    </string-array>
+    <string name="settings_server">Serwer</string>
+
+    <!-- Settings set map-->
+    <string name="settings_set_map_title">Wybierz pozycję</string>
+    <string name="settings_set_map_ok">OK</string>
+    <string name="settings_set_map_cancel">Jednak nie</string>
+
+    <!-- InfoWindow labels-->
+    <string name="label_type">Typ: </string>
+    <string name="label_size">Rozmiar: </string>
+    <string name="label_last_found">Znaleziono: </string>
+    <string name="label_last_found_none">Bądź pierwszy!</string>
+    <string name="label_owner">Właściciel: </string>
+    <string name="label_no_gps">Brak GPS</string>
+
+    <!-- Caches types-->
+    <string name="Multi">Multi</string>
+    <string name="Traditional">Tradycyjna</string>
+    <string name="Quiz">Quiz</string>
+    <string name="Virtual">Wirtualna</string>
+    <string name="Event">Wydarzenie</string>
+    <string name="Other">Nietypowa</string>
+
+    <!-- Caches sizes -->
+    <string name="size_nano">Nano</string>
+    <string name="size_micro">Mikro</string>
+    <string name="size_small">Mała</string>
+    <string name="size_regular">Normalna</string>
+    <string name="size_large">Duża</string>
+    <string name="size_xlarge">Ogromna</string>
+    <string name="size_other">Inna</string>
+    
+    <!-- Cache details -->
+    <string name="cache_tabs_logs">Logi</string>
+    <string name="cache_tabs_details">Opis</string>
+    <string name="cache_tabs_gallery">Zdjęcia</string>
+    <string name="cache_try_again_button">Spróbuj ponownie</string>
+    <string name="cache_try_again_text">Ups... coś poszło nie tak</string>
+    <string name="cache_attrs">Atrybuty</string>
+    <string name="cache_menu_nav">Włącz nawigacje</string>
+    <string name="cache_menu_maps">Pokaż na Google Maps</string>
+    <string name="cache_menu_hint">Pokaż podpowiedź</string>
+    <string name="cache_menu_www">Pokaż stronę kesza</string>
+    <string name="cache_dialog_title">Podpowiedź</string>
+    <string name="cache_dialog_ok">Zamknij</string>
+    <string name="cache_gallery_no_photos">Brak zdjęć</string>
+
+    <!-- OKAPI urls-->
+    <string name="okapi_getNearbyCachesNotFound" formatted="false">services/caches/shortcuts/search_and_retrieve?search_method=services/caches/search/nearest&amp;search_params={\"limit\":\"[$LIMIT$]\",\"langpref\":\"pl\",\"not_found_by\":\"[$UUID$]\",\"owner_uuid\":\"-[$UUID$]\",\"center\":\"[$CENTER$]\"}&amp;retr_method=services/caches/geocaches&amp;retr_params={\"fields\":\"last_found|code|name|size2|type|owner|location\"}&amp;wrap=false</string>
+    <string name="okapi_getNearbyCaches" formatted="false">services/caches/shortcuts/search_and_retrieve?search_method=services/caches/search/nearest&amp;search_params={\"limit\":\"[$LIMIT$]\",\"langpref\":\"pl\",\"center\":\"[$CENTER$]\"}&amp;retr_method=services/caches/geocaches&amp;retr_params={\"fields\":\"last_found|code|name|size2|type|owner|location\"}&amp;wrap=false</string>
+    <string name="okapi_getUuid" formatted="false">services/users/by_username?username=[$USER$]&amp;fields=uuid</string>
+    <string name="okapi_getCacheDetails" formatted="false">services/caches/geocache?cache_code=[$CACHE_CODE$]&amp;langpref=pl&amp;lpc=20&amp;fields=code|name|location|type|url|owner|size2|description|hint2|attr_acodes|latest_logs|images</string>
+    <string name="okapi_getAttrsNames" formatted="false">services/attrs/attributes?acodes=[$ATTRS_ACODES$]&amp;langpref=pl</string>
+</resources>

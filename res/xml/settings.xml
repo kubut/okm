@@ -12,11 +12,6 @@
             android:summary="@string/settings_hide_found_sub"
             android:key="prefHideFound"/>
     <ListPreference
-            android:title="@string/settings_language"
-            android:entries="@array/settings_languages_list_entries"
-            android:entryValues="@array/settings_languages_list_values"
-            android:key="prefLanguage"/>
-    <ListPreference
             android:title="@string/settings_server"
             android:entries="@array/settings_servers_list_entries"
             android:entryValues="@array/settings_servers_list_values"
