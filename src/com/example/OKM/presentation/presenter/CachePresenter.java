@@ -68,7 +68,7 @@ public class CachePresenter {
 
     public void setCacheDetails(CacheModel cacheModel) {
         this.getActivity().setCacheDetails(cacheModel);
-        this.getActivity().switchToCache();
+        this.getActivity().switchToCache(cacheModel);
     }
 
     public void downloadCacheDetails(String code) {

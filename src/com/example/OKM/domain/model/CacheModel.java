@@ -1,9 +1,6 @@
 package com.example.OKM.domain.model;
 
-import com.example.OKM.domain.valueObject.CacheAttributeValue;
-import com.example.OKM.domain.valueObject.CacheLogValue;
-import com.example.OKM.domain.valueObject.CacheSizeValue;
-import com.example.OKM.domain.valueObject.CacheTypeValue;
+import com.example.OKM.domain.valueObject.*;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
@@ -11,7 +8,7 @@ import java.util.ArrayList;
 /**
  * Created by Jakub on 05.12.2015.
  */
-//attr_codes
+
 public class CacheModel {
     private String code, name, url, owner, description, hint;
     private LatLng location;
@@ -19,10 +16,12 @@ public class CacheModel {
     private CacheSizeValue size;
     private ArrayList<CacheAttributeValue> attrs;
     private ArrayList<CacheLogValue> logs;
+    private ArrayList<CachePhotoValue> photos;
 
     public CacheModel(){
         this.attrs = new ArrayList<>();
         this.logs = new ArrayList<>();
+        this.photos = new ArrayList<>();
     }
 
     public void appendAttrs(ArrayList<CacheAttributeValue> attrsToAppend){
@@ -37,6 +36,17 @@ public class CacheModel {
         return this.hint != null && !this.hint.equals("");
     }
 
+    public boolean hasPhotos(){
+        return !this.photos.isEmpty();
+    }
+
+    public void appendPhotos(ArrayList<CachePhotoValue> photosToAppend){
+        this.photos.addAll(photosToAppend);
+    }
+
+    public ArrayList<CachePhotoValue> getPhotos(){
+        return this.photos;
+    }
     public ArrayList<CacheAttributeValue> getAttrs(){
         return this.attrs;
     }

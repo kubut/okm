@@ -78,9 +78,6 @@ public class CacheActivity extends AppCompatActivity {
             }
         });
 
-        setupViewPager(viewPager);
-        tabLayout.setupWithViewPager(viewPager);
-
         this.presenter.loadCacheDetails(this.cacheCode);
         this.switchToLoader();
     }
@@ -133,7 +130,10 @@ public class CacheActivity extends AppCompatActivity {
         this.presenter.showAttributes();
     }
 
-    public void switchToCache(){
+    public void switchToCache(CacheModel cacheModel){
+        setupViewPager(this.viewPager, cacheModel.hasPhotos());
+        tabLayout.setupWithViewPager(this.viewPager);
+
         this.progressView.setVisibility(View.GONE);
         this.tryAgainView.setVisibility(View.GONE);
         this.viewPager.setVisibility(View.VISIBLE);
@@ -193,11 +193,15 @@ public class CacheActivity extends AppCompatActivity {
         return this.tabGallery;
     }
 
-    private void setupViewPager(ViewPager viewPager) {
+    private void setupViewPager(ViewPager viewPager, boolean gallery) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment((Fragment) this.tabDetails, getString(R.string.cache_tabs_details));
         adapter.addFragment((Fragment) this.tabLogs, getString(R.string.cache_tabs_logs));
-        adapter.addFragment((Fragment) this.tabGallery, getString(R.string.cache_tabs_gallery));
+
+        if(gallery){
+            adapter.addFragment((Fragment) this.tabGallery, getString(R.string.cache_tabs_gallery));
+        }
+
         viewPager.setAdapter(adapter);
     }
 }

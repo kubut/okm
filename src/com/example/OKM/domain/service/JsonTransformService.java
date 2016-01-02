@@ -6,10 +6,7 @@ import android.text.Html;
 import com.example.OKM.data.dataManagers.AttributesDM;
 import com.example.OKM.domain.model.CacheMakerModel;
 import com.example.OKM.domain.model.CacheModel;
-import com.example.OKM.domain.valueObject.CacheAttributeValue;
-import com.example.OKM.domain.valueObject.CacheLogValue;
-import com.example.OKM.domain.valueObject.CacheSizeValue;
-import com.example.OKM.domain.valueObject.CacheTypeValue;
+import com.example.OKM.domain.valueObject.*;
 import com.google.android.gms.maps.model.LatLng;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -101,6 +98,7 @@ public class JsonTransformService {
         cacheModel.setOwner(owner.getString("username"));
         cacheModel.setHint(jsonObject.getString("hint2"));
         cacheModel.setDescription(HtmlParser.parseHtml(jsonObject.getString("description"), context));
+        cacheModel.appendPhotos(this.getCachePhotosValueByJson(jsonObject.getJSONArray("images")));
 
         cacheModel.appendLogs(this.getCacheLogsValueByJson(context, jsonObject.getJSONArray("latest_logs")));
         cacheModel.appendAttrs(attrs);
@@ -130,5 +128,23 @@ public class JsonTransformService {
         }
 
         return logs;
+    }
+
+    public ArrayList<CachePhotoValue> getCachePhotosValueByJson(JSONArray jsonArray) throws Exception{
+        ArrayList<CachePhotoValue> photos = new ArrayList<>();
+        int length = jsonArray.length();
+
+        for (int i = 0; i < length; i++) {
+            JSONObject jsonPhoto = jsonArray.getJSONObject(i);
+
+            CachePhotoValue photo = new CachePhotoValue();
+            photo.setMinUrl(jsonPhoto.getString("thumb_url"));
+            photo.setUrl(jsonPhoto.getString("url"));
+            photo.setTitle(jsonPhoto.getString("caption"));
+            photo.setSpoiler(jsonPhoto.getBoolean("is_spoiler"));
+            photos.add(photo);
+        }
+
+        return photos;
     }
 }

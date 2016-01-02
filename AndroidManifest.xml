@@ -55,6 +55,10 @@
             android:name=".presentation.view.CacheActivity"
             android:theme="@style/AppTheme" >
         </activity>
+
+        <activity android:name=".presentation.view.CachePhotoActivity"
+                  android:theme="@style/AppTheme">
+        </activity>
     </application>
 
 </manifest>
