@@ -104,33 +104,6 @@
     <string name="cache_dialog_title">Hint</string>
     <string name="cache_gallery_no_photos">No photos</string>
 
-    <!-- Attributes icons -->
-    <string name="cache_attr_A70" translatable="false">&#xf1ae;</string>
-    <string name="cache_attr_A5" translatable="false">&#xf0fd;</string>
-    <string name="cache_attr_A18" translatable="false">&#xf193;</string>
-    <string name="cache_attr_A49" translatable="false">&#xf14e;</string>
-    <string name="cache_attr_A50" translatable="false">&#xf040;</string>
-    <string name="cache_attr_A6" translatable="false">&#xf076;</string>
-    <string name="cache_attr_A28" translatable="false">&#xf1bb;</string>
-    <string name="cache_attr_A29" translatable="false">&#xf1da;</string>
-    <string name="cache_attr_A73" translatable="false">&#xf017;</string>
-    <string name="cache_attr_A52" translatable="false">&#xf0eb;</string>
-    <string name="cache_attr_A56" translatable="false">&#xf0ad;</string>
-    <string name="cache_attr_A59" translatable="false">&#xf06a;</string>
-    <string name="cache_attr_A42" translatable="false">&#xf186;</string>
-    <string name="cache_attr_A2" translatable="false">&#xf041;</string>
-    <string name="cache_attr_A7" translatable="false">&#xf025;</string>
-    <string name="cache_attr_A8" translatable="false">&#xf178;</string>
-    <string name="cache_attr_A4" translatable="false">&#xf0e0;</string>
-    <string name="cache_attr_A3" translatable="false">&#xf008;</string>
-    <string name="cache_attr_A27" translatable="false">&#xf206;</string>
-    <string name="cache_attr_A57" translatable="false">&#xf21a;</string>
-    <string name="cache_attr_A9" translatable="false">&#xf1eb;</string>
-    <string name="cache_attr_A10" translatable="false">&#xf287;</string>
-    <string name="cache_attr_A20" translatable="false">&#xf21d;</string>
-    <string name="cache_attr_A51" translatable="false">&#xf149;</string>
-    <string name="cache_attr_A68" translatable="false">&#xf0e7;</string>
-
     <!-- OKAPI urls-->
     <string name="okapi_getAttrsNames">services/attrs/attributes?acodes=[$ATTRS_ACODES$]&amp;langpref=en</string>
     <string name="okapi_getCacheDetails">services/caches/geocache?cache_code=[$CACHE_CODE$]&amp;langpref=en&amp;lpc=20&amp;fields=code|name|location|type|url|owner|size2|description|hint2|attr_acodes|latest_logs|images</string>

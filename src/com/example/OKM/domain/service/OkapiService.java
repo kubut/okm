@@ -20,7 +20,7 @@ public class OkapiService {
         String serviceUrl;
         String apiUrl = preferencesService.getServerAPI();
         String limit = Integer.toString(preferencesService.getCachesLimit());
-        String okapiKey = "&consumer_key=" + context.getString(R.string.okapiKey);
+        String okapiKey = "&consumer_key=" + this.getOkapiKey(context, apiUrl);
 
         if(preferencesService.isHideFound() && uuid != null){
             serviceUrl = context.getString(R.string.okapi_getNearbyCachesNotFound);
@@ -39,7 +39,7 @@ public class OkapiService {
         PreferencesService preferencesService = new PreferencesService(context);
 
         String apiUrl = preferencesService.getServerAPI();
-        String okapiKey = "&consumer_key=" + context.getString(R.string.okapiKey);
+        String okapiKey = "&consumer_key=" + this.getOkapiKey(context, apiUrl);
         String serviceUrl = context.getString(R.string.okapi_getUuid).replace("[$USER$]", URLEncoder.encode(username, "UTF-8"));
 
         return apiUrl + serviceUrl + okapiKey;
@@ -50,7 +50,7 @@ public class OkapiService {
 
         String apiUrl = preferencesService.getServerAPI();
         String lang = preferencesService.getLanguageCode();
-        String okapiKey = "&consumer_key=" + context.getString(R.string.okapiKey);
+        String okapiKey = "&consumer_key=" + this.getOkapiKey(context, apiUrl);
         String serviceUrl = context.getString(R.string.okapi_getCacheDetails).replace("[$CACHE_CODE$]", code);
 
         serviceUrl = serviceUrl.replace("[$LANG$]", lang);
@@ -63,12 +63,20 @@ public class OkapiService {
 
         String apiUrl = preferencesService.getServerAPI();
         String lang = preferencesService.getLanguageCode();
-        String okapiKey = "&consumer_key=" + context.getString(R.string.okapiKey);
+        String okapiKey = "&consumer_key=" + this.getOkapiKey(context, apiUrl);
         String serviceUrl = context.getString(R.string.okapi_getAttrsNames).replace("[$ATTRS_ACODES$]", android.text.TextUtils.join("|", acodes));
 
         serviceUrl = serviceUrl.replace("[$LANG$]", lang);
 
         return apiUrl + serviceUrl + okapiKey;
+    }
+
+    public String getOkapiKey(Context context, String server){
+        server = server.replace("/okapi/","");
+        server = server.replace("http://www.opencaching","okapiKey");
+        server = server.replace(".","_");
+
+        return context.getString(context.getResources().getIdentifier(server, "string", context.getPackageName()));
     }
 
 }
