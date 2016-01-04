@@ -166,10 +166,18 @@ public class InfowindowPresenter {
 
         this.mainMapPresenter.getActivity().invalidateOptionsMenu();
 
+        String lastFound = this.selectedMarker.getLastFound();
+
+        if(lastFound != null && !lastFound.equals("null")){
+            lastFound = lastFound.substring(0,10);
+        } else {
+            lastFound = getContext().getResources().getString(R.string.label_last_found_none);
+        }
+
         type.setText(this.selectedMarker.getType().getName());
         size.setText(this.selectedMarker.getSize().getName());
         owner.setText(this.selectedMarker.getOwner());
-        found.setText(this.selectedMarker.getLastFound());
+        found.setText(lastFound);
     }
 
     private void startLocationTask(){

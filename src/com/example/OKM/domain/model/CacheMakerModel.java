@@ -102,7 +102,7 @@ public class CacheMakerModel {
     }
 
     public String getLastFound() {
-        return lastFound.substring(0,10);
+        return lastFound;
     }
 
     public void setLastFound(String lastFound) {
