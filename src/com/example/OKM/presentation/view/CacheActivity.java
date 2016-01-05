@@ -165,10 +165,12 @@ public class CacheActivity extends AppCompatActivity {
         TextView owner  = (TextView) this.bottomPanel.findViewById(R.id.infoCacheOwner);
 
         if(this.menu != null){
-            MenuItem hint   = this.menu.findItem(R.id.action_hint);
+            this.menu.findItem(R.id.action_nav).setVisible(true);
+            this.menu.findItem(R.id.action_maps).setVisible(true);
+            this.menu.findItem(R.id.action_www).setVisible(true);
 
-            if(!cacheModel.isHint()){
-                hint.setVisible(false);
+            if(cacheModel.isHint()){
+                this.menu.findItem(R.id.action_hint).setVisible(true);
             }
         }
 
