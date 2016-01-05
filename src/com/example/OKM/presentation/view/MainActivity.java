@@ -10,7 +10,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -82,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         assert getSupportActionBar() != null;
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setTitle(null);
 
@@ -144,13 +143,20 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle presses on the action bar items
         switch (item.getItemId()) {
             case R.id.action_appendCaches:
                 this.presenter.setCaches(true);
                 return true;
             case R.id.action_cacheInfo:
                 this.goToCacheInfo();
+                return true;
+            case android.R.id.home:
+                if(this.mDrawerLayout.isDrawerOpen(GravityCompat.START)){
+                    this.mDrawerLayout.closeDrawers();
+                } else {
+                    this.mDrawerLayout.openDrawer(GravityCompat.START);
+                }
+                this.mDrawerToggle.syncState();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
