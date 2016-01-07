@@ -49,11 +49,8 @@ public class OkapiService {
         PreferencesService preferencesService = new PreferencesService(context);
 
         String apiUrl = preferencesService.getServerAPI();
-        String lang = preferencesService.getLanguageCode();
         String okapiKey = "&consumer_key=" + this.getOkapiKey(context, apiUrl);
         String serviceUrl = context.getString(R.string.okapi_getCacheDetails).replace("[$CACHE_CODE$]", code);
-
-        serviceUrl = serviceUrl.replace("[$LANG$]", lang);
 
         return apiUrl + serviceUrl + okapiKey;
     }
@@ -62,11 +59,8 @@ public class OkapiService {
         PreferencesService preferencesService = new PreferencesService(context);
 
         String apiUrl = preferencesService.getServerAPI();
-        String lang = preferencesService.getLanguageCode();
         String okapiKey = "&consumer_key=" + this.getOkapiKey(context, apiUrl);
         String serviceUrl = context.getString(R.string.okapi_getAttrsNames).replace("[$ATTRS_ACODES$]", android.text.TextUtils.join("|", acodes));
-
-        serviceUrl = serviceUrl.replace("[$LANG$]", lang);
 
         return apiUrl + serviceUrl + okapiKey;
     }

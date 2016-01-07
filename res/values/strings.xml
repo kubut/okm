@@ -2,7 +2,7 @@
 <resources>
     <!-- general -->
     <string name="app_name" translatable="false">Opencaching Kubut Maps</string>
-    <string name="default_map_position">54.50;-2.27;5.5</string>
+    <string name="default_map_position">38.36;-96.37;3.5</string>
 
     <!-- drawer -->
     <string name="drawer_cache_info">Description</string>
@@ -24,30 +24,15 @@
     <string name="settings_username">Username</string>
     <string name="settings_username_blank">Empty</string>
     <string name="settings_low_limit">Eco mode</string>
-    <string name="settings_low_limit_sub">Save up transfer by downloading less caches</string>
+    <string name="settings_low_limit_sub">Save up cellular data by downloading less caches</string>
     <string name="settings_hide_found">Hide found caches</string>
-    <string name="settings_hide_found_sub">Show caches you haven\'t found only</string>
+    <string name="settings_hide_found_sub">Don\'t show caches you already found</string>
     <string name="settings_language">Language</string>
     <string name="settings_set_map">Set map position</string>
     <string name="settings_set_map_sub">Choose the starting map</string>
     <string name="settings_reset_map">Map auto-position</string>
-    <string name="settings_reset_map_sub">Map will be centered basing on your location</string>
-    <string-array name="settings_languages_list_entries">
-        <item>Polish</item>
-        <item>English (US)</item>
-        <item>English (GB)</item>
-    </string-array>
-    <string-array name="settings_languages_list_values">
-        <item>pl_PL</item>
-        <item>en_US</item>
-        <item>en_GB</item>
-    </string-array>
-    <string-array name="settings_languages_list_codes">
-        <item>pl</item>
-        <item>en</item>
-        <item>en</item>
-    </string-array>
-    <string name="settings_server">Serwer</string>
+    <string name="settings_reset_map_sub">Map will be centered based on your location</string>
+    <string name="settings_server">Server</string>
     <string-array name="settings_servers_list_entries">
         <item>opencaching.pl</item>
         <item>opencaching.de</item>
@@ -97,17 +82,10 @@
     <string name="cache_try_again_text">Ups... something went wrong</string>
     <string name="cache_attrs">Attributes</string>
     <string name="cache_menu_hint">Show hint</string>
-    <string name="cache_menu_maps">Show on Google Maps</string>
-    <string name="cache_menu_nav">Turn on GPS</string>
+    <string name="cache_menu_maps">Show in Google Maps</string>
+    <string name="cache_menu_nav">Turn on navigation</string>
     <string name="cache_menu_www">Show cache website</string>
     <string name="cache_dialog_ok">Close</string>
     <string name="cache_dialog_title">Hint</string>
     <string name="cache_gallery_no_photos">No photos</string>
-
-    <!-- OKAPI urls-->
-    <string name="okapi_getAttrsNames">services/attrs/attributes?acodes=[$ATTRS_ACODES$]&amp;langpref=en</string>
-    <string name="okapi_getCacheDetails">services/caches/geocache?cache_code=[$CACHE_CODE$]&amp;langpref=en&amp;lpc=20&amp;fields=code|name|location|type|url|owner|size2|description|hint2|attr_acodes|latest_logs|images</string>
-    <string name="okapi_getNearbyCaches">services/caches/shortcuts/search_and_retrieve?search_method=services/caches/search/nearest&amp;search_params={\"limit\":\"[$LIMIT$]\",\"langpref\":\"en\",\"center\":\"[$CENTER$]\"}&amp;retr_method=services/caches/geocaches&amp;retr_params={\"fields\":\"last_found|code|name|size2|type|owner|location\"}&amp;wrap=false</string>
-    <string name="okapi_getNearbyCachesNotFound">services/caches/shortcuts/search_and_retrieve?search_method=services/caches/search/nearest&amp;search_params={\"limit\":\"[$LIMIT$]\",\"langpref\":\"en\",\"not_found_by\":\"[$UUID$]\",\"owner_uuid\":\"-[$UUID$]\",\"center\":\"[$CENTER$]\"}&amp;retr_method=services/caches/geocaches&amp;retr_params={\"fields\":\"last_found|code|name|size2|type|owner|location\"}&amp;wrap=false</string>
-    <string name="okapi_getUuid">services/users/by_username?username=[$USER$]&amp;fields=uuid</string>
 </resources>

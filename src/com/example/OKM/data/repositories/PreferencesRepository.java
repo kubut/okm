@@ -10,8 +10,6 @@ import android.preference.PreferenceManager;
 public class PreferencesRepository {
     public static final String USERNAME = null;
     public static final boolean SAVE_MODE = false;
-    public static final String LANGUAGE = "en_US";
-    public static final String LANGUAGE_CODE = "en";
     public static final String SERVER = "opencaching.us";
     public static final String UUID = null;
     public static final boolean HIDE_FOUND = false;
@@ -31,20 +29,8 @@ public class PreferencesRepository {
         return sharedPref.getBoolean("prefHideFound", HIDE_FOUND);
     }
 
-    public void setHideFound(boolean hideFound){
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putBoolean("prefHideFound", hideFound);
-        editor.apply();
-    }
-
     public boolean isMapAutoposition(){
         return sharedPref.getBoolean("prefMapAutoPosition", MAP_AUTOPOSITION);
-    }
-
-    public void setMapAutoposition(boolean autoposition){
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putBoolean("prefMapAutoPosition", autoposition);
-        editor.apply();
     }
 
     public void setMapPosition(String mapPosition){
@@ -61,12 +47,6 @@ public class PreferencesRepository {
         return sharedPref.getString("prefUsername", USERNAME);
     }
 
-    public void setUsername(String username){
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("prefUsername", username);
-        editor.apply();
-    }
-
     public String getUuid(){
         return sharedPref.getString("prefUudi", UUID);
     }
@@ -81,29 +61,7 @@ public class PreferencesRepository {
         return sharedPref.getBoolean("prefLimit", SAVE_MODE);
     }
 
-    public void setSaveMode(boolean saveMode){
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putBoolean("prefLimit", saveMode);
-        editor.apply();
-    }
-
-    public String getLanguage(){
-        return sharedPref.getString("prefLanguage", LANGUAGE);
-    }
-
-    public void setLanguage(String language){
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("prefLanguage", language);
-        editor.apply();
-    }
-
     public String getServer(){
         return sharedPref.getString("prefServer", SERVER);
-    }
-
-    public void setServer(String server){
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("prefServer", server);
-        editor.apply();
     }
 }

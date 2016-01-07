@@ -7,6 +7,8 @@ import com.example.OKM.data.repositories.PreferencesRepository;
 import com.example.OKM.domain.valueObject.MapPositionValue;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.util.Locale;
+
 /**
  * Created by kubut on 2015-08-22.
  */
@@ -32,25 +34,12 @@ public class PreferencesService {
         }
     }
 
-    public void setUsername(String username){
-        repository.setUsername(username);
-        repository.setUuid(null);
-    }
-
     public boolean isSaveMode(){
         return repository.getSaveMode();
     }
 
-    public void setSaveMode(boolean saveMode){
-        repository.setSaveMode(saveMode);
-    }
-
     public boolean isMapAutoposition(){
         return repository.isMapAutoposition();
-    }
-
-    public void setMapAutoposition(boolean autoposition){
-        repository.setMapAutoposition(autoposition);
     }
 
     public int getCachesLimit(){
@@ -88,42 +77,8 @@ public class PreferencesService {
         return repository.isHideFound();
     }
 
-    public String getLanguageSymbol(){
-        return repository.getLanguage();
-    }
-
-    public String getLanguageName(){
-        String name = "";
-        String language = this.getLanguageSymbol();
-        String[] names = context.getResources().getStringArray(R.array.settings_languages_list_entries);
-        String[] codes = context.getResources().getStringArray(R.array.settings_languages_list_values);
-
-        for(int i=0; i<codes.length; i++){
-            if(codes[i].equals(language)){
-                name = names[i];
-            }
-        }
-
-        return name;
-    }
-
     public String getLanguageCode(){
-        String code = "";
-        String language = this.getLanguageSymbol();
-        String[] symbols = context.getResources().getStringArray(R.array.settings_languages_list_values);
-        String[] codes = context.getResources().getStringArray(R.array.settings_languages_list_codes);
-
-        for(int i=0; i<codes.length; i++){
-            if(symbols[i].equals(language)){
-                code = codes[i];
-            }
-        }
-
-        return code;
-    }
-
-    public void setLanguage(String language){
-        repository.setLanguage(language);
+        return Locale.getDefault().getLanguage();
     }
 
     public String getServerName(){
@@ -132,9 +87,5 @@ public class PreferencesService {
 
     public String getServerAPI(){
         return "http://www." + this.getServerName() + "/okapi/";
-    }
-
-    public void setServer(String server){
-        repository.setServer(server);
     }
 }

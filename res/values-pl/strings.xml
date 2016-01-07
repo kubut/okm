@@ -81,11 +81,4 @@
     <string name="cache_dialog_title">Podpowiedź</string>
     <string name="cache_dialog_ok">Zamknij</string>
     <string name="cache_gallery_no_photos">Brak zdjęć</string>
-
-    <!-- OKAPI urls-->
-    <string name="okapi_getNearbyCachesNotFound" formatted="false">services/caches/shortcuts/search_and_retrieve?search_method=services/caches/search/nearest&amp;search_params={\"limit\":\"[$LIMIT$]\",\"langpref\":\"pl\",\"not_found_by\":\"[$UUID$]\",\"owner_uuid\":\"-[$UUID$]\",\"center\":\"[$CENTER$]\"}&amp;retr_method=services/caches/geocaches&amp;retr_params={\"fields\":\"last_found|code|name|size2|type|owner|location\"}&amp;wrap=false</string>
-    <string name="okapi_getNearbyCaches" formatted="false">services/caches/shortcuts/search_and_retrieve?search_method=services/caches/search/nearest&amp;search_params={\"limit\":\"[$LIMIT$]\",\"langpref\":\"pl\",\"center\":\"[$CENTER$]\"}&amp;retr_method=services/caches/geocaches&amp;retr_params={\"fields\":\"last_found|code|name|size2|type|owner|location\"}&amp;wrap=false</string>
-    <string name="okapi_getUuid" formatted="false">services/users/by_username?username=[$USER$]&amp;fields=uuid</string>
-    <string name="okapi_getCacheDetails" formatted="false">services/caches/geocache?cache_code=[$CACHE_CODE$]&amp;langpref=pl&amp;lpc=20&amp;fields=code|name|location|type|url|owner|size2|description|hint2|attr_acodes|latest_logs|images</string>
-    <string name="okapi_getAttrsNames" formatted="false">services/attrs/attributes?acodes=[$ATTRS_ACODES$]&amp;langpref=pl</string>
 </resources>

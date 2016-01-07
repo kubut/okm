@@ -71,9 +71,12 @@ public class JsonTransformService {
         while (keys.hasNext()) {
             String key = (String) keys.next();
             if (jsonObject.get(key) instanceof JSONObject) {
+                String name = ((JSONObject) jsonObject.get(key)).getString("name");
+                name = name.substring(0,1).toUpperCase() + name.substring(1);
+
                 CacheAttributeValue attr = new CacheAttributeValue(context, 0, key);
                 attr.setLanguage(lang);
-                attr.setName(((JSONObject) jsonObject.get(key)).getString("name"));
+                attr.setName(name);
 
                 attrs.add(attr);
             }
