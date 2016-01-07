@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         presenter = (MainMapPresenter) getLastCustomNonConfigurationInstance();
         if(presenter == null){
-            presenter = new MainMapPresenter(this);
+            presenter = MainMapPresenter.getInstance(this);
         }
         presenter.connectContext(this, map);
 

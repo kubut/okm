@@ -58,4 +58,22 @@ public class SettingsPresenter {
     public void resetUuid(){
         this.preferencesService.setUuid(null);
     }
+
+    public void resetMap(){
+        MainMapPresenter mainMapPresenter = MainMapPresenter.getInstanceIfExist();
+
+        if(mainMapPresenter != null){
+            mainMapPresenter.setCaches(false);
+            mainMapPresenter.setDrawerOptionState(mainMapPresenter.getContext().getString(R.string.drawer_caches), false);
+        }
+    }
+
+    public void reloadMap(){
+        MainMapPresenter mainMapPresenter = MainMapPresenter.getInstanceIfExist();
+
+        if(mainMapPresenter != null && mainMapPresenter.hasCaches()){
+            this.resetMap();
+            mainMapPresenter.setCaches(true);
+        }
+    }
 }

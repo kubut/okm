@@ -4,6 +4,7 @@ import android.content.Context;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.widget.Toast;
 import com.example.OKM.R;
 import com.example.OKM.data.services.OkapiCommunication;
@@ -24,6 +25,8 @@ import org.json.JSONObject;
  * Created by kubut on 2015-07-12.
  */
 public class MainMapPresenter {
+    private static MainMapPresenter singleton = null;
+
     private MainActivity mainActivity;
     private OkapiService okapiService;
     private MapInteractor mapInteractor;
@@ -36,7 +39,7 @@ public class MainMapPresenter {
     private GoogleMap googleMap;
     private InfowindowPresenter infowindowPresenter;
 
-    public MainMapPresenter(MainActivity activity){
+    private MainMapPresenter(MainActivity activity){
         this.okapiService = new OkapiService();
         this.mapInteractor = new MapInteractor();
         this.markerList = new CacheMarkerCollectionModel();
@@ -46,6 +49,19 @@ public class MainMapPresenter {
         this.isSattelite = false;
         this.isInfowindow = false;
         this.infowindowPresenter = new InfowindowPresenter(this);
+    }
+
+    public static MainMapPresenter getInstance(MainActivity activity){
+        if(singleton == null){
+            singleton = new MainMapPresenter(activity);
+        }
+
+        return singleton;
+    }
+
+    @Nullable
+    public static MainMapPresenter getInstanceIfExist(){
+        return singleton;
     }
 
     public void sync(){
@@ -282,6 +298,10 @@ public class MainMapPresenter {
     @Nullable
     public GoogleMap getGoogleMap(){
         return this.googleMap;
+    }
+
+    public boolean hasCaches(){
+        return !this.markerList.isEmpty() || this.downloadTask;
     }
 
 }
