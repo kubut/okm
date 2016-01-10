@@ -30,11 +30,6 @@
     <string name="settings_set_map_sub">Wybierz jaką mapę chcesz zobaczyć po uruchomieniu aplikacji</string>
     <string name="settings_reset_map">Automatyczne określanie pozycji</string>
     <string name="settings_reset_map_sub">Pozycja początkowa mapy będzie określana automatycznie</string>
-    <string-array name="settings_languages_list_entries">
-        <item>Polski</item>
-        <item>Angielski (US)</item>
-        <item>Angielski (GB)</item>
-    </string-array>
     <string name="settings_server">Serwer</string>
 
     <!-- Settings set map-->
