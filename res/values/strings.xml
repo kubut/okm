@@ -33,12 +33,12 @@
     <string name="settings_reset_map">Map auto-position</string>
     <string name="settings_reset_map_sub">Map will be centered based on your location</string>
     <string name="settings_server">Server</string>
-    <string-array name="settings_servers_list_entries">
+    <string-array name="settings_servers_list_entries" translatable="false">
         <item>opencaching.pl</item>
         <item>opencaching.de</item>
         <item>opencaching.us</item>
     </string-array>
-    <string-array name="settings_servers_list_values">
+    <string-array name="settings_servers_list_values" translatable="false">
         <item>opencaching.pl</item>
         <item>opencaching.de</item>
         <item>opencaching.us</item>

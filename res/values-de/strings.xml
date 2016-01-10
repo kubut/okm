@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="default_map_position">51.28;12.05;6.5</string>
     <string name="Event">Event-Cache</string>
     <string name="Multi">Multicache</string>
     <string name="Other">Anderer Cache</string>
