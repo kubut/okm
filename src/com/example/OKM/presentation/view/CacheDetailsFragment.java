@@ -5,15 +5,12 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import com.example.OKM.R;
 import com.example.OKM.domain.model.CacheModel;
-import com.example.OKM.domain.service.HtmlParser;
 
 public class CacheDetailsFragment extends Fragment implements ICacheTabs{
     private WebView descriptionView;

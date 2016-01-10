@@ -68,7 +68,7 @@ public class CachePresenter {
 
     public void setCacheDetails(CacheModel cacheModel) {
         this.getActivity().setCacheDetails(cacheModel);
-        this.getActivity().switchToCache(cacheModel);
+        this.getActivity().switchToCache();
     }
 
     public void downloadCacheDetails(String code) {
@@ -158,6 +158,10 @@ public class CachePresenter {
                 .Builder(this.getActivity())
                 .adapter(adapter,null)
                 .show();
+    }
+
+    public boolean isHint(){
+        return this.cacheModel == null ? false : this.cacheModel.isHint();
     }
 
     public void downloadAttrs(ArrayList<String> codes, final JSONObject cacheDetail, final AttributesDM attributesDM, final ArrayList<CacheAttributeValue> attributes) {

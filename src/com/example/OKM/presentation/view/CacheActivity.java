@@ -30,6 +30,7 @@ public class CacheActivity extends AppCompatActivity {
     private String cacheCode;
     private ICacheTabs tabDetails, tabLogs, tabGallery;
     private Menu menu;
+    private boolean loaded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +48,6 @@ public class CacheActivity extends AppCompatActivity {
         if(this.presenter == null){
             this.presenter = new CachePresenter(this);
         }
-        this.presenter.connectContext(this);
 
         this.cacheCode = null;
         String cacheName = null;
@@ -67,10 +67,6 @@ public class CacheActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(cacheName);
         getSupportActionBar().setSubtitle(this.cacheCode);
 
-        this.tabDetails = new CacheDetailsFragment();
-        this.tabLogs = new CacheLogsFragment();
-        this.tabGallery = new CacheGalleryFragment();
-
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,8 +74,9 @@ public class CacheActivity extends AppCompatActivity {
             }
         });
 
-        this.presenter.loadCacheDetails(this.cacheCode);
         this.switchToLoader();
+        this.presenter.connectContext(this);
+        this.presenter.loadCacheDetails(this.cacheCode);
     }
 
     @Override
@@ -92,6 +89,11 @@ public class CacheActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.cache_details_actions, menu);
         this.menu = menu;
+
+        if(this.loaded){
+            this.initMenu();
+        }
+
         return true;
     }
 
@@ -130,10 +132,7 @@ public class CacheActivity extends AppCompatActivity {
         this.presenter.showAttributes();
     }
 
-    public void switchToCache(CacheModel cacheModel){
-        setupViewPager(this.viewPager, cacheModel.hasPhotos());
-        tabLayout.setupWithViewPager(this.viewPager);
-
+    public void switchToCache(){
         this.progressView.setVisibility(View.GONE);
         this.tryAgainView.setVisibility(View.GONE);
         this.viewPager.setVisibility(View.VISIBLE);
@@ -164,38 +163,28 @@ public class CacheActivity extends AppCompatActivity {
         TextView size   = (TextView) this.bottomPanel.findViewById(R.id.infoCacheSize);
         TextView owner  = (TextView) this.bottomPanel.findViewById(R.id.infoCacheOwner);
 
-        if(this.menu != null){
-            this.menu.findItem(R.id.action_nav).setVisible(true);
-            this.menu.findItem(R.id.action_maps).setVisible(true);
-            this.menu.findItem(R.id.action_www).setVisible(true);
+        setupViewPager(cacheModel.hasPhotos());
+        this.tabLayout.setupWithViewPager(this.viewPager);
 
-            if(cacheModel.isHint()){
-                this.menu.findItem(R.id.action_hint).setVisible(true);
-            }
-        }
+        this.initMenu();
 
         type.setText(cacheModel.getType().getName());
         size.setText(cacheModel.getSize().getName());
         owner.setText(cacheModel.getOwner());
 
-        this.getTabDetails().setView(this, cacheModel);
-        this.getTabLogs().setView(this, cacheModel);
-        this.getTabGallery().setView(this, cacheModel);
+        this.tabDetails.setView(this, cacheModel);
+        this.tabLogs.setView(this, cacheModel);
+
+        if(cacheModel.hasPhotos()){
+            this.tabGallery.setView(this, cacheModel);
+        }
+
+        this.loaded = true;
     }
 
-    public ICacheTabs getTabDetails(){
-        return this.tabDetails;
-    }
+    private void setupViewPager(boolean gallery) {
+        this.initTabs();
 
-    public ICacheTabs getTabLogs(){
-        return this.tabLogs;
-    }
-
-    public ICacheTabs getTabGallery(){
-        return this.tabGallery;
-    }
-
-    private void setupViewPager(ViewPager viewPager, boolean gallery) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment((Fragment) this.tabDetails, getString(R.string.cache_tabs_details));
         adapter.addFragment((Fragment) this.tabLogs, getString(R.string.cache_tabs_logs));
@@ -204,6 +193,35 @@ public class CacheActivity extends AppCompatActivity {
             adapter.addFragment((Fragment) this.tabGallery, getString(R.string.cache_tabs_gallery));
         }
 
-        viewPager.setAdapter(adapter);
+        this.viewPager.setAdapter(adapter);
+    }
+
+    private void initTabs(){
+        String name = "android:switcher:" + R.id.viewpager + ":";
+        this.tabDetails = (ICacheTabs) getSupportFragmentManager().findFragmentByTag(name+"0");
+        this.tabLogs = (ICacheTabs) getSupportFragmentManager().findFragmentByTag(name+"1");
+        this.tabGallery = (ICacheTabs) getSupportFragmentManager().findFragmentByTag(name+"2");
+
+        if(this.tabDetails == null){
+            this.tabDetails = new CacheDetailsFragment();
+        }
+        if(this.tabLogs == null){
+            this.tabLogs = new CacheLogsFragment();
+        }
+        if(this.tabGallery == null){
+            this.tabGallery = new CacheGalleryFragment();
+        }
+    }
+
+    private void initMenu(){
+        if(this.menu != null){
+            this.menu.findItem(R.id.action_nav).setVisible(true);
+            this.menu.findItem(R.id.action_maps).setVisible(true);
+            this.menu.findItem(R.id.action_www).setVisible(true);
+
+            if(this.presenter.isHint()){
+                this.menu.findItem(R.id.action_hint).setVisible(true);
+            }
+        }
     }
 }

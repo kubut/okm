@@ -5,22 +5,16 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import com.example.OKM.R;
 import com.example.OKM.domain.model.CacheModel;
 import com.example.OKM.domain.valueObject.CacheLogValue;
-import com.example.OKM.presentation.presenter.CachePresenter;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Objects;
 
 public class CacheLogsFragment extends Fragment implements ICacheTabs{
     private WebView logsView;
