@@ -1,0 +1,20 @@
+DATE: 10.01.2016 14:44
+
+JAVA LINES (total): 3928 (-24 lines)
+JAVA LINES (source): 3098 (-19 lines)
+SIZE: 4637 KB (+21 KB)
+
+FEATURES:
+-German language
+-English language
+-Support for opencaching.de
+-Support for opencaching.us
+-Disable 3d View on map
+-Show zoom controls on Google Maps
+
+BUGS:
+-Fixed bugs with context change
+-Fixed bug with FTF-crash
+-Fixed homeButton on toolbar
+-Set new settings immediately after changes
+-Hide menu in try-again screen
