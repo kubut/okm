@@ -24,13 +24,8 @@ public class CacheDetailsFragment extends Fragment implements ICacheTabs{
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        View view = inflater.inflate(R.layout.fragment_cache_details, container, false);
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState){
+        final View view = inflater.inflate(R.layout.fragment_cache_details, container, false);
 
         this.descriptionView = (WebView) view.findViewById(R.id.cache_description);
 
@@ -42,10 +37,10 @@ public class CacheDetailsFragment extends Fragment implements ICacheTabs{
     }
 
     @Override
-    public void setView(Context context, CacheModel cacheModel){
+    public void setView(final Context context, final CacheModel cacheModel){
         this.loaded = true;
         this.cacheModel = cacheModel;
-        syncView();
+        this.syncView();
     }
 
     @Override

@@ -16,8 +16,8 @@ public  class LocationHelper {
     @Nullable
     private static Integer lastDistance;
 
-    public static Location getLocationFromLatLng(@NonNull LatLng position){
-        Location markerLocation = new Location("");
+    public static Location getLocationFromLatLng(@NonNull final LatLng position){
+        final Location markerLocation = new Location("");
         markerLocation.setLatitude(position.latitude);
         markerLocation.setLongitude(position.longitude);
         markerLocation.setTime(new Date().getTime());
@@ -25,21 +25,22 @@ public  class LocationHelper {
         return markerLocation;
     }
 
+    @SuppressWarnings({"IfStatementWithTooManyBranches", "StringConcatenationMissingWhitespace"})
     @Nullable
-    public static String getDistance(@Nullable Location location1, @Nullable Location location2){
-        if(location1 == null || location2 == null){
+    public static String getDistance(@Nullable final Location location1, @Nullable final Location location2){
+        if((location1 == null) || (location2 == null)){
             return null;
         }
 
         myLocatino = location1;
         markerLocation = location2;
 
-        String distanceString;
-        int distance = (int) Math.floor(location1.distanceTo(location2));
+        final String distanceString;
+        final int distance = (int) Math.floor(location1.distanceTo(location2));
         lastDistance = distance;
 
         if(distance >= 1000){
-            double distanceDouble = (double) distance;
+            final double distanceDouble = (double) distance;
             distanceString = Double.toString(Math.round((distanceDouble/1000d) * 10d) / 10d) + "km";
         } else if(distance >= 500){
             distanceString = Integer.toString(Math.round(distance / 50) * 50) + "m";
@@ -54,15 +55,16 @@ public  class LocationHelper {
         return distanceString;
     }
 
+    @SuppressWarnings("IfStatementWithTooManyBranches")
     public static int getInterval(){
-        double interval;
+        final double interval;
 
         if(lastDistance == null){
             interval = 2;
         } else if(lastDistance > 1000){
-            interval = 10;
-        } else if (lastDistance > 500){
             interval = 5;
+        } else if (lastDistance > 500){
+            interval = 3;
         } else if (lastDistance > 150){
             interval = 2;
         } else {
@@ -73,12 +75,12 @@ public  class LocationHelper {
     }
 
     @Nullable
-    public static Integer getMarkerAzimuth(int north){
-        if(myLocatino == null || markerLocation == null){
+    public static Integer getMarkerAzimuth(final int north){
+        if((myLocatino == null) || (markerLocation == null)){
             return null;
         }
 
-        float degree = myLocatino.bearingTo(markerLocation);
+        final float degree = myLocatino.bearingTo(markerLocation);
 
         return Math.round((degree + north) % 360);
     }

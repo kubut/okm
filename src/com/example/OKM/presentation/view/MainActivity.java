@@ -1,6 +1,9 @@
 package com.example.OKM.presentation.view;
 
+import android.content.Context;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -37,12 +40,9 @@ import java.util.ArrayList;
  * Created by kubut on 2015-07-12.
  */
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback{
-    private SupportMapFragment map;
     private ActionBarDrawerToggle mDrawerToggle;
-    private ListView mDrawerActionListView, mDrawerIntentListView;
-    private RelativeLayout mDrawerManuLayout;
     private MainDrawerListAdapter drawerActionAdapter, drawerIntentAdapter;
-    public ArrayList<IMainDrawerItem> mainDrawerActionItemsList, mainDrawerIntentItemsList;
+    public ArrayList<IMainDrawerItem> mainDrawerActionItemsList;
     private MainMapPresenter presenter;
     private DrawerLayout mDrawerLayout;
     private ProgressView progressBar;
@@ -51,16 +51,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Toolbar toolbar, toolbar_infowindow;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_activity);
+        this.setContentView(R.layout.main_activity);
 
-        this.toolbar            = (Toolbar) findViewById(R.id.app_bar);
-        this.toolbar_infowindow = (Toolbar) findViewById(R.id.app_bar_infowindow);
-        this.mDrawerLayout      = (DrawerLayout) findViewById(R.id.main_layout);
-        this.infowindow         = (LinearLayout) findViewById(R.id.infowindow);
-        this.map                = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        this.progressBar        = (ProgressView) findViewById(R.id.progressBar);
+        this.toolbar            = (Toolbar) this.findViewById(R.id.app_bar);
+        this.toolbar_infowindow = (Toolbar) this.findViewById(R.id.app_bar_infowindow);
+        this.mDrawerLayout      = (DrawerLayout) this.findViewById(R.id.main_layout);
+        this.infowindow         = (LinearLayout) this.findViewById(R.id.infowindow);
+        final SupportMapFragment map = (SupportMapFragment) this.getSupportFragmentManager().findFragmentById(R.id.map);
+        this.progressBar        = (ProgressView) this.findViewById(R.id.progressBar);
         this.animationUp        = AnimationUtils.loadAnimation(this, R.anim.bottom_up);
         this.animationBottom    = AnimationUtils.loadAnimation(this, R.anim.up_bottom);
 
@@ -71,23 +71,23 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             map.getMapAsync(this);
         }
 
-        presenter = (MainMapPresenter) getLastCustomNonConfigurationInstance();
-        if(presenter == null){
-            presenter = MainMapPresenter.getInstance(this);
+        this.presenter = (MainMapPresenter) this.getLastCustomNonConfigurationInstance();
+        if(this.presenter == null){
+            this.presenter = MainMapPresenter.getInstance(this);
         }
-        presenter.connectContext(this, map);
+        this.presenter.connectContext(this, map);
 
-        setSupportActionBar(toolbar);
+        this.setSupportActionBar(this.toolbar);
 
-        assert getSupportActionBar() != null;
+        assert this.getSupportActionBar() != null;
 
-        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setTitle(null);
+        this.getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+        this.getSupportActionBar().setHomeButtonEnabled(true);
+        this.getSupportActionBar().setTitle(null);
 
-        this.initializeDrawerMenu(mDrawerLayout, toolbar);
+        this.initializeDrawerMenu(this.mDrawerLayout, this.toolbar);
 
-        presenter.sync();
+        this.presenter.sync();
     }
 
     @Override
@@ -113,22 +113,22 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public Object onRetainCustomNonConfigurationInstance(){
-        return presenter;
+        return this.presenter;
     }
 
     @Override
     public void onDestroy(){
-        presenter.saveMapPosition();
-        presenter.disconnectContext();
+        this.presenter.saveMapPosition();
+        this.presenter.disconnectContext();
         super.onDestroy();
     }
 
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu){
-        MenuInflater inflater = getMenuInflater();
+    public boolean onPrepareOptionsMenu(final Menu menu){
+        final MenuInflater inflater = this.getMenuInflater();
         inflater.inflate(R.menu.main_activity_actions, menu);
-        MenuItem downloadItem = menu.findItem(R.id.action_appendCaches);
-        MenuItem infoItem = menu.findItem(R.id.action_cacheInfo);
+        final MenuItem downloadItem = menu.findItem(R.id.action_appendCaches);
+        final MenuItem infoItem = menu.findItem(R.id.action_cacheInfo);
 
         if(this.presenter.getInfowindowPresenter().isOpen()){
             downloadItem.setVisible(false);
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_appendCaches:
                 this.presenter.setCaches(true);
@@ -163,89 +163,89 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-    private void initializeDrawerMenu(DrawerLayout mDrawerLayout, Toolbar toolbar){
-        IMainDrawerItemListFactory actionFactory = new MainDrawerActionItemListFactory(presenter);
-        IMainDrawerItemListFactory intentFactory = new MainDrawerIntentItemListFactory(presenter);
+    private void initializeDrawerMenu(final DrawerLayout mDrawerLayout, final Toolbar toolbar){
+        final IMainDrawerItemListFactory actionFactory = new MainDrawerActionItemListFactory(this.presenter);
+        final IMainDrawerItemListFactory intentFactory = new MainDrawerIntentItemListFactory(this.presenter);
 
-        mainDrawerActionItemsList = actionFactory.getItemsList();
-        mainDrawerIntentItemsList = intentFactory.getItemsList();
+        this.mainDrawerActionItemsList = actionFactory.getItemsList();
+        final ArrayList<IMainDrawerItem> mainDrawerIntentItemsList = intentFactory.getItemsList();
 
-        mDrawerManuLayout = (RelativeLayout) findViewById(R.id.left_drawer);
+        final RelativeLayout mDrawerManuLayout = (RelativeLayout) this.findViewById(R.id.left_drawer);
 
-        mDrawerActionListView = (ListView) mDrawerManuLayout.findViewById(R.id.left_drawer_action_list_view);
-        mDrawerIntentListView = (ListView) mDrawerManuLayout.findViewById(R.id.left_drawer_intent_list_view);
+        final ListView mDrawerActionListView = (ListView) mDrawerManuLayout.findViewById(R.id.left_drawer_action_list_view);
+        final ListView mDrawerIntentListView = (ListView) mDrawerManuLayout.findViewById(R.id.left_drawer_intent_list_view);
 
-        drawerActionAdapter = new MainDrawerListAdapter(getApplicationContext(), mainDrawerActionItemsList);
-        drawerIntentAdapter = new MainDrawerListAdapter(getApplicationContext(), mainDrawerIntentItemsList);
+        this.drawerActionAdapter = new MainDrawerListAdapter(this.getApplicationContext(), this.mainDrawerActionItemsList);
+        this.drawerIntentAdapter = new MainDrawerListAdapter(this.getApplicationContext(), mainDrawerIntentItemsList);
 
-        mDrawerActionListView.setAdapter(drawerActionAdapter);
-        mDrawerIntentListView.setAdapter(drawerIntentAdapter);
+        mDrawerActionListView.setAdapter(this.drawerActionAdapter);
+        mDrawerIntentListView.setAdapter(this.drawerIntentAdapter);
 
-        mDrawerToggle = new ActionBarDrawerToggle(
+        this.mDrawerToggle = new ActionBarDrawerToggle(
                 this,
                 mDrawerLayout,
                 toolbar,
                 R.string.drawer_open,
                 R.string.drawer_close)
         {
-            public void onDrawerClosed(View view) {
+            public void onDrawerClosed(final View view) {
                 super.onDrawerClosed(view);
-                invalidateOptionsMenu();
-                syncState();
+                MainActivity.this.invalidateOptionsMenu();
+                this.syncState();
             }
 
-            public void onDrawerOpened(View drawerView) {
+            public void onDrawerOpened(final View drawerView) {
                 super.onDrawerOpened(drawerView);
-                invalidateOptionsMenu();
-                syncState();
+                MainActivity.this.invalidateOptionsMenu();
+                this.syncState();
             }
         };
 
-        mDrawerToggle.syncState();
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        this.mDrawerToggle.syncState();
+        mDrawerLayout.setDrawerListener(this.mDrawerToggle);
         mDrawerActionListView.setOnItemClickListener(new SlideMenuActionClickListener());
         mDrawerIntentListView.setOnItemClickListener(new SlideMenuIntentClickListener());
     }
 
-    private class SlideMenuActionClickListener implements ListView.OnItemClickListener {
+    private class SlideMenuActionClickListener implements AdapterView.OnItemClickListener {
 
         @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            drawerActionAdapter.getItem(position).click();
-            drawerActionAdapter.notifyDataSetChanged();
+        public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id) {
+            MainActivity.this.drawerActionAdapter.getItem(position).click();
+            MainActivity.this.drawerActionAdapter.notifyDataSetChanged();
         }
     }
 
-    private class SlideMenuIntentClickListener implements ListView.OnItemClickListener {
+    private class SlideMenuIntentClickListener implements AdapterView.OnItemClickListener {
 
         @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            drawerIntentAdapter.getItem(position).click();
-            drawerIntentAdapter.notifyDataSetChanged();
+        public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id) {
+            MainActivity.this.drawerIntentAdapter.getItem(position).click();
+            MainActivity.this.drawerIntentAdapter.notifyDataSetChanged();
         }
     }
 
-    public void onMapReady(GoogleMap map) {
-        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
-        String bestProvider = locationManager.getBestProvider(criteria, false);
-        Location location = locationManager.getLastKnownLocation(bestProvider);
+    public void onMapReady(final GoogleMap map) {
+        final LocationManager locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+        final Criteria criteria = new Criteria();
+        final String bestProvider = locationManager.getBestProvider(criteria, false);
+        final Location location = locationManager.getLastKnownLocation(bestProvider);
 
         this.presenter.setLastLocation(location);
         this.presenter.setMapPosition();
 
         map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
-            public boolean onMarkerClick(Marker marker) {
-                presenter.getInfowindowPresenter().show(marker);
+            public boolean onMarkerClick(final Marker marker) {
+                MainActivity.this.presenter.getInfowindowPresenter().show(marker);
                 return true;
             }
         });
 
         map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
-            public void onMapClick(LatLng latLng) {
-                presenter.getInfowindowPresenter().close();
+            public void onMapClick(final LatLng latLng) {
+                MainActivity.this.presenter.getInfowindowPresenter().close();
             }
         });
 
@@ -255,19 +255,19 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     public void goToSettings(){
-        Intent intent = new Intent(this.getApplicationContext(), SettingsActivity.class);
-        startActivity(intent);
+        final Intent intent = new Intent(this.getApplicationContext(), SettingsActivity.class);
+        this.startActivity(intent);
     }
 
-    public void goToCacheInfo(){
-        String code = this.presenter.getInfowindowPresenter().getSelectedMarkerCode();
-        String name = this.presenter.getInfowindowPresenter().getSelectedMarkerName();
+    private void goToCacheInfo(){
+        final String code = this.presenter.getInfowindowPresenter().getSelectedMarkerCode();
+        final String name = this.presenter.getInfowindowPresenter().getSelectedMarkerName();
 
-        if(code != null && name != null){
-            Intent intent = new Intent(this.getApplicationContext(), CacheActivity.class);
+        if((code != null) && (name != null)){
+            final Intent intent = new Intent(this.getApplicationContext(), CacheActivity.class);
             intent.putExtra("code", code);
             intent.putExtra("name", name);
-            startActivity(intent);
+            this.startActivity(intent);
         }
     }
 
@@ -276,11 +276,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     public void syncDrawerItems(){
-        drawerActionAdapter.notifyDataSetChanged();
-        drawerIntentAdapter.notifyDataSetChanged();
+        this.drawerActionAdapter.notifyDataSetChanged();
+        this.drawerIntentAdapter.notifyDataSetChanged();
     }
 
-    public void displayProgressBar(boolean show){
+    public void displayProgressBar(final boolean show){
         if(show){
             this.progressBar.setVisibility(View.VISIBLE);
         } else {
@@ -292,19 +292,19 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         return this.infowindow;
     }
 
-    public ImageView getCompass(){
+    private ImageView getCompass(){
         return (ImageView) this.infowindow.findViewById(R.id.compass);
     }
 
-    public void setToolbarState(boolean info){
+    public void setToolbarState(final boolean info){
         if(info){
             this.toolbar.setVisibility(View.GONE);
             this.toolbar_infowindow.setVisibility(View.VISIBLE);
-            setSupportActionBar(this.toolbar_infowindow);
+            this.setSupportActionBar(this.toolbar_infowindow);
         } else {
             this.toolbar_infowindow.setVisibility(View.GONE);
             this.toolbar.setVisibility(View.VISIBLE);
-            setSupportActionBar(this.toolbar);
+            this.setSupportActionBar(this.toolbar);
         }
     }
 
@@ -313,15 +313,24 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         this.infowindow.setVisibility(View.GONE);
     }
 
-    public void showInfowindow(boolean animation){
+    public void showInfowindow(final boolean animation){
         if(animation){
             this.infowindow.startAnimation(this.animationUp);
         }
         this.infowindow.setVisibility(View.VISIBLE);
+
+        if(!this.isCompassAvaible()){
+            this.infowindow.findViewById(R.id.compassDistanceView).setVisibility(View.GONE);
+        }
     }
 
-    public void animateCompass(Animation animation){
+    public void animateCompass(final Animation animation){
         this.presenter.getInfowindowPresenter().getCompass().syncMode();
         this.getCompass().startAnimation(animation);
+    }
+
+    public boolean isCompassAvaible(){
+        final SensorManager mSensorManager = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
+        return mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION) != null;
     }
 }

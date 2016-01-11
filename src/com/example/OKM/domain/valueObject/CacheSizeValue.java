@@ -7,10 +7,10 @@ import com.example.OKM.R;
  * Created by Jakub on 29.09.2015.
  */
 public class CacheSizeValue {
-    private String name, key;
+    private final String name;
 
-    public CacheSizeValue(Context context, String key){
-        int nameIdentifier = context.getResources().getIdentifier("size_"+key, "string", context.getPackageName());
+    public CacheSizeValue(final Context context, final String key){
+        final int nameIdentifier = context.getResources().getIdentifier("size_"+key, "string", context.getPackageName());
 
         if(nameIdentifier != 0){
             this.name = context.getString(nameIdentifier);
@@ -20,18 +20,7 @@ public class CacheSizeValue {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
 }

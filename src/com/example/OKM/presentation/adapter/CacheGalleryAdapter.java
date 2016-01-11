@@ -23,29 +23,29 @@ import java.util.ArrayList;
  * Created by Jakub on 01.01.2016.
  */
 public class CacheGalleryAdapter extends ArrayAdapter<CachePhotoValue> {
-    private Context context;
+    private final Context context;
 
-    public CacheGalleryAdapter(Context context, ArrayList<CachePhotoValue> itemsList){
+    public CacheGalleryAdapter(final Context context, final ArrayList<CachePhotoValue> itemsList){
         super(context, R.layout.cache_gallery_item, itemsList);
 
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context).build();
+        final ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context).build();
         ImageLoader.getInstance().init(config);
 
         this.context = context;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent){
+    public View getView(final int position, View convertView, final ViewGroup parent){
         if(convertView == null){
-            LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            final LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.cache_gallery_item, parent, false);
         }
 
-        CachePhotoValue photo = getItem(position);
+        final CachePhotoValue photo = this.getItem(position);
 
-        TextView title              = (TextView) convertView.findViewById(R.id.gallery_item_title);
-        ImageView imageView         = (ImageView) convertView.findViewById(R.id.gallery_item_thumb);
-        ProgressView progressView   = (ProgressView) convertView.findViewById(R.id.progressCircle);
+        final TextView title              = (TextView) convertView.findViewById(R.id.gallery_item_title);
+        final ImageView imageView         = (ImageView) convertView.findViewById(R.id.gallery_item_thumb);
+        final ProgressView progressView   = (ProgressView) convertView.findViewById(R.id.progressCircle);
 
         title.setText(photo.getTitle());
 
@@ -55,36 +55,37 @@ public class CacheGalleryAdapter extends ArrayAdapter<CachePhotoValue> {
         return convertView;
     }
 
-    public void downloadImageView(final ImageView imageView, final ProgressView progressView, final CachePhotoValue cachePhotoValue) {
-        ImageLoader imageLoader = ImageLoader.getInstance();
+    @SuppressWarnings("MethodMayBeStatic")
+    private void downloadImageView(final ImageView imageView, final ProgressView progressView, final CachePhotoValue cachePhotoValue) {
+        final ImageLoader imageLoader = ImageLoader.getInstance();
 
-        DisplayImageOptions options = new DisplayImageOptions.Builder()
+        final DisplayImageOptions options = new DisplayImageOptions.Builder()
                 .cacheInMemory(true)
                 .showImageForEmptyUri(R.drawable.ic_image_black_48dp_spoiler)
                 .showImageOnFail(R.drawable.ic_broken_image_black_36dp)
                 .build();
 
-        ImageLoadingListener listener = new ImageLoadingListener() {
+        final ImageLoadingListener listener = new ImageLoadingListener() {
             @Override
-            public void onLoadingStarted(String imageUri, View view) {}
+            public void onLoadingStarted(final String imageUri, final View view) {}
 
             @Override
-            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+            public void onLoadingFailed(final String imageUri, final View view, final FailReason failReason) {
                 progressView.setVisibility(View.GONE);
                 imageView.setVisibility(View.VISIBLE);
             }
 
             @Override
-            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+            public void onLoadingComplete(final String imageUri, final View view, final Bitmap loadedImage) {
                 progressView.setVisibility(View.GONE);
                 imageView.setVisibility(View.VISIBLE);
             }
 
             @Override
-            public void onLoadingCancelled(String imageUri, View view) {}
+            public void onLoadingCancelled(final String imageUri, final View view) {}
         };
 
-        String url;
+        final String url;
         if(cachePhotoValue.isSpoiler()){
             imageView.setPadding(10,10,10,10);
             url = null;

@@ -9,24 +9,24 @@ import com.google.android.gms.maps.model.LatLng;
  * Created by kubut on 2015-09-04.
  */
 public class CacheMakerModel {
-    private LatLng position;
-    private String title;
-    private String code;
-    private CacheTypeValue type;
-    private String owner;
-    private String lastFound;
-    private CacheSizeValue size;
+    private final LatLng position;
+    private final String title;
+    private final String code;
+    private final CacheTypeValue type;
+    private final String owner;
+    private final String lastFound;
+    private final CacheSizeValue size;
 
 
     public CacheMakerModel(
-            Context context,
-            LatLng position,
-            String title,
-            String code,
-            String type,
-            String owner,
-            String lastFound,
-            String size
+            final Context context,
+            final LatLng position,
+            final String title,
+            final String code,
+            final String type,
+            final String owner,
+            final String lastFound,
+            final String size
     ){
         this.position = position;
         this.code = code;
@@ -38,12 +38,12 @@ public class CacheMakerModel {
     }
 
     @Override
-    public boolean equals(Object other){
+    public boolean equals(final Object other){
         if(other == null) return false;
         if(other == this) return true;
         if(!(other instanceof CacheMakerModel)) return false;
 
-        CacheMakerModel otherObj = (CacheMakerModel) other;
+        final CacheMakerModel otherObj = (CacheMakerModel) other;
 
         return this.code.equals(otherObj.getCode());
     }
@@ -54,58 +54,31 @@ public class CacheMakerModel {
     }
 
     public LatLng getPosition() {
-        return position;
-    }
-
-    public void setPosition(LatLng position) {
-        this.position = position;
+        return this.position;
     }
 
     public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
+        return this.title;
     }
 
     public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
+        return this.code;
     }
 
     public CacheTypeValue getType() {
-        return type;
-    }
-
-    public void setType(CacheTypeValue type) {
-        this.type = type;
+        return this.type;
     }
 
     public CacheSizeValue getSize() {
-        return size;
-    }
-
-    public void setSize(CacheSizeValue size) {
-        this.size = size;
+        return this.size;
     }
 
     public String getOwner() {
-        return owner;
-    }
-
-    public void setOwner(String owner) {
-        this.owner = owner;
+        return this.owner;
     }
 
     public String getLastFound() {
-        return lastFound;
+        return this.lastFound;
     }
 
-    public void setLastFound(String lastFound) {
-        this.lastFound = lastFound;
-    }
 }

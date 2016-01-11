@@ -15,8 +15,8 @@ public final class AttributesTable{
         public static final String NAME = "name";
     }
 
-    public static void onCreate(SQLiteDatabase db){
-        StringBuilder sb = new StringBuilder();
+    public static void onCreate(final SQLiteDatabase db){
+        final StringBuilder sb = new StringBuilder();
         sb.append("CREATE TABLE " + AttributesTable.TABLE_NAME + " (");
         sb.append(BaseColumns._ID + " INTEGER PRIMARY KEY, ");
         sb.append(AttributesColumns.ACODE + " TEXT, ");
@@ -26,7 +26,7 @@ public final class AttributesTable{
         db.execSQL(sb.toString());
     }
 
-    public static void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
+    public static void onUpgrade(final SQLiteDatabase db, final int oldVersion, final int newVersion){
         if(oldVersion >= newVersion) {
             return;
         }

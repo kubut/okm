@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import com.example.OKM.R;
 import com.example.OKM.presentation.presenter.SettingsPresenter;
 
@@ -14,44 +13,44 @@ import com.example.OKM.presentation.presenter.SettingsPresenter;
  * Created by kubut on 2015-08-17.
  */
 public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
-    SettingsPresenter presenter;
-    Preference selectMap;
+    private SettingsPresenter presenter;
 
 
     @Override
     public void onCreate(final Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.settings);
+        this.addPreferencesFromResource(R.xml.settings);
 
         PreferenceManager.getDefaultSharedPreferences(this.getActivity()).registerOnSharedPreferenceChangeListener(this);
 
-        selectMap = findPreference("prefSelectMap");
+        final Preference selectMap = this.findPreference("prefSelectMap");
 
         selectMap.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
-            public boolean onPreferenceClick(Preference preference) {
-                Intent intent = new Intent(getActivity().getApplicationContext(), SettingsMapActivity.class);
-                startActivity(intent);
+            public boolean onPreferenceClick(final Preference preference) {
+                final Intent intent = new Intent(SettingsFragment.this.getActivity().getApplicationContext(), SettingsMapActivity.class);
+                SettingsFragment.this.startActivity(intent);
                 return false;
             }
         });
 
-        if(presenter == null){
-            presenter = new SettingsPresenter(this);
+        if(this.presenter == null){
+            this.presenter = new SettingsPresenter(this);
         }
 
-        presenter.syncPreferencesSummary();
+        this.presenter.syncPreferencesSummary();
     }
 
+    @SuppressWarnings("SwitchStatementWithoutDefaultBranch")
     @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if(isAdded()){
+    public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key) {
+        if(this.isAdded() && (this.presenter != null)){
             this.presenter.syncPreferencesSummary();
 
             switch (key){
                 case "prefUsername":
                     this.presenter.resetUuid();
-                    if(getPreferenceManager().getSharedPreferences().getBoolean("prefHideFound", true)){
+                    if(this.getPreferenceManager().getSharedPreferences().getBoolean("prefHideFound", true)){
                         this.presenter.reloadMap();
                     }
                     break;

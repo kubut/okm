@@ -6,7 +6,8 @@ import com.example.OKM.domain.model.CacheModel;
 /**
  * Created by Jakub on 12.12.2015.
  */
-public interface ICacheTabs {
+@SuppressWarnings({"unused"})
+interface ICacheTabs {
     void syncView();
     void setView(Context context, CacheModel cacheModel);
 }

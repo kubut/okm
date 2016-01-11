@@ -2,7 +2,6 @@ package com.example.OKM.domain.service;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-import com.example.OKM.R;
 import com.example.OKM.data.repositories.PreferencesRepository;
 import com.example.OKM.domain.valueObject.MapPositionValue;
 import com.google.android.gms.maps.model.LatLng;
@@ -13,33 +12,31 @@ import java.util.Locale;
  * Created by kubut on 2015-08-22.
  */
 public class PreferencesService {
-    PreferencesRepository repository;
-    Context context;
+    private final PreferencesRepository repository;
 
-    public PreferencesService(Context context){
-        this.context = context;
-        repository = new PreferencesRepository(context);
+    public PreferencesService(final Context context){
+        this.repository = new PreferencesRepository(context);
     }
 
     @Nullable
     public String getUsername(){
-        String username = repository.getUsername();
+        String username = this.repository.getUsername();
 
         if(username != null){
             username = username.trim();
 
-            return username.equals("") ? null : username;
+            return username.isEmpty() ? null : username;
         } else {
             return null;
         }
     }
 
-    public boolean isSaveMode(){
-        return repository.getSaveMode();
+    private boolean isSaveMode(){
+        return this.repository.getSaveMode();
     }
 
     public boolean isMapAutoposition(){
-        return repository.isMapAutoposition();
+        return this.repository.isMapAutoposition();
     }
 
     public int getCachesLimit(){
@@ -47,42 +44,43 @@ public class PreferencesService {
     }
 
     public String getUuid() {
-        return repository.getUuid();
+        return this.repository.getUuid();
     }
 
-    public void setMapPosition(MapPositionValue position){
-        repository.setMapPosition(position.toString());
+    public void setMapPosition(final MapPositionValue position){
+        this.repository.setMapPosition(position.toString());
     }
 
     public MapPositionValue getMapPosition(){
-        String encoded = repository.getMapPosition();
+        final String encoded = this.repository.getMapPosition();
 
         if(encoded == null){
             return null;
         }
 
-        String[] parts = encoded.split(";");
+        final String[] parts = encoded.split(";");
 
-        LatLng position = new LatLng(Double.parseDouble(parts[0]), Double.parseDouble(parts[1]));
-        float zoom = Float.parseFloat(parts[2]);
+        final LatLng position = new LatLng(Double.parseDouble(parts[0]), Double.parseDouble(parts[1]));
+        final float zoom = Float.parseFloat(parts[2]);
 
         return new MapPositionValue(position, zoom);
     }
 
-    public void setUuid(String uuid){
-        repository.setUuid(uuid);
+    public void setUuid(final String uuid){
+        this.repository.setUuid(uuid);
     }
 
     public boolean isHideFound(){
-        return repository.isHideFound();
+        return this.repository.isHideFound();
     }
 
+    @SuppressWarnings("MethodMayBeStatic")
     public String getLanguageCode(){
         return Locale.getDefault().getLanguage();
     }
 
     public String getServerName(){
-        return repository.getServer();
+        return this.repository.getServer();
     }
 
     public String getServerAPI(){

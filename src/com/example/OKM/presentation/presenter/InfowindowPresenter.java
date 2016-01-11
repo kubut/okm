@@ -1,24 +1,17 @@
 package com.example.OKM.presentation.presenter;
 
 import android.content.Context;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
-import android.location.Location;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
-import android.util.Log;
-import android.view.Surface;
-import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.example.OKM.R;
 import com.example.OKM.domain.model.CacheMakerModel;
 import com.example.OKM.domain.model.CompassModel;
-import com.example.OKM.domain.service.LocationHelper;
 import com.example.OKM.domain.task.CompassListener;
 import com.example.OKM.domain.task.TimerTask;
 import com.example.OKM.presentation.view.MainActivity;
@@ -31,16 +24,16 @@ import java.util.concurrent.Callable;
  * Created by Jakub on 11.10.2015.
  */
 public class InfowindowPresenter {
-    private MainMapPresenter mainMapPresenter;
+    private final MainMapPresenter mainMapPresenter;
     private CacheMakerModel selectedMarker;
     private TextView type, size, owner, found;
     private ActionBar actionBar;
     private SensorManager sensorManager;
     private CompassListener compassListener;
     private Thread thread;
-    private CompassModel compassModel;
+    private final CompassModel compassModel;
 
-    public InfowindowPresenter(MainMapPresenter mainMapPresenter){
+    public InfowindowPresenter(final MainMapPresenter mainMapPresenter){
         this.mainMapPresenter = mainMapPresenter;
         this.compassModel = new CompassModel(this);
         this.sync();
@@ -48,7 +41,7 @@ public class InfowindowPresenter {
     }
 
     public void sync(){
-        LinearLayout infowindow = this.mainMapPresenter.getActivity().getInfowindowLayout();
+        final LinearLayout infowindow = this.mainMapPresenter.getActivity().getInfowindowLayout();
         this.type = (TextView) infowindow.findViewById(R.id.infoCacheType);
         this.size = (TextView) infowindow.findViewById(R.id.infoCacheSize);
         this.owner = (TextView) infowindow.findViewById(R.id.infoCacheOwner);
@@ -68,7 +61,7 @@ public class InfowindowPresenter {
         this.syncToolbar();
     }
 
-    public void show(Marker marker){
+    public void show(final Marker marker){
         if(!this.isOpen()){
             this.mainMapPresenter.getActivity().showInfowindow(true);
         }
@@ -124,8 +117,8 @@ public class InfowindowPresenter {
 
     @Nullable
     public String getSelectedMarkerCode(){
-        if(selectedMarker != null){
-            return selectedMarker.getCode();
+        if(this.selectedMarker != null){
+            return this.selectedMarker.getCode();
         } else {
             return null;
         }
@@ -133,8 +126,8 @@ public class InfowindowPresenter {
 
     @Nullable
     public String getSelectedMarkerName(){
-        if(selectedMarker != null){
-            return selectedMarker.getTitle();
+        if(this.selectedMarker != null){
+            return this.selectedMarker.getTitle();
         } else {
             return null;
         }
@@ -159,68 +152,74 @@ public class InfowindowPresenter {
     }
 
     private void syncInfo(){
-        if(actionBar != null){
-            actionBar.setTitle(this.selectedMarker.getTitle());
-            actionBar.setSubtitle(this.selectedMarker.getCode());
+        if(this.actionBar != null){
+            this.actionBar.setTitle(this.selectedMarker.getTitle());
+            this.actionBar.setSubtitle(this.selectedMarker.getCode());
         }
 
         this.mainMapPresenter.getActivity().invalidateOptionsMenu();
 
         String lastFound = this.selectedMarker.getLastFound();
 
-        if(lastFound != null && !lastFound.equals("null")){
+        if((lastFound != null) && !lastFound.equals("null")){
             lastFound = lastFound.substring(0,10);
         } else {
-            lastFound = getContext().getResources().getString(R.string.label_last_found_none);
+            lastFound = this.getContext().getResources().getString(R.string.label_last_found_none);
         }
 
-        type.setText(this.selectedMarker.getType().getName());
-        size.setText(this.selectedMarker.getSize().getName());
-        owner.setText(this.selectedMarker.getOwner());
-        found.setText(lastFound);
+        this.type.setText(this.selectedMarker.getType().getName());
+        this.size.setText(this.selectedMarker.getSize().getName());
+        this.owner.setText(this.selectedMarker.getOwner());
+        this.found.setText(lastFound);
     }
 
     private void startLocationTask(){
+        if(!this.getActivity().isCompassAvaible()){
+            return;
+        }
+
         this.stopLocationTask();
 
-        SensorManager sensorManager = this.getSensorManager();
-
-        sensorManager.registerListener(
+        this.getSensorManager().registerListener(
                 this.getCompassListener(),
-                sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),
+                this.getSensorManager().getDefaultSensor(Sensor.TYPE_ORIENTATION),
                 SensorManager.SENSOR_DELAY_GAME
         );
 
         final GoogleMap googleMap = this.mainMapPresenter.getGoogleMap();
 
-        if(this.mainMapPresenter.isGPSEnabled() && googleMap != null && this.selectedMarker != null){
+        if(this.mainMapPresenter.isGPSEnabled() && (googleMap != null) && (this.selectedMarker != null)){
             if(!googleMap.isMyLocationEnabled()){
                 googleMap.setMyLocationEnabled(true);
             }
             this.compassModel.updateDistance(googleMap, this.selectedMarker.getPosition());
 
-            thread = new Thread(new TimerTask(
+            this.thread = new Thread(new TimerTask(
                     new Handler(),
                     500,
                     new Callable() {
                         @Override
                         public Object call() throws Exception {
-                            compassModel.updateDistance(googleMap, selectedMarker.getPosition());
+                            InfowindowPresenter.this.compassModel.updateDistance(googleMap, InfowindowPresenter.this.selectedMarker.getPosition());
                             return null;
                         }
                     }
             ));
-            thread.start();
+            this.thread.start();
         }
 
         this.compassModel.syncMode();
     }
 
     private void stopLocationTask(){
+        if(!this.getActivity().isCompassAvaible()){
+            return;
+        }
+
         this.compassModel.syncMode();
         this.getSensorManager().unregisterListener(this.getCompassListener());
         if(this.thread != null){
-            thread.interrupt();
+            this.thread.interrupt();
         }
     }
 

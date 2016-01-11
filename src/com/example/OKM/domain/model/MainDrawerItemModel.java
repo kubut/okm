@@ -9,9 +9,9 @@ public class MainDrawerItemModel implements IMainDrawerItem {
     private int icon;
     private String title;
     private boolean active;
-    private MainMapPresenter presenter;
+    private final MainMapPresenter presenter;
 
-    public MainDrawerItemModel(String title, int icon, MainMapPresenter presenter){
+    public MainDrawerItemModel(final String title, final int icon, final MainMapPresenter presenter){
         this.icon = icon;
         this.title = title;
         this.active = false;
@@ -21,26 +21,26 @@ public class MainDrawerItemModel implements IMainDrawerItem {
     @Override
     public void click() {
         this.active = !this.active;
-        presenter.hideDrawer();
+        this.presenter.hideDrawer();
     }
 
     @Override
-    public void setIcon(int icon) {
+    public void setIcon(final int icon) {
         this.icon = icon;
     }
 
     @Override
     public String getTitle() {
-        return title;
+        return this.title;
     }
 
     @Override
-    public void setTitle(String title) {
+    public void setTitle(final String title) {
         this.title = title;
     }
 
     @Override
-    public void setActive(boolean active) {
+    public void setActive(final boolean active) {
         this.active = active;
     }
 
@@ -51,7 +51,7 @@ public class MainDrawerItemModel implements IMainDrawerItem {
 
     @Override
     public boolean isActive() {
-        return active;
+        return this.active;
     }
 
     @Override

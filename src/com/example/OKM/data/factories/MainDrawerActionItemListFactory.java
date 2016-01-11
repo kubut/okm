@@ -11,15 +11,15 @@ import java.util.ArrayList;
  * Created by kubut on 2015-08-03.
  */
 public class MainDrawerActionItemListFactory implements IMainDrawerItemListFactory {
-    private MainMapPresenter presenter;
+    private final MainMapPresenter presenter;
 
-    public MainDrawerActionItemListFactory(MainMapPresenter presenter){
+    public MainDrawerActionItemListFactory(final MainMapPresenter presenter){
         this.presenter = presenter;
     }
 
     @Override
     public ArrayList<IMainDrawerItem> getItemsList() {
-        ArrayList<IMainDrawerItem> itemsList = new ArrayList<IMainDrawerItem>();
+        final ArrayList<IMainDrawerItem> itemsList = new ArrayList<>();
 
         // Satellite
         itemsList.add(new MainDrawerItemModel( this.presenter.getContext().getString(R.string.drawer_satellite), R.drawable.ic_satellite_black_36dp, this.presenter ){

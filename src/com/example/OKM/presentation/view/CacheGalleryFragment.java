@@ -26,13 +26,8 @@ public class CacheGalleryFragment extends Fragment implements ICacheTabs{
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        View view = inflater.inflate(R.layout.fragment_cache_gallery, container, false);
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState){
+        final View view = inflater.inflate(R.layout.fragment_cache_gallery, container, false);
 
         this.galleryView = (ListView) view.findViewById(R.id.cache_gallery_list);
         this.ready = true;
@@ -49,23 +44,23 @@ public class CacheGalleryFragment extends Fragment implements ICacheTabs{
             this.galleryView.setAdapter(adapter);
             this.galleryView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    openPhoto(adapter.getItem(position).getUrl());
+                public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id) {
+                    CacheGalleryFragment.this.openPhoto(adapter.getItem(position).getUrl());
                 }
             });
         }
     }
 
-    public void openPhoto(String url){
-        Intent intent = new Intent(getContext(), CachePhotoActivity.class);
+    private void openPhoto(final String url){
+        final Intent intent = new Intent(this.getContext(), CachePhotoActivity.class);
         intent.putExtra("photo_url", url);
-        startActivity(intent);
+        this.startActivity(intent);
     }
 
     @Override
-    public void setView(Context context, CacheModel cacheModel) {
+    public void setView(final Context context, final CacheModel cacheModel) {
         this.loaded = true;
         this.cacheModel = cacheModel;
-        syncView();
+        this.syncView();
     }
 }

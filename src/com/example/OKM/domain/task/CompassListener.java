@@ -3,7 +3,6 @@ package com.example.OKM.domain.task;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
-import android.view.Surface;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import com.example.OKM.domain.service.LocationHelper;
@@ -13,22 +12,23 @@ import com.example.OKM.presentation.presenter.MainMapPresenter;
  * Created by Jakub on 08.10.2015.
  */
 public class CompassListener implements SensorEventListener {
-    private MainMapPresenter mainMapPresenter;
-    private float currentDegree = 0f;
+    private final MainMapPresenter mainMapPresenter;
+    private float currentDegree;
 
-    public CompassListener(MainMapPresenter mainMapPresenter){
+    public CompassListener(final MainMapPresenter mainMapPresenter){
         this.mainMapPresenter = mainMapPresenter;
     }
 
     @Override
-    public void onSensorChanged(SensorEvent sensorEvent) {
+    public void onSensorChanged(final SensorEvent sensorEvent) {
         Integer degree = Math.round(sensorEvent.values[0]);
+        //noinspection ConstantConditions
         degree = LocationHelper.getMarkerAzimuth(-degree);
 
         if(degree != null) {
             degree -= this.mainMapPresenter.getScreenRotation();
 
-            RotateAnimation rotateAnimation = new RotateAnimation(
+            final RotateAnimation rotateAnimation = new RotateAnimation(
                     this.currentDegree,
                     degree,
                     Animation.RELATIVE_TO_SELF,
@@ -47,7 +47,7 @@ public class CompassListener implements SensorEventListener {
     }
 
     @Override
-    public void onAccuracyChanged(Sensor sensor, int i) {
+    public void onAccuracyChanged(final Sensor sensor, final int i) {
 
     }
 }

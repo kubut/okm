@@ -11,32 +11,28 @@ import com.google.android.gms.maps.model.CameraPosition;
  * Created by kubut on 2015-09-16.
  */
 public class SettingsMapPresenter {
-    private SettingsMapActivity activity;
     private SupportMapFragment mapFragment;
     private PreferencesService preferencesService;
-    private MapInteractor mapInteractor;
+    private final MapInteractor mapInteractor;
 
-    public SettingsMapPresenter(SettingsMapActivity activity){
-        this.activity = activity;
+    public SettingsMapPresenter(final SettingsMapActivity activity){
         this.preferencesService = new PreferencesService(activity.getApplicationContext());
         this.mapInteractor = new MapInteractor();
     }
 
-    public void connectContext(SettingsMapActivity activity, SupportMapFragment map){
-        this.activity = activity;
+    public void connectContext(final SettingsMapActivity activity, final SupportMapFragment map){
         this.mapFragment = map;
         this.preferencesService = new PreferencesService(activity.getApplicationContext());
         this.mapInteractor.connectMap(map.getMap(), activity.getApplicationContext());
     }
 
     public void disconnectContext(){
-        this.activity = null;
         this.mapFragment = null;
         this.mapInteractor.disconnectMap();
     }
 
     public void savePosition(){
-        CameraPosition camera = this.mapFragment.getMap().getCameraPosition();
+        final CameraPosition camera = this.mapFragment.getMap().getCameraPosition();
 
         this.preferencesService.setMapPosition(new MapPositionValue( camera.target, camera.zoom ));
     }

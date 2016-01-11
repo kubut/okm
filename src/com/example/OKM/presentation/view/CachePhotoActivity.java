@@ -24,58 +24,60 @@ public class CachePhotoActivity extends AppCompatActivity {
     private RelativeLayout tryAgainView;
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(final Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cache_photo);
+        this.setContentView(R.layout.activity_cache_photo);
 
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this.getApplicationContext()).build();
+        final ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this.getApplicationContext()).build();
         ImageLoader.getInstance().init(config);
 
-        this.imageView      = (ImageView) findViewById(R.id.photoZoom);
-        this.progressView   = (ProgressView) findViewById(R.id.progressCircle);
-        this.tryAgainView   = (RelativeLayout) findViewById(R.id.tryAgainView);
+        this.imageView      = (ImageView) this.findViewById(R.id.photoZoom);
+        this.progressView   = (ProgressView) this.findViewById(R.id.progressCircle);
+        this.tryAgainView   = (RelativeLayout) this.findViewById(R.id.tryAgainView);
 
         this.loadPhoto(null);
     }
 
-    public void loadPhoto(View view){
+    @SuppressWarnings("UnusedParameters")
+    public void loadPhoto(final View view){
         final ImageLoader imageLoader = ImageLoader.getInstance();
 
-        DisplayImageOptions options = new DisplayImageOptions.Builder()
+        final DisplayImageOptions options = new DisplayImageOptions.Builder()
                 .cacheInMemory(true)
                 .build();
 
-        ImageLoadingListener listener = new ImageLoadingListener() {
+        final ImageLoadingListener listener = new ImageLoadingListener() {
             @Override
-            public void onLoadingStarted(String imageUri, View view) {
-                imageView.setVisibility(View.GONE);
-                progressView.setVisibility(View.VISIBLE);
-                tryAgainView.setVisibility(View.GONE);
+            public void onLoadingStarted(final String imageUri, final View view) {
+                CachePhotoActivity.this.imageView.setVisibility(View.GONE);
+                CachePhotoActivity.this.progressView.setVisibility(View.VISIBLE);
+                CachePhotoActivity.this.tryAgainView.setVisibility(View.GONE);
             }
 
             @Override
-            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                imageView.setVisibility(View.GONE);
-                progressView.setVisibility(View.GONE);
-                tryAgainView.setVisibility(View.VISIBLE);
+            public void onLoadingFailed(final String imageUri, final View view, final FailReason failReason) {
+                CachePhotoActivity.this.imageView.setVisibility(View.GONE);
+                CachePhotoActivity.this.progressView.setVisibility(View.GONE);
+                CachePhotoActivity.this.tryAgainView.setVisibility(View.VISIBLE);
             }
 
             @Override
-            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                imageView.setVisibility(View.VISIBLE);
-                progressView.setVisibility(View.GONE);
-                tryAgainView.setVisibility(View.GONE);
-                new PhotoViewAttacher(imageView);
+            public void onLoadingComplete(final String imageUri, final View view, final Bitmap loadedImage) {
+                CachePhotoActivity.this.imageView.setVisibility(View.VISIBLE);
+                CachePhotoActivity.this.progressView.setVisibility(View.GONE);
+                CachePhotoActivity.this.tryAgainView.setVisibility(View.GONE);
+                //noinspection ResultOfObjectAllocationIgnored
+                new PhotoViewAttacher(CachePhotoActivity.this.imageView);
             }
 
             @Override
-            public void onLoadingCancelled(String imageUri, View view) {
-                imageView.setVisibility(View.GONE);
-                progressView.setVisibility(View.GONE);
-                tryAgainView.setVisibility(View.VISIBLE);
+            public void onLoadingCancelled(final String imageUri, final View view) {
+                CachePhotoActivity.this.imageView.setVisibility(View.GONE);
+                CachePhotoActivity.this.progressView.setVisibility(View.GONE);
+                CachePhotoActivity.this.tryAgainView.setVisibility(View.VISIBLE);
             }
         };
 
-        imageLoader.displayImage(getIntent().getExtras().getString("photo_url"), imageView, options, listener);
+        imageLoader.displayImage(this.getIntent().getExtras().getString("photo_url"), this.imageView, options, listener);
     }
 }

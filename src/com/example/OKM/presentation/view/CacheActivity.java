@@ -21,7 +21,6 @@ import com.rey.material.widget.ProgressView;
 
 public class CacheActivity extends AppCompatActivity {
     private CachePresenter presenter;
-    private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private LinearLayout bottomPanel;
@@ -30,47 +29,47 @@ public class CacheActivity extends AppCompatActivity {
     private String cacheCode;
     private ICacheTabs tabDetails, tabLogs, tabGallery;
     private Menu menu;
-    private boolean loaded = false;
+    private boolean loaded;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cache);
+        this.setContentView(R.layout.activity_cache);
 
-        this.toolbar        = (Toolbar) findViewById(R.id.toolbar);
-        this.tabLayout      = (TabLayout) findViewById(R.id.tabs);
-        this.viewPager      = (ViewPager) findViewById(R.id.viewpager);
-        this.progressView   = (ProgressView) findViewById(R.id.progressCircle);
-        this.tryAgainView   = (RelativeLayout) findViewById(R.id.tryAgainView);
-        this.bottomPanel    = (LinearLayout) findViewById(R.id.bottom_panel);
+        final Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
+        this.tabLayout      = (TabLayout) this.findViewById(R.id.tabs);
+        this.viewPager      = (ViewPager) this.findViewById(R.id.viewpager);
+        this.progressView   = (ProgressView) this.findViewById(R.id.progressCircle);
+        this.tryAgainView   = (RelativeLayout) this.findViewById(R.id.tryAgainView);
+        this.bottomPanel    = (LinearLayout) this.findViewById(R.id.bottom_panel);
 
-        this.presenter = (CachePresenter) getLastCustomNonConfigurationInstance();
+        this.presenter = (CachePresenter) this.getLastCustomNonConfigurationInstance();
         if(this.presenter == null){
             this.presenter = new CachePresenter(this);
         }
 
         this.cacheCode = null;
         String cacheName = null;
-        Bundle extras = getIntent().getExtras();
+        final Bundle extras = this.getIntent().getExtras();
         if (extras != null) {
             this.cacheCode = extras.getString("code");
             cacheName = extras.getString("name");
         } else {
-            onBackPressed();
+            this.onBackPressed();
         }
 
-        setSupportActionBar(toolbar);
+        this.setSupportActionBar(toolbar);
 
-        assert getSupportActionBar() != null;
+        assert this.getSupportActionBar() != null;
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(cacheName);
-        getSupportActionBar().setSubtitle(this.cacheCode);
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        this.getSupportActionBar().setTitle(cacheName);
+        this.getSupportActionBar().setSubtitle(this.cacheCode);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                onBackPressed();
+            public void onClick(final View v) {
+                CacheActivity.this.onBackPressed();
             }
         });
 
@@ -81,12 +80,12 @@ public class CacheActivity extends AppCompatActivity {
 
     @Override
     public Object onRetainCustomNonConfigurationInstance(){
-        return presenter;
+        return this.presenter;
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        MenuInflater inflater = getMenuInflater();
+    public boolean onCreateOptionsMenu(final Menu menu){
+        final MenuInflater inflater = this.getMenuInflater();
         inflater.inflate(R.menu.cache_details_actions, menu);
         this.menu = menu;
 
@@ -98,7 +97,7 @@ public class CacheActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_nav:
                 this.presenter.goToNavigation();
@@ -123,12 +122,14 @@ public class CacheActivity extends AppCompatActivity {
         this.presenter.disconnectContext();
     }
 
-    public void loadCache(View v){
+    @SuppressWarnings("UnusedParameters")
+    public void loadCache(final View v){
         this.presenter.loadCacheDetails(this.cacheCode);
         this.switchToLoader();
     }
 
-    public void showAttributes(View v){
+    @SuppressWarnings("UnusedParameters")
+    public void showAttributes(final View v){
         this.presenter.showAttributes();
     }
 
@@ -149,7 +150,7 @@ public class CacheActivity extends AppCompatActivity {
 
     }
 
-    public void switchToLoader(){
+    private void switchToLoader(){
         this.progressView.setVisibility(View.VISIBLE);
         this.tryAgainView.setVisibility(View.GONE);
         this.viewPager.setVisibility(View.GONE);
@@ -158,12 +159,12 @@ public class CacheActivity extends AppCompatActivity {
 
     }
 
-    public void setCacheDetails(CacheModel cacheModel){
-        TextView type   = (TextView) this.bottomPanel.findViewById(R.id.infoCacheType);
-        TextView size   = (TextView) this.bottomPanel.findViewById(R.id.infoCacheSize);
-        TextView owner  = (TextView) this.bottomPanel.findViewById(R.id.infoCacheOwner);
+    public void setCacheDetails(final CacheModel cacheModel){
+        final TextView type   = (TextView) this.bottomPanel.findViewById(R.id.infoCacheType);
+        final TextView size   = (TextView) this.bottomPanel.findViewById(R.id.infoCacheSize);
+        final TextView owner  = (TextView) this.bottomPanel.findViewById(R.id.infoCacheOwner);
 
-        setupViewPager(cacheModel.hasPhotos());
+        this.setupViewPager(cacheModel.hasPhotos());
         this.tabLayout.setupWithViewPager(this.viewPager);
 
         this.initMenu();
@@ -182,25 +183,26 @@ public class CacheActivity extends AppCompatActivity {
         this.loaded = true;
     }
 
-    private void setupViewPager(boolean gallery) {
+    private void setupViewPager(final boolean gallery) {
         this.initTabs();
 
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment((Fragment) this.tabDetails, getString(R.string.cache_tabs_details));
-        adapter.addFragment((Fragment) this.tabLogs, getString(R.string.cache_tabs_logs));
+        final ViewPagerAdapter adapter = new ViewPagerAdapter(this.getSupportFragmentManager());
+        adapter.addFragment((Fragment) this.tabDetails, this.getString(R.string.cache_tabs_details));
+        adapter.addFragment((Fragment) this.tabLogs, this.getString(R.string.cache_tabs_logs));
 
         if(gallery){
-            adapter.addFragment((Fragment) this.tabGallery, getString(R.string.cache_tabs_gallery));
+            adapter.addFragment((Fragment) this.tabGallery, this.getString(R.string.cache_tabs_gallery));
         }
 
         this.viewPager.setAdapter(adapter);
     }
 
+    @SuppressWarnings("StringConcatenationMissingWhitespace")
     private void initTabs(){
-        String name = "android:switcher:" + R.id.viewpager + ":";
-        this.tabDetails = (ICacheTabs) getSupportFragmentManager().findFragmentByTag(name+"0");
-        this.tabLogs = (ICacheTabs) getSupportFragmentManager().findFragmentByTag(name+"1");
-        this.tabGallery = (ICacheTabs) getSupportFragmentManager().findFragmentByTag(name+"2");
+        final String name = "android:switcher:" + R.id.viewpager + ":";
+        this.tabDetails = (ICacheTabs) this.getSupportFragmentManager().findFragmentByTag(name+"0");
+        this.tabLogs = (ICacheTabs) this.getSupportFragmentManager().findFragmentByTag(name+"1");
+        this.tabGallery = (ICacheTabs) this.getSupportFragmentManager().findFragmentByTag(name+"2");
 
         if(this.tabDetails == null){
             this.tabDetails = new CacheDetailsFragment();

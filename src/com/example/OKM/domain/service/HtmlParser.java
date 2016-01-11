@@ -5,10 +5,10 @@ import android.content.Context;
 /**
  * Created by Jakub on 13.12.2015.
  */
-public class HtmlParser {
-    public static String parseHtml(String str, Context ctx){
-        PreferencesService preferencesService = new PreferencesService(ctx);
-        String url = preferencesService.getServerAPI();
+class HtmlParser {
+    public static String parseHtml(final String str, final Context ctx){
+        final PreferencesService preferencesService = new PreferencesService(ctx);
+        final String url = preferencesService.getServerAPI();
 
         String o = str.replace("\n", "");
         o = o.replace("src=\"lib","src=\"http://www."+url+"/lib");

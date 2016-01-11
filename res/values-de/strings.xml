@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="default_map_position">51.28;12.05;6.5</string>
-    <string name="Event">Event-Cache</string>
-    <string name="Multi">Multicache</string>
+    <string name="Event" tools:ignore="UnusedResources">Event-Cache</string>
+    <string name="Multi" tools:ignore="UnusedResources">Multicache</string>
     <string name="Other">Anderer Cache</string>
-    <string name="Quiz">Rätselcache</string>
-    <string name="Traditional">Normaler Cache</string>
-    <string name="Virtual">Virtueller Cache</string>
+    <string name="Quiz" tools:ignore="UnusedResources">Rätselcache</string>
+    <string name="Traditional" tools:ignore="UnusedResources">Normaler Cache</string>
+    <string name="Virtual" tools:ignore="UnusedResources">Virtueller Cache</string>
     <string name="cache_attrs">Attribute</string>
     <string name="cache_dialog_ok">Schließen</string>
     <string name="cache_dialog_title">Hinweis</string>
-    <string name="cache_gallery_no_photos">Keine Fotos</string>
+    <string name="cache_gallery_no_photos" tools:ignore="UnusedResources">Keine Fotos</string>
     <string name="cache_menu_hint">Hinweis anzeigen</string>
     <string name="cache_menu_maps">In Google Maps anzeigen</string>
     <string name="cache_menu_nav">Navigieren</string>
@@ -18,7 +18,7 @@
     <string name="cache_tabs_details">Beschreibung</string>
     <string name="cache_tabs_gallery">Galerie</string>
     <string name="cache_tabs_logs">Logs</string>
-    <string name="cache_try_again_text">Ups... Etwas ist fehlgeschlagen</string>
+    <string name="cache_try_again_text">Ups… Etwas ist fehlgeschlagen</string>
     <string name="cache_try_again_button">Noch einmal versuchen</string>
     <string name="drawer_cache_info">Beschreibung</string>
     <string name="drawer_caches">Caches</string>
@@ -33,7 +33,7 @@
     <string name="label_owner">Besitzer:</string>
     <string name="label_size">Größe:</string>
     <string name="label_type">Typ:</string>
-    <string name="settings_downloading">Lade herunter</string>
+    <string name="settings_downloading" tools:ignore="UnusedResources">Lade herunter</string>
     <string name="settings_hide_found">Verberge gefundene Caches</string>
     <string name="settings_hide_found_sub">Verberge Caches, die du bereits gefunden hast</string>
     <string name="settings_low_limit">Sparmodus</string>
@@ -48,16 +48,16 @@
     <string name="settings_set_map_sub">Beim Öffnen aktivierte Karte auswählen</string>
     <string name="settings_username">Benutzername</string>
     <string name="settings_username_blank">Leer</string>
-    <string name="size_large">Groß</string>
+    <string name="size_large" tools:ignore="UnusedResources">Groß</string>
     <string name="size_micro">Mikro</string>
-    <string name="size_nano">Nano</string>
+    <string name="size_nano" tools:ignore="UnusedResources">Nano</string>
     <string name="size_other">Andere</string>
-    <string name="size_regular">Normal</string>
-    <string name="size_small">Klein</string>
-    <string name="size_xlarge">Riesig</string>
+    <string name="size_regular" tools:ignore="UnusedResources">Normal</string>
+    <string name="size_small" tools:ignore="UnusedResources">Klein</string>
+    <string name="size_xlarge" tools:ignore="UnusedResources">Riesig</string>
     <string name="title_activity_settings">Einstellungen</string>
     <string name="drawer_settings">Einstellungen</string>
     <string name="toast_downloading_error">Fehler beim Download</string>
-    <string name="toast_downloading">Lade herunter...</string>
-    <string name="settings_language">Sprache</string>
+    <string name="toast_downloading">Lade herunter…</string>
+    <string name="settings_language" tools:ignore="UnusedResources">Sprache</string>
 </resources>

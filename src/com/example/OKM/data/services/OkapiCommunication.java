@@ -11,39 +11,39 @@ import java.net.URL;
  */
 public class OkapiCommunication extends AsyncTask<String, Void, String> {
     @Override
-     protected String doInBackground(String... params) {
+     protected String doInBackground(final String... params) {
         String response = "";
 
         try{
-            URL url = new URL(params[0]);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            final URL url = new URL(params[0]);
+            final HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
 
-            InputStream in = new BufferedInputStream(connection.getInputStream());
+            final InputStream in = new BufferedInputStream(connection.getInputStream());
 
-            response = convertStreamToString(in);
-        } catch (Exception e){
+            response = OkapiCommunication.convertStreamToString(in);
+        } catch (final Exception e){
             e.printStackTrace();
         }
 
         return response;
     }
 
-    private String convertStreamToString(InputStream is) {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-        StringBuilder sb = new StringBuilder();
+    private static String convertStreamToString(final InputStream is) {
+        final BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        final StringBuilder sb = new StringBuilder();
 
-        String line = null;
+        String line;
         try {
             while ((line = reader.readLine()) != null) {
                 sb.append(line).append('\n');
             }
-        } catch (IOException e) {
+        } catch (final IOException e) {
             e.printStackTrace();
         } finally {
             try {
                 is.close();
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 e.printStackTrace();
             }
         }

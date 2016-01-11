@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="default_map_position">51.70;18.85;5.5</string>
 
     <!-- drawer -->
@@ -13,19 +13,19 @@
     <string name="drawer_settings">Ustawienia</string>
 
     <!-- toasts-->
-    <string name="toast_downloading">Pobieranie...</string>
+    <string name="toast_downloading">Pobieranie…</string>
     <string name="toast_downloading_error">Błąd pobierania</string>
 
     <!-- Settings-->
     <string name="title_activity_settings">Ustawienia</string>
-    <string name="settings_downloading">Pobieranie</string>
+    <string name="settings_downloading" tools:ignore="UnusedResources">Pobieranie</string>
     <string name="settings_username">Nazwa użytkownika</string>
     <string name="settings_username_blank">Brak</string>
     <string name="settings_low_limit">Tryb oszczędny</string>
     <string name="settings_low_limit_sub">Oszczędzaj transfer pobierając mniej skrzynek</string>
     <string name="settings_hide_found">Ukryj znalezione</string>
     <string name="settings_hide_found_sub">Nie pokazuj na mapie skrzynek które już znalazłeś</string>
-    <string name="settings_language">Język</string>
+    <string name="settings_language" tools:ignore="UnusedResources">Język</string>
     <string name="settings_set_map">Ustaw pozycję mapy</string>
     <string name="settings_set_map_sub">Wybierz jaką mapę chcesz zobaczyć po uruchomieniu aplikacji</string>
     <string name="settings_reset_map">Automatyczne określanie pozycji</string>
@@ -46,19 +46,19 @@
     <string name="label_no_gps">Brak GPS</string>
 
     <!-- Caches types-->
-    <string name="Multi">Multi</string>
+    <string name="Multi" tools:ignore="UnusedResources">Multi</string>
     <string name="Traditional">Tradycyjna</string>
     <string name="Quiz">Quiz</string>
-    <string name="Virtual">Wirtualna</string>
-    <string name="Event">Wydarzenie</string>
+    <string name="Virtual" tools:ignore="UnusedResources">Wirtualna</string>
+    <string name="Event" tools:ignore="UnusedResources">Wydarzenie</string>
     <string name="Other">Nietypowa</string>
 
     <!-- Caches sizes -->
-    <string name="size_nano">Nano</string>
+    <string name="size_nano" tools:ignore="UnusedResources">Nano</string>
     <string name="size_micro">Mikro</string>
-    <string name="size_small">Mała</string>
+    <string name="size_small" tools:ignore="UnusedResources">Mała</string>
     <string name="size_regular">Normalna</string>
-    <string name="size_large">Duża</string>
+    <string name="size_large" tools:ignore="UnusedResources">Duża</string>
     <string name="size_xlarge">Ogromna</string>
     <string name="size_other">Inna</string>
     
@@ -67,7 +67,7 @@
     <string name="cache_tabs_details">Opis</string>
     <string name="cache_tabs_gallery">Zdjęcia</string>
     <string name="cache_try_again_button">Spróbuj ponownie</string>
-    <string name="cache_try_again_text">Ups... coś poszło nie tak</string>
+    <string name="cache_try_again_text">Ups… coś poszło nie tak</string>
     <string name="cache_attrs">Atrybuty</string>
     <string name="cache_menu_nav">Włącz nawigacje</string>
     <string name="cache_menu_maps">Pokaż na Google Maps</string>
@@ -75,5 +75,5 @@
     <string name="cache_menu_www">Pokaż stronę kesza</string>
     <string name="cache_dialog_title">Podpowiedź</string>
     <string name="cache_dialog_ok">Zamknij</string>
-    <string name="cache_gallery_no_photos">Brak zdjęć</string>
+    <string name="cache_gallery_no_photos" tools:ignore="UnusedResources">Brak zdjęć</string>
 </resources>

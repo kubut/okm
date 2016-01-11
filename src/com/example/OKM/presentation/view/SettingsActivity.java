@@ -12,24 +12,24 @@ import com.example.OKM.R;
 public class SettingsActivity extends AppCompatActivity {
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(final Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.settings_activity);
+        this.setContentView(R.layout.settings_activity);
 
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
-        setSupportActionBar(toolbar);
+        final Toolbar toolbar = (Toolbar) this.findViewById(R.id.app_bar);
+        this.setSupportActionBar(toolbar);
 
-        assert getSupportActionBar() != null;
+        assert this.getSupportActionBar() != null;
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(R.string.drawer_settings);
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        this.getSupportActionBar().setTitle(R.string.drawer_settings);
 
-        getFragmentManager().beginTransaction().replace(R.id.settingsFrame, new SettingsFragment()).commit();
+        this.getFragmentManager().beginTransaction().replace(R.id.settingsFrame, new SettingsFragment()).commit();
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                onBackPressed();
+            public void onClick(final View v) {
+                SettingsActivity.this.onBackPressed();
             }
         });
     }

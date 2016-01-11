@@ -1,29 +1,25 @@
 package com.example.OKM.domain.valueObject;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.support.annotation.Nullable;
 import com.example.OKM.R;
 
 import java.util.Date;
-import java.util.HashMap;
 
 /**
  * Created by Jakub on 24.12.2015.
  */
 public class CacheLogValue {
     private Date date;
-    private String user, type, comment;
+    private String user;
+    private String comment;
     private int color;
-    private Context context;
+    private final Context context;
 
-    public CacheLogValue(Context context){
+    public CacheLogValue(final Context context){
         this.context = context;
     }
 
-    public void setType(String type) {
-        this.type = type;
-
+    public void setType(final String type) {
         switch (type){
             case "Found it":
                 this.color = this.context.getResources().getColor(R.color.cacheFound);
@@ -41,24 +37,22 @@ public class CacheLogValue {
         return this.color;
     }
     public Date getDate() {
-        return date;
+        return this.date;
     }
-    public void setDate(Date date) {
+    public void setDate(final Date date) {
         this.date = date;
     }
     public String getUser() {
-        return user;
+        return this.user;
     }
-    public void setUser(String user) {
+    public void setUser(final String user) {
         this.user = user;
     }
-    public String getType() {
-        return type;
-    }
+
     public String getComment() {
-        return comment;
+        return this.comment;
     }
-    public void setComment(String comment) {
+    public void setComment(final String comment) {
         this.comment = comment;
     }
 }

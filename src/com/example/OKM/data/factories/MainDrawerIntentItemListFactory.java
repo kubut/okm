@@ -12,15 +12,15 @@ import java.util.ArrayList;
  * Created by kubut on 2015-08-05.
  */
 public class MainDrawerIntentItemListFactory implements IMainDrawerItemListFactory{
-    private MainMapPresenter presenter;
+    private final MainMapPresenter presenter;
 
-    public MainDrawerIntentItemListFactory(MainMapPresenter presenter){
+    public MainDrawerIntentItemListFactory(final MainMapPresenter presenter){
         this.presenter = presenter;
     }
 
     @Override
     public ArrayList<IMainDrawerItem> getItemsList() {
-        ArrayList<IMainDrawerItem> itemsList = new ArrayList<IMainDrawerItem>();
+        final ArrayList<IMainDrawerItem> itemsList = new ArrayList<>();
 
         // settings
         itemsList.add(new MainDrawerItemModel( this.presenter.getContext().getString(R.string.drawer_settings), R.drawable.ic_settings_black_36dp, this.presenter ){
@@ -34,7 +34,7 @@ public class MainDrawerIntentItemListFactory implements IMainDrawerItemListFacto
         itemsList.add(new MainDrawerItemModel( this.presenter.getContext().getString(R.string.drawer_exit), R.drawable.ic_exit_to_app_black_36dp, this.presenter ){
             @Override
             public void click(){
-                Intent intent = new Intent(Intent.ACTION_MAIN);
+                final Intent intent = new Intent(Intent.ACTION_MAIN);
                 intent.addCategory(Intent.CATEGORY_HOME);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 this.getPresenter().getContext().startActivity(intent);

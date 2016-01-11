@@ -15,6 +15,7 @@ import com.example.OKM.domain.valueObject.CacheLogValue;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 public class CacheLogsFragment extends Fragment implements ICacheTabs{
     private WebView logsView;
@@ -28,13 +29,8 @@ public class CacheLogsFragment extends Fragment implements ICacheTabs{
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        View view = inflater.inflate(R.layout.fragment_cache_logs, container, false);
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState){
+        final View view = inflater.inflate(R.layout.fragment_cache_logs, container, false);
 
         this.logsView = (WebView) view.findViewById(R.id.cache_logs);
         this.logsView.setBackgroundColor(Color.TRANSPARENT);
@@ -53,10 +49,10 @@ public class CacheLogsFragment extends Fragment implements ICacheTabs{
     }
 
     @Override
-    public void setView(Context context, CacheModel cacheModel) {
-        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+    public void setView(final Context context, final CacheModel cacheModel) {
+        final DateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
 
-        for(CacheLogValue log : cacheModel.getLogs()){
+        for(final CacheLogValue log : cacheModel.getLogs()){
             this.htmlLogs += "<div style='margin-top: 10px; border-top: 4px solid " + String.format("#%06X", (0xFFFFFF & log.getColor())) + "; background-color: #F5F5F5; box-shadow: 0px 2px 13px -1px rgba(0,0,0,0.35); border-radius: 5px; padding: 5px 15px'>";
             this.htmlLogs += "<p style='float:left; font-weight: bold'>"+df.format(log.getDate())+"</p>";
             this.htmlLogs += "<p style='float:right; font-weight: bold'>"+log.getUser()+"</p>";

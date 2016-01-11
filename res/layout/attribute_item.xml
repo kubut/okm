@@ -8,6 +8,7 @@
             android:id="@+id/attributeIcon"
             android:textColor="@color/textColorPrimary"
             android:textSize="20sp"
+            android:gravity="center"
             android:layout_gravity="center"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="10dp"

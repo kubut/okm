@@ -16,25 +16,25 @@ import java.util.ArrayList;
  * Created by Jakub on 24.12.2015.
  */
 public class AttributesListAdapter extends ArrayAdapter<CacheAttributeValue> {
-    private Context context;
+    private final Context context;
 
-    public AttributesListAdapter(Context context, ArrayList<CacheAttributeValue> itemsList){
+    public AttributesListAdapter(final Context context, final ArrayList<CacheAttributeValue> itemsList){
         super(context, R.layout.attribute_item, itemsList);
         this.context = context;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, final ViewGroup parent) {
         if(convertView == null){
-            LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            final LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.attribute_item, parent, false);
         }
 
-        Typeface font = Typeface.createFromAsset(this.getContext().getAssets(), "fontawesome-webfont.ttf");
+        final Typeface font = Typeface.createFromAsset(this.getContext().getAssets(), "fontawesome-webfont.ttf");
 
-        TextView title = (TextView) convertView.findViewById(R.id.attributeName);
-        TextView icon = (TextView) convertView.findViewById(R.id.attributeIcon);
-        CacheAttributeValue item = getItem(position);
+        final TextView title = (TextView) convertView.findViewById(R.id.attributeName);
+        final TextView icon = (TextView) convertView.findViewById(R.id.attributeIcon);
+        final CacheAttributeValue item = this.getItem(position);
 
         title.setText(item.getName());
         icon.setText(item.getIcon());

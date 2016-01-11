@@ -6,34 +6,26 @@ import com.google.android.gms.maps.model.LatLng;
  * Created by kubut on 2015-09-16.
  */
 public class MapPositionValue {
-    private LatLng position;
-    private float zoom;
+    private final LatLng position;
+    private final float zoom;
 
-    public MapPositionValue(LatLng position, float zoom){
+    public MapPositionValue(final LatLng position, final float zoom){
         this.position = position;
         this.zoom = zoom;
     }
 
     public LatLng getPosition() {
-        return position;
-    }
-
-    public void setPosition(LatLng position) {
-        this.position = position;
+        return this.position;
     }
 
     public float getZoom() {
-        return zoom;
-    }
-
-    public void setZoom(float zoom) {
-        this.zoom = zoom;
+        return this.zoom;
     }
 
     @Override
     public String toString(){
-        Double lat = this.position.latitude;
-        Double lng = this.position.longitude;
+        final Double lat = this.position.latitude;
+        final Double lng = this.position.longitude;
 
         return lat.toString() + ";" + lng.toString() + ";" + this.zoom;
     }

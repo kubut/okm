@@ -1,55 +1,46 @@
 package com.example.OKM.domain.valueObject;
 
 import android.content.Context;
-import com.example.OKM.R;
 
 /**
  * Created by Jakub on 20.12.2015.
  */
 public class CacheAttributeValue {
-    private String acode, iconName, name, language;
-    private int icon;
-    private long id;
+    private final String acode;
+    private String name;
+    private String language;
+    private final int icon;
+    private final long id;
 
-    public CacheAttributeValue(Context context, long id, String acode){
+    public CacheAttributeValue(final Context context, final long id, final String acode){
         this.acode = acode;
-        this.iconName = "cache_attr_" + acode;
+        final String iconName = "cache_attr_" + acode;
         this.id = id;
 
-        this.icon = context.getResources().getIdentifier(this.iconName, "string", context.getPackageName());
+        this.icon = context.getResources().getIdentifier(iconName, "string", context.getPackageName());
     }
 
     public String getAcode() {
-        return acode;
+        return this.acode;
     }
-    public void setAcode(String acode) {
-        this.acode = acode;
-    }
+
     public String getName() {
-        return name;
+        return this.name;
     }
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
     public String getLanguage() {
-        return language;
+        return this.language;
     }
-    public void setLanguage(String language) {
+    public void setLanguage(final String language) {
         this.language = language;
     }
     public int getIcon() {
-        return icon;
+        return this.icon;
     }
-    public void setIcon(int icon) {
-        this.icon = icon;
-    }
-    public String getIconName() {
-        return iconName;
-    }
-    public void setIconName(String iconName) {
-        this.iconName = iconName;
-    }
+
     public long getId() {
-        return id;
+        return this.id;
     }
 }

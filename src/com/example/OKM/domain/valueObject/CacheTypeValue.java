@@ -7,15 +7,14 @@ import com.example.OKM.R;
  * Created by kubut on 2015-09-15.
  */
 public class CacheTypeValue {
-    private String name, key, drawableName;
-    private int icon;
+    private final String name;
+    private final int icon;
 
-    public CacheTypeValue(Context context, String key){
-        this.key = key;
-        this.drawableName = "cache_icon_" + key.toLowerCase();
+    public CacheTypeValue(final Context context, final String key){
+        final String drawableName = "cache_icon_" + key.toLowerCase();
 
-        int iconIdentifier = context.getResources().getIdentifier(this.drawableName, "drawable", context.getPackageName());
-        int nameIdentifier = context.getResources().getIdentifier(key, "string", context.getPackageName());
+        final int iconIdentifier = context.getResources().getIdentifier(drawableName, "drawable", context.getPackageName());
+        final int nameIdentifier = context.getResources().getIdentifier(key, "string", context.getPackageName());
 
         if(nameIdentifier != 0){
             this.name = context.getString(nameIdentifier);
@@ -30,20 +29,12 @@ public class CacheTypeValue {
         }
     }
 
-    public String getKey() {
-        return key;
-    }
-
-    public String getDrawableName() {
-        return drawableName;
-    }
-
     public int getIcon() {
-        return icon;
+        return this.icon;
     }
 
     public String getName() {
 
-        return name;
+        return this.name;
     }
 }

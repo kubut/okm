@@ -11,7 +11,7 @@ import com.example.OKM.data.sqlTables.AttributesTable;
 import com.example.OKM.domain.valueObject.CacheAttributeValue;
 
 /**
- * Created by Jakub on 20.12.2015.
+ * Created by Jakub on 20.12.2015
  */
 public class AttributesDAO {
     private static final String INSERT =
@@ -21,41 +21,39 @@ public class AttributesDAO {
                     + AttributesTable.AttributesColumns.NAME + ") "
                     + "values (?, ?, ?)";
 
-    private SQLiteDatabase db;
-    private SQLiteStatement insertStatement;
-    private Context context;
+    private final SQLiteDatabase db;
+    private final SQLiteStatement insertStatement;
+    private final Context context;
 
-    public AttributesDAO(SQLiteDatabase db, Context context){
+    public AttributesDAO(final SQLiteDatabase db, final Context context){
         this.db = db;
         this.insertStatement = db.compileStatement(AttributesDAO.INSERT);
         this.context = context;
     }
 
-    public long save(CacheAttributeValue entity){
-        insertStatement.clearBindings();
-        insertStatement.bindString(1,entity.getAcode());
-        insertStatement.bindString(2,entity.getLanguage());
-        insertStatement.bindString(3,entity.getName());
-
-        return insertStatement.executeInsert();
+    public void save(final CacheAttributeValue entity){
+        this.insertStatement.clearBindings();
+        this.insertStatement.bindString(1,entity.getAcode());
+        this.insertStatement.bindString(2,entity.getLanguage());
+        this.insertStatement.bindString(3,entity.getName());
     }
 
-    public void update(CacheAttributeValue entity){
+    public void update(final CacheAttributeValue entity){
         final ContentValues values = new ContentValues();
 
         values.put(AttributesTable.AttributesColumns.ACODE, entity.getAcode());
         values.put(AttributesTable.AttributesColumns.LANGUAGE, entity.getLanguage());
         values.put(AttributesTable.AttributesColumns.NAME, entity.getName());
 
-        db.update(AttributesTable.TABLE_NAME, values, BaseColumns._ID + " = ?", new String[]{
+        this.db.update(AttributesTable.TABLE_NAME, values, BaseColumns._ID + " = ?", new String[]{
                 String.valueOf(entity.getId())
         });
     }
 
     @Nullable
-    public CacheAttributeValue findByAcodeAndLanguage(String acode, String language){
+    public CacheAttributeValue findByAcodeAndLanguage(final String acode, final String language){
         CacheAttributeValue attr = null;
-        Cursor cursor = db.query(
+        final Cursor cursor = this.db.query(
                 AttributesTable.TABLE_NAME,
                 new String[]{
                     BaseColumns._ID,
@@ -79,7 +77,7 @@ public class AttributesDAO {
     }
 
     @Nullable
-    private CacheAttributeValue buildCacheAttributeFromCursor(Cursor cursor){
+    private CacheAttributeValue buildCacheAttributeFromCursor(final Cursor cursor){
         CacheAttributeValue cacheAttributeValue = null;
 
         if(cursor != null){

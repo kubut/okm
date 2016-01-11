@@ -21,12 +21,12 @@ public class MapInteractor {
     private Location lastLocation;
     private Context context;
 
-    public void connectMap(GoogleMap map, Context context){
+    public void connectMap(final GoogleMap map, final Context context){
         this.map = map;
         this.context = context;
     }
 
-    public void setLastLocation(@Nullable Location lastLocation){
+    public void setLastLocation(@Nullable final Location lastLocation){
         this.lastLocation = lastLocation;
     }
 
@@ -35,11 +35,12 @@ public class MapInteractor {
         this.context = null;
     }
 
-    public void setCachesOnMap(CacheMarkerCollectionModel list){
+    @SuppressWarnings("ObjectAllocationInLoop")
+    public void setCachesOnMap(final CacheMarkerCollectionModel list){
         if(this.map != null){
             this.map.clear();
 
-            for(CacheMakerModel cache : list.getList()){
+            for(final CacheMakerModel cache : list.getList()){
                 this.map.addMarker(new MarkerOptions()
                                 .position(cache.getPosition())
                                 .title(cache.getCode())
@@ -49,7 +50,7 @@ public class MapInteractor {
         }
     }
 
-    public void setMapPosition(MapPositionValue mapPosition){
+    public void setMapPosition(final MapPositionValue mapPosition){
         if(mapPosition != null){
             this.map.moveCamera(CameraUpdateFactory.newLatLngZoom(mapPosition.getPosition(), mapPosition.getZoom()));
         } else {
@@ -58,20 +59,20 @@ public class MapInteractor {
     }
 
     public void setLastMapPosition(){
-        if(lastLocation != null){
-            this.map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude()), 10));
+        if(this.lastLocation != null){
+            this.map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(this.lastLocation.getLatitude(), this.lastLocation.getLongitude()), 10));
         } else {
             this.setDefaultPosition();
         }
     }
 
-    public void setDefaultPosition(){
-        String encoded = this.context.getString(R.string.default_map_position);
+    private void setDefaultPosition(){
+        final String encoded = this.context.getString(R.string.default_map_position);
 
-        String[] parts = encoded.split(";");
+        final String[] parts = encoded.split(";");
 
-        LatLng position = new LatLng(Double.parseDouble(parts[0]), Double.parseDouble(parts[1]));
-        float zoom = Float.parseFloat(parts[2]);
+        final LatLng position = new LatLng(Double.parseDouble(parts[0]), Double.parseDouble(parts[1]));
+        final float zoom = Float.parseFloat(parts[2]);
 
         this.map.moveCamera(CameraUpdateFactory.newLatLngZoom(position, zoom));
     }

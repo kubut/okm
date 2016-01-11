@@ -4,7 +4,6 @@ import android.content.Context;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.widget.Toast;
 import com.example.OKM.R;
 import com.example.OKM.data.services.OkapiCommunication;
@@ -24,23 +23,24 @@ import org.json.JSONObject;
 /**
  * Created by kubut on 2015-07-12.
  */
-public class MainMapPresenter {
-    private static MainMapPresenter singleton = null;
+public final class MainMapPresenter {
+    private static MainMapPresenter singleton;
 
     private MainActivity mainActivity;
-    private OkapiService okapiService;
-    private MapInteractor mapInteractor;
-    private CacheMarkerCollectionModel markerList;
+    private final MapInteractor mapInteractor;
+    private final CacheMarkerCollectionModel markerList;
     private AsyncTask markersDownloader, uuidDownloader;
     private Toast toast;
     private PreferencesService preferencesService;
-    private boolean downloadTask, isGPS, isSattelite, isInfowindow;
+    private boolean downloadTask;
+    private boolean isGPS;
+    private boolean isSattelite;
+    private final boolean isInfowindow;
     private MapPositionValue mapPosition;
     private GoogleMap googleMap;
-    private InfowindowPresenter infowindowPresenter;
+    private final InfowindowPresenter infowindowPresenter;
 
-    private MainMapPresenter(MainActivity activity){
-        this.okapiService = new OkapiService();
+    private MainMapPresenter(final MainActivity activity){
         this.mapInteractor = new MapInteractor();
         this.markerList = new CacheMarkerCollectionModel();
         this.mainActivity = activity;
@@ -51,7 +51,7 @@ public class MainMapPresenter {
         this.infowindowPresenter = new InfowindowPresenter(this);
     }
 
-    public static MainMapPresenter getInstance(MainActivity activity){
+    public static MainMapPresenter getInstance(final MainActivity activity){
         if(singleton == null){
             singleton = new MainMapPresenter(activity);
         }
@@ -78,11 +78,11 @@ public class MainMapPresenter {
         }
     }
 
-    public void connectContext(MainActivity mainActivity, SupportMapFragment map){
+    public void connectContext(final MainActivity mainActivity, final SupportMapFragment map){
         this.mainActivity = mainActivity;
         this.preferencesService = new PreferencesService(this.getContext());
 
-        if(map != null && map.getMap() != null){
+        if((map != null) && (map.getMap() != null)){
             this.googleMap = map.getMap();
             this.mapInteractor.connectMap(this.googleMap, mainActivity.getApplicationContext());
         }
@@ -97,10 +97,10 @@ public class MainMapPresenter {
         this.googleMap = null;
     }
 
-    public void setSatelliteMode(boolean modeOn){
+    public void setSatelliteMode(final boolean modeOn){
         this.isSattelite = modeOn;
 
-        this.setDrawerOptionState(getContext().getString(R.string.drawer_satellite), modeOn);
+        this.setDrawerOptionState(this.getContext().getString(R.string.drawer_satellite), modeOn);
 
         if(this.googleMap == null){
             return;
@@ -113,7 +113,7 @@ public class MainMapPresenter {
         }
     }
 
-    public void setGpsMode(boolean modeOn){
+    public void setGpsMode(final boolean modeOn){
         this.isGPS = modeOn;
 
         if(modeOn){
@@ -127,104 +127,102 @@ public class MainMapPresenter {
         }
 
         this.googleMap.setMyLocationEnabled(modeOn);
-        this.setDrawerOptionState(getContext().getString(R.string.drawer_gps), modeOn);
+        this.setDrawerOptionState(this.getContext().getString(R.string.drawer_gps), modeOn);
     }
 
-    public void setCaches(boolean show){
+    public void setCaches(final boolean show){
         this.downloadTask = show;
 
         if(show){
             this.syncProgressBar();
             this.showToast(this.getContext().getString(R.string.toast_downloading));
 
-            final String uuid = preferencesService.getUuid();
+            final String uuid = this.preferencesService.getUuid();
 
-            if(uuid == null && preferencesService.getUsername() != null && preferencesService.isHideFound()){
+            if((uuid == null) && (this.preferencesService.getUsername() != null) && this.preferencesService.isHideFound()){
                 try{
-                    String url = okapiService.getUuidURL(this.mainActivity, preferencesService.getUsername());
+                    final String url = OkapiService.getUuidURL(this.mainActivity, this.preferencesService.getUsername());
 
-                    uuidDownloader = new OkapiCommunication(){
+                    this.uuidDownloader = new OkapiCommunication(){
                         @Override
-                        public void onPostExecute(String result){
+                        public void onPostExecute(final String result){
                             try {
-                                JsonTransformService transformService = new JsonTransformService();
-                                String newUuid = transformService.getUuidByJson(new JSONObject(result));
-                                preferencesService.setUuid(newUuid);
+                                final String newUuid = JsonTransformService.getUuidByJson(new JSONObject(result));
+                                MainMapPresenter.this.preferencesService.setUuid(newUuid);
 
-                                getAndApplyCaches(newUuid);
-                            } catch (Exception e){
-                                getAndApplyCaches(null);
+                                MainMapPresenter.this.getAndApplyCaches(newUuid);
+                            } catch (final Exception e){
+                                MainMapPresenter.this.getAndApplyCaches(null);
                                 e.printStackTrace();
                             }
                         }
                     }.execute(url);
-                } catch (Exception e){
+                } catch (final Exception e){
                     e.printStackTrace();
-                    getAndApplyCaches(null);
+                    this.getAndApplyCaches(null);
                 }
             } else {
-                getAndApplyCaches(uuid);
+                this.getAndApplyCaches(uuid);
             }
         } else {
             this.cancelDownloader();
-            markerList.clear();
+            this.markerList.clear();
             this.googleMap.clear();
             this.infowindowPresenter.close();
         }
     }
 
-    public void getAndApplyCaches(String uuid){
-        String url = okapiService.getCacheCollectionURL(this.mainActivity, this.googleMap.getCameraPosition().target, uuid);
+    private void getAndApplyCaches(final String uuid){
+        final String url = OkapiService.getCacheCollectionURL(this.mainActivity, this.googleMap.getCameraPosition().target, uuid);
 
-        markersDownloader = new OkapiCommunication(){
+        this.markersDownloader = new OkapiCommunication(){
             @Override
-            public void onPostExecute(String result){
+            public void onPostExecute(final String result){
                 try{
                     if(!this.isCancelled()){
-                        JsonTransformService transformService = new JsonTransformService();
-                        markerList.append(transformService.getCacheMarkersByJson(getContext(), new JSONObject(result)));
-                        applyCaches();
+                        MainMapPresenter.this.markerList.append(JsonTransformService.getCacheMarkersByJson(MainMapPresenter.this.getContext(), new JSONObject(result)));
+                        MainMapPresenter.this.applyCaches();
                     }
-                } catch (Exception e){
-                    showToast(getContext().getString(R.string.toast_downloading_error));
-                    setDrawerOptionState(getContext().getString(R.string.drawer_caches), false);
+                } catch (final Exception e){
+                    MainMapPresenter.this.showToast(MainMapPresenter.this.getContext().getString(R.string.toast_downloading_error));
+                    MainMapPresenter.this.setDrawerOptionState(MainMapPresenter.this.getContext().getString(R.string.drawer_caches), false);
                     e.printStackTrace();
                 }
-                downloadTask = false;
-                syncProgressBar();
+                MainMapPresenter.this.downloadTask = false;
+                MainMapPresenter.this.syncProgressBar();
             }
         }.execute(url);
     }
 
-    public void syncProgressBar(){
+    private void syncProgressBar(){
         this.getActivity().displayProgressBar(this.downloadTask);
     }
 
-    public void applyCaches(){
-        mapInteractor.setCachesOnMap(markerList);
+    private void applyCaches(){
+        this.mapInteractor.setCachesOnMap(this.markerList);
 
-        this.setDrawerOptionState(getContext().getString(R.string.drawer_caches), !this.markerList.isEmpty() || this.downloadTask);
+        this.setDrawerOptionState(this.getContext().getString(R.string.drawer_caches), !this.markerList.isEmpty() || this.downloadTask);
     }
 
     public void hideDrawer(){
         this.mainActivity.hideNavigationDrawer();
     }
 
-    public void showToast(String text){
+    private void showToast(final String text){
         if(this.toast != null){
             this.toast.cancel();
         }
 
         this.toast = Toast.makeText(this.getContext(), text, Toast.LENGTH_SHORT);
-        toast.show();
+        this.toast.show();
     }
 
-    public void setDrawerOptionState(String key, boolean state){
+    public void setDrawerOptionState(final String key, final boolean state){
         if(this.getActivity().mainDrawerActionItemsList == null){
             return;
         }
 
-        for(IMainDrawerItem item : this.getActivity().mainDrawerActionItemsList){
+        for(final IMainDrawerItem item : this.getActivity().mainDrawerActionItemsList){
             if(item.getTitle().equals(key)){
                 item.setActive(state);
             }
@@ -232,7 +230,7 @@ public class MainMapPresenter {
         this.getActivity().syncDrawerItems();
     }
 
-    public void cancelDownloader(){
+    private void cancelDownloader(){
         if(this.markersDownloader != null){
             this.markersDownloader.cancel(false);
         }
@@ -256,13 +254,13 @@ public class MainMapPresenter {
         }
     }
 
-    public void setLastLocation(@Nullable Location location){
+    public void setLastLocation(@Nullable final Location location){
         this.mapInteractor.setLastLocation(location);
     }
 
     public void saveMapPosition(){
         if(this.googleMap != null){
-            CameraPosition cameraPosition = this.googleMap.getCameraPosition();
+            final CameraPosition cameraPosition = this.googleMap.getCameraPosition();
 
             this.mapPosition = new MapPositionValue(
                     cameraPosition.target,
@@ -272,7 +270,7 @@ public class MainMapPresenter {
     }
 
     public int getScreenRotation(){
-        return getActivity().getWindowManager().getDefaultDisplay().getRotation() * 90;
+        return this.getActivity().getWindowManager().getDefaultDisplay().getRotation() * 90;
     }
 
     public CacheMarkerCollectionModel getMarkerList(){

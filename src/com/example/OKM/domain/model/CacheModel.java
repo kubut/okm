@@ -10,13 +10,17 @@ import java.util.ArrayList;
  */
 
 public class CacheModel {
-    private String code, name, url, owner, description, hint;
+    private String code;
+    private String url;
+    private String owner;
+    private String description;
+    private String hint;
     private LatLng location;
     private CacheTypeValue type;
     private CacheSizeValue size;
-    private ArrayList<CacheAttributeValue> attrs;
-    private ArrayList<CacheLogValue> logs;
-    private ArrayList<CachePhotoValue> photos;
+    private final ArrayList<CacheAttributeValue> attrs;
+    private final ArrayList<CacheLogValue> logs;
+    private final ArrayList<CachePhotoValue> photos;
 
     public CacheModel(){
         this.attrs = new ArrayList<>();
@@ -24,23 +28,23 @@ public class CacheModel {
         this.photos = new ArrayList<>();
     }
 
-    public void appendAttrs(ArrayList<CacheAttributeValue> attrsToAppend){
+    public void appendAttrs(final ArrayList<CacheAttributeValue> attrsToAppend){
         this.attrs.addAll(attrsToAppend);
     }
 
-    public void appendLogs(ArrayList<CacheLogValue> logsToAppend){
+    public void appendLogs(final ArrayList<CacheLogValue> logsToAppend){
         this.logs.addAll(logsToAppend);
     }
 
     public boolean isHint(){
-        return this.hint != null && !this.hint.equals("");
+        return (this.hint != null) && !this.hint.isEmpty();
     }
 
     public boolean hasPhotos(){
         return !this.photos.isEmpty();
     }
 
-    public void appendPhotos(ArrayList<CachePhotoValue> photosToAppend){
+    public void appendPhotos(final ArrayList<CachePhotoValue> photosToAppend){
         this.photos.addAll(photosToAppend);
     }
 
@@ -54,57 +58,51 @@ public class CacheModel {
         return this.logs;
     }
     public String getCode() {
-        return code;
+        return this.code;
     }
-    public void setCode(String code) {
+    public void setCode(final String code) {
         this.code = code;
     }
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
     public String getUrl() {
-        return url;
+        return this.url;
     }
-    public void setUrl(String url) {
+    public void setUrl(final String url) {
         this.url = url;
     }
     public String getOwner() {
-        return owner;
+        return this.owner;
     }
-    public void setOwner(String owner) {
+    public void setOwner(final String owner) {
         this.owner = owner;
     }
     public String getDescription() {
-        return description;
+        return this.description;
     }
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
     public String getHint() {
-        return hint;
+        return this.hint;
     }
-    public void setHint(String hint) {
+    public void setHint(final String hint) {
         this.hint = hint;
     }
     public LatLng getLocation() {
-        return location;
+        return this.location;
     }
-    public void setLocation(LatLng location) {
+    public void setLocation(final LatLng location) {
         this.location = location;
     }
     public CacheTypeValue getType() {
-        return type;
+        return this.type;
     }
-    public void setType(CacheTypeValue type) {
+    public void setType(final CacheTypeValue type) {
         this.type = type;
     }
     public CacheSizeValue getSize() {
-        return size;
+        return this.size;
     }
-    public void setSize(CacheSizeValue size) {
+    public void setSize(final CacheSizeValue size) {
         this.size = size;
     }
 }

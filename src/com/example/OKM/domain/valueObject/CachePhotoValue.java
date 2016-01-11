@@ -8,27 +8,27 @@ public class CachePhotoValue {
     private boolean spoiler;
 
     public boolean isSpoiler() {
-        return spoiler;
+        return this.spoiler;
     }
-    public void setSpoiler(boolean spoiler) {
+    public void setSpoiler(final boolean spoiler) {
         this.spoiler = spoiler;
     }
     public String getMinUrl() {
-        return minUrl;
+        return this.minUrl;
     }
-    public void setMinUrl(String minUrl) {
+    public void setMinUrl(final String minUrl) {
         this.minUrl = minUrl;
     }
     public String getUrl() {
-        return url;
+        return this.url;
     }
-    public void setUrl(String url) {
+    public void setUrl(final String url) {
         this.url = url;
     }
     public String getTitle() {
-        return title;
+        return this.title;
     }
-    public void setTitle(String title) {
+    public void setTitle(final String title) {
         this.title = title;
     }
 }

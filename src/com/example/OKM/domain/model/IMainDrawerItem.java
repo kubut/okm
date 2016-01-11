@@ -5,6 +5,7 @@ import com.example.OKM.presentation.presenter.MainMapPresenter;
 /**
  * Created by kubut on 2015-08-02.
  */
+@SuppressWarnings("unused")
 public interface IMainDrawerItem {
     void click();
 

@@ -12,26 +12,25 @@ import com.example.OKM.presentation.view.SettingsFragment;
  * Created by kubut on 2015-08-27.
  */
 public class SettingsPresenter {
-    SettingsFragment settingsFragment;
-    PreferencesService preferencesService;
-    EditTextPreference username;
-    ListPreference serversList;
-    SwitchPreference isMapAutoposition;
-    Preference seletMapPosition;
+    private final SettingsFragment settingsFragment;
+    private final PreferencesService preferencesService;
+    private final EditTextPreference usernamePreference;
+    private final ListPreference serversList;
+    private final Preference seletMapPosition;
 
-    public SettingsPresenter(SettingsFragment settingsFragment){
+    public SettingsPresenter(final SettingsFragment settingsFragment){
         this.settingsFragment = settingsFragment;
         this.preferencesService = new PreferencesService(this.settingsFragment.getActivity());
 
-        username = (EditTextPreference) this.settingsFragment.findPreference("prefUsername");
-        serversList = (ListPreference) this.settingsFragment.findPreference("prefServer");
-        isMapAutoposition = (SwitchPreference) this.settingsFragment.findPreference("prefMapAutoPosition");
-        seletMapPosition = this.settingsFragment.findPreference("prefSelectMap");
+        this.usernamePreference = (EditTextPreference) this.settingsFragment.findPreference("prefUsername");
+        this.serversList = (ListPreference) this.settingsFragment.findPreference("prefServer");
+        final SwitchPreference isMapAutoposition = (SwitchPreference) this.settingsFragment.findPreference("prefMapAutoPosition");
+        this.seletMapPosition = this.settingsFragment.findPreference("prefSelectMap");
 
         isMapAutoposition.setChecked(this.isMapSelectDisabled());
     }
 
-    public String getUsernameSummary(){
+    private String getUsernameSummary(){
         String username = this.preferencesService.getUsername();
 
         if(username == null){
@@ -41,26 +40,27 @@ public class SettingsPresenter {
         return username;
     }
 
-    public String getServerSummary(){
+    private String getServerSummary(){
         return this.preferencesService.getServerName();
     }
 
-    public boolean isMapSelectDisabled(){
+    private boolean isMapSelectDisabled(){
         return this.preferencesService.isMapAutoposition();
     }
 
     public void syncPreferencesSummary(){
-        username.setSummary(this.getUsernameSummary());
-        serversList.setSummary(this.getServerSummary());
-        seletMapPosition.setEnabled(!this.isMapSelectDisabled());
+        this.usernamePreference.setSummary(this.getUsernameSummary());
+        this.serversList.setSummary(this.getServerSummary());
+        this.seletMapPosition.setEnabled(!this.isMapSelectDisabled());
     }
 
     public void resetUuid(){
         this.preferencesService.setUuid(null);
     }
 
+    @SuppressWarnings("MethodMayBeStatic")
     public void resetMap(){
-        MainMapPresenter mainMapPresenter = MainMapPresenter.getInstanceIfExist();
+        final MainMapPresenter mainMapPresenter = MainMapPresenter.getInstanceIfExist();
 
         if(mainMapPresenter != null){
             mainMapPresenter.setCaches(false);
@@ -69,9 +69,9 @@ public class SettingsPresenter {
     }
 
     public void reloadMap(){
-        MainMapPresenter mainMapPresenter = MainMapPresenter.getInstanceIfExist();
+        final MainMapPresenter mainMapPresenter = MainMapPresenter.getInstanceIfExist();
 
-        if(mainMapPresenter != null && mainMapPresenter.hasCaches()){
+        if((mainMapPresenter != null) && mainMapPresenter.hasCaches()){
             this.resetMap();
             mainMapPresenter.setCaches(true);
         }

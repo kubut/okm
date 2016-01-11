@@ -16,45 +16,44 @@ import com.google.android.gms.maps.SupportMapFragment;
  * Created by kubut on 2015-09-16.
  */
 public class SettingsMapActivity extends AppCompatActivity implements OnMapReadyCallback {
-    private SupportMapFragment map;
     private SettingsMapPresenter presenter;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.settings_map_activity);
+        this.setContentView(R.layout.settings_map_activity);
 
-        final Toolbar toolbar   = (Toolbar) findViewById(R.id.app_bar);
-        map                     = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        final Toolbar toolbar   = (Toolbar) this.findViewById(R.id.app_bar);
+        final SupportMapFragment map = (SupportMapFragment) this.getSupportFragmentManager().findFragmentById(R.id.map);
 
         if(map != null){
             map.getMapAsync(this);
         }
 
-        presenter = (SettingsMapPresenter) getLastCustomNonConfigurationInstance();
-        if(presenter == null){
-            presenter = new SettingsMapPresenter(this);
+        this.presenter = (SettingsMapPresenter) this.getLastCustomNonConfigurationInstance();
+        if(this.presenter == null){
+            this.presenter = new SettingsMapPresenter(this);
         }
-        presenter.connectContext(this, map);
+        this.presenter.connectContext(this, map);
 
-        setSupportActionBar(toolbar);
+        this.setSupportActionBar(toolbar);
 
-        assert getSupportActionBar() != null;
+        assert this.getSupportActionBar() != null;
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        getSupportActionBar().setTitle(R.string.settings_set_map_title);
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        this.getSupportActionBar().setTitle(R.string.settings_set_map_title);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(final Menu menu) {
         // Inflate the menu items for use in the action bar
-        MenuInflater inflater = getMenuInflater();
+        final MenuInflater inflater = this.getMenuInflater();
         inflater.inflate(R.menu.settings_map_actions, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(final MenuItem item) {
         // Handle presses on the action bar items
         switch (item.getItemId()) {
             case R.id.action_set_map_ok:
@@ -71,20 +70,20 @@ public class SettingsMapActivity extends AppCompatActivity implements OnMapReady
 
     @Override
     public Object onRetainCustomNonConfigurationInstance(){
-        return presenter;
+        return this.presenter;
     }
 
     @Override
     public void onDestroy(){
         super.onDestroy();
-        presenter.disconnectContext();
+        this.presenter.disconnectContext();
     }
 
-    public void onMapReady(GoogleMap map) {
+    public void onMapReady(final GoogleMap map) {
         this.presenter.setMapPosition();
     }
 
-    public void cancel(){
+    private void cancel(){
         this.finish();
     }
 }

@@ -9,14 +9,10 @@ import java.util.HashMap;
  * Created by kubut on 2015-09-04.
  */
 public class CacheMarkerCollectionModel {
-    private HashMap<String, CacheMakerModel> list;
+    private final HashMap<String, CacheMakerModel> list;
 
     public CacheMarkerCollectionModel(){
-        list = new HashMap<>();
-    }
-
-    public void addCache(CacheMakerModel cache){
-        this.list.put(cache.getCode(), cache);
+        this.list = new HashMap<>();
     }
 
     public Collection<CacheMakerModel> getList(){
@@ -27,8 +23,8 @@ public class CacheMarkerCollectionModel {
         this.list.clear();
     }
 
-    public void append(HashMap<String, CacheMakerModel> listToAppend){
-        list.putAll(listToAppend);
+    public void append(final HashMap<String, CacheMakerModel> listToAppend){
+        this.list.putAll(listToAppend);
     }
 
     public boolean isEmpty(){
@@ -36,7 +32,7 @@ public class CacheMarkerCollectionModel {
     }
 
     @Nullable
-    public CacheMakerModel getMarker(String code){
+    public CacheMakerModel getMarker(final String code){
         return this.list.get(code);
     }
 }

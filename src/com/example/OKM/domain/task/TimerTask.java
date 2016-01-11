@@ -9,22 +9,24 @@ import java.util.concurrent.Callable;
  * Created by Jakub on 04.10.2015.
  */
 public class TimerTask implements Runnable {
-    private Handler handler;
-    private Callable callback;
+    private final Handler handler;
+    private final Callable callback;
     private int time;
 
-    public TimerTask(Handler handler, int time, Callable callable){
+    @SuppressWarnings("SameParameterValue")
+    public TimerTask(final Handler handler, final int time, final Callable callable){
         this.handler = handler;
         this.callback = callable;
         this.time = time;
     }
 
+    @SuppressWarnings("ObjectAllocationInLoop")
     @Override
     public void run() {
         while(!Thread.currentThread().isInterrupted()){
             try{
                 Thread.sleep(this.time);
-            } catch (InterruptedException e){
+            } catch (final InterruptedException e){
                 e.printStackTrace();
                 break;
             }
@@ -32,8 +34,8 @@ public class TimerTask implements Runnable {
                 @Override
                 public void run() {
                     try{
-                        callback.call();
-                    } catch (Exception e){
+                        TimerTask.this.callback.call();
+                    } catch (final Exception e){
                         e.printStackTrace();
                     }
                 }
