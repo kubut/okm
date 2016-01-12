@@ -50,10 +50,12 @@ public class CacheActivity extends AppCompatActivity {
 
         this.cacheCode = null;
         String cacheName = null;
+        String cachePosition = null;
         final Bundle extras = this.getIntent().getExtras();
         if (extras != null) {
             this.cacheCode = extras.getString("code");
             cacheName = extras.getString("name");
+            cachePosition = extras.getString("position");
         } else {
             this.onBackPressed();
         }
@@ -64,7 +66,7 @@ public class CacheActivity extends AppCompatActivity {
 
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         this.getSupportActionBar().setTitle(cacheName);
-        this.getSupportActionBar().setSubtitle(this.cacheCode);
+        this.getSupportActionBar().setSubtitle(this.cacheCode + " " + cachePosition);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

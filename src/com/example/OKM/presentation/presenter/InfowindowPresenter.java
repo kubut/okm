@@ -133,6 +133,15 @@ public class InfowindowPresenter {
         }
     }
 
+    @Nullable
+    public String getSelectedMarkerPosition(){
+        if(this.selectedMarker != null){
+            return " [" + this.selectedMarker.getDMPosition() + "]";
+        } else {
+            return null;
+        }
+    }
+
     private void syncToolbar(){
         String title = null;
         String subtitle = null;
@@ -142,7 +151,7 @@ public class InfowindowPresenter {
 
         if(this.selectedMarker != null){
             title = this.selectedMarker.getTitle();
-            subtitle = this.selectedMarker.getCode();
+            subtitle = this.selectedMarker.getCode() + " [" + this.selectedMarker.getDMPosition() + "]";
         }
 
         if(this.actionBar != null){
@@ -152,10 +161,7 @@ public class InfowindowPresenter {
     }
 
     private void syncInfo(){
-        if(this.actionBar != null){
-            this.actionBar.setTitle(this.selectedMarker.getTitle());
-            this.actionBar.setSubtitle(this.selectedMarker.getCode());
-        }
+        this.syncToolbar();
 
         this.mainMapPresenter.getActivity().invalidateOptionsMenu();
 

@@ -262,11 +262,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private void goToCacheInfo(){
         final String code = this.presenter.getInfowindowPresenter().getSelectedMarkerCode();
         final String name = this.presenter.getInfowindowPresenter().getSelectedMarkerName();
+        final String position = this.presenter.getInfowindowPresenter().getSelectedMarkerPosition();
 
-        if((code != null) && (name != null)){
+        if((code != null) && (name != null) && (position != null)){
             final Intent intent = new Intent(this.getApplicationContext(), CacheActivity.class);
             intent.putExtra("code", code);
             intent.putExtra("name", name);
+            intent.putExtra("position", position);
             this.startActivity(intent);
         }
     }

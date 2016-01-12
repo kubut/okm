@@ -1,6 +1,7 @@
 package com.example.OKM.domain.model;
 
 import android.content.Context;
+import com.example.OKM.domain.service.CoordinatesConverter;
 import com.example.OKM.domain.valueObject.CacheSizeValue;
 import com.example.OKM.domain.valueObject.CacheTypeValue;
 import com.google.android.gms.maps.model.LatLng;
@@ -55,6 +56,10 @@ public class CacheMakerModel {
 
     public LatLng getPosition() {
         return this.position;
+    }
+
+    public String getDMPosition(){
+        return CoordinatesConverter.decimalToDM(this.getPosition());
     }
 
     public String getTitle() {
