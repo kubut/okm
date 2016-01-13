@@ -43,6 +43,10 @@ public class PreferencesService {
         return this.isSaveMode() ? 50 : 200;
     }
 
+    public int getLpc(){
+        return this.isSaveMode() ? 35 : 70;
+    }
+
     public String getUuid() {
         return this.repository.getUuid();
     }

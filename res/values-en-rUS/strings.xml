@@ -45,7 +45,7 @@
     <string name="settings_set_map">Set map position</string>
     <string name="settings_set_map_cancel">Cancel</string>
     <string name="settings_set_map_ok">OK</string>
-    <string name="settings_set_map_sub">Choose the starting map</string>
+    <string name="settings_set_map_sub">Choose what kind of map you want to see when you start</string>
     <string name="settings_set_map_title">Choose position</string>
     <string name="settings_username">Username</string>
     <string name="settings_username_blank">Empty</string>
@@ -60,4 +60,5 @@
     <string name="toast_downloading">Downloading…</string>
     <string name="toast_downloading_error">Downloading error</string>
     <string name="settings_reset_map_sub">Map will be centered based on your location</string>
+    <string name="cache_load_more_logs">More</string>
 </resources>

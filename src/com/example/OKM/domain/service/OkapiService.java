@@ -49,7 +49,8 @@ public class OkapiService {
 
         final String apiUrl = preferencesService.getServerAPI();
         final String okapiKey = "&consumer_key=" + OkapiService.getOkapiKey(context, apiUrl);
-        final String serviceUrl = context.getString(R.string.okapi_getCacheDetails).replace("[$CACHE_CODE$]", code);
+        String serviceUrl = context.getString(R.string.okapi_getCacheDetails).replace("[$CACHE_CODE$]", code);
+        serviceUrl = serviceUrl.replace("[$LPC$]", preferencesService.getLpc() + "");
 
         return apiUrl + serviceUrl + okapiKey;
     }

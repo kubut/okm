@@ -29,7 +29,7 @@
     <string name="settings_hide_found_sub">Don\'t show caches you already found</string>
     <string name="settings_language" tools:ignore="UnusedResources">Language</string>
     <string name="settings_set_map">Set map position</string>
-    <string name="settings_set_map_sub">Choose the starting map</string>
+    <string name="settings_set_map_sub">Choose what kind of map you want to see when you start</string>
     <string name="settings_reset_map">Map auto-position</string>
     <string name="settings_reset_map_sub">Map will be centered based on your location</string>
     <string name="settings_server">Server</string>
@@ -88,4 +88,5 @@
     <string name="cache_dialog_ok">Close</string>
     <string name="cache_dialog_title">Hint</string>
     <string name="cache_gallery_no_photos" tools:ignore="UnusedResources">No photos</string>
+    <string name="cache_load_more_logs">More</string>
 </resources>

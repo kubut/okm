@@ -33,19 +33,19 @@
     <string name="label_owner">Besitzer:</string>
     <string name="label_size">Größe:</string>
     <string name="label_type">Typ:</string>
-    <string name="settings_downloading" tools:ignore="UnusedResources">Lade herunter</string>
+    <string name="settings_downloading" tools:ignore="UnusedResources">Herunterladen</string>
     <string name="settings_hide_found">Verberge gefundene Caches</string>
     <string name="settings_hide_found_sub">Verberge Caches, die du bereits gefunden hast</string>
     <string name="settings_low_limit">Sparmodus</string>
-    <string name="settings_low_limit_sub">Datenvolumen reduzieren (weniger Caches herunterladen)</string>
-    <string name="settings_reset_map">Karte auf Position verschieben</string>
-    <string name="settings_reset_map_sub">Karte wird auf Deine aktuelle Position verschoben</string>
+    <string name="settings_low_limit_sub">Spare Datenvolumen durch Downlodd weniger Caches.</string>
+    <string name="settings_reset_map">Automatische Bestimmung der Position</string>
+    <string name="settings_reset_map_sub">Karte wird auf Deine aktuelle Position zentriert</string>
     <string name="settings_server">Server</string>
-    <string name="settings_set_map">Position auf Karte einstellen</string>
+    <string name="settings_set_map">Kartenposition einstellen</string>
     <string name="settings_set_map_ok">OK</string>
     <string name="settings_set_map_cancel">Schließen</string>
     <string name="settings_set_map_title">Position wählen</string>
-    <string name="settings_set_map_sub">Beim Öffnen aktivierte Karte auswählen</string>
+    <string name="settings_set_map_sub">Wähle den Kartentyp für den Programmstart</string>
     <string name="settings_username">Benutzername</string>
     <string name="settings_username_blank">Leer</string>
     <string name="size_large" tools:ignore="UnusedResources">Groß</string>
@@ -58,6 +58,7 @@
     <string name="title_activity_settings">Einstellungen</string>
     <string name="drawer_settings">Einstellungen</string>
     <string name="toast_downloading_error">Fehler beim Download</string>
-    <string name="toast_downloading">Lade herunter…</string>
+    <string name="toast_downloading">Herunterladen…</string>
     <string name="settings_language" tools:ignore="UnusedResources">Sprache</string>
+    <string name="cache_load_more_logs">Mehr</string>
 </resources>

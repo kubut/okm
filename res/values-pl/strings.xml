@@ -76,4 +76,5 @@
     <string name="cache_dialog_title">Podpowiedź</string>
     <string name="cache_dialog_ok">Zamknij</string>
     <string name="cache_gallery_no_photos" tools:ignore="UnusedResources">Brak zdjęć</string>
+    <string name="cache_load_more_logs">Więcej</string>
 </resources>
