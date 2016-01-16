@@ -1,0 +1,18 @@
+DATE: 16.01.2016 19:05
+
+JAVA LINES (total): 3898 (-30 lines)
+JAVA LINES (source): 3063 (-35 lines)
+SIZE: 4676 KB (+39 KB)
+
+FEATURES:
+- Fixes for older Androids
+- Some icons changed to blue
+- More logs are loaded
+- Some fixes for Lint
+- Changed coordinates format
+- Hide compass if device hasn't module
+
+BUGS:
+- Center attributes icons
+- Crash after first run settings
+- Hide attributes icon (if not needed)
