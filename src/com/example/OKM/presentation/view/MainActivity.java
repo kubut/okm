@@ -188,16 +188,26 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 R.string.drawer_open,
                 R.string.drawer_close)
         {
+            @Override
             public void onDrawerClosed(final View view) {
                 super.onDrawerClosed(view);
                 MainActivity.this.invalidateOptionsMenu();
                 this.syncState();
             }
 
+            @Override
             public void onDrawerOpened(final View drawerView) {
                 super.onDrawerOpened(drawerView);
                 MainActivity.this.invalidateOptionsMenu();
                 this.syncState();
+            }
+
+            @Override
+            public void onDrawerSlide(final View drawerView, final float slideOffset)
+            {
+                super.onDrawerSlide(drawerView, slideOffset);
+                mDrawerLayout.bringChildToFront(drawerView);
+                mDrawerLayout.requestLayout();
             }
         };
 

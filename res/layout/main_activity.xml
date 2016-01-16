@@ -47,6 +47,10 @@
                     app:pv_progressStyle="@style/ProgressBarStyle"
                     />
 
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/transparent" />
 
             <include
                     android:id="@+id/infowindow"
