@@ -162,11 +162,16 @@ public class CacheActivity extends AppCompatActivity {
     }
 
     public void setCacheDetails(final CacheModel cacheModel){
-        final TextView type   = (TextView) this.bottomPanel.findViewById(R.id.infoCacheType);
-        final TextView size   = (TextView) this.bottomPanel.findViewById(R.id.infoCacheSize);
-        final TextView owner  = (TextView) this.bottomPanel.findViewById(R.id.infoCacheOwner);
+        final TextView type         = (TextView) this.bottomPanel.findViewById(R.id.infoCacheType);
+        final TextView size         = (TextView) this.bottomPanel.findViewById(R.id.infoCacheSize);
+        final TextView owner        = (TextView) this.bottomPanel.findViewById(R.id.infoCacheOwner);
+        final TextView attributes   = (TextView) this.bottomPanel.findViewById(R.id.infoCacheAttributes);
 
-        this.setupViewPager(cacheModel.hasPhotos());
+        if(!cacheModel.hasAttributes()){
+            attributes.setVisibility(View.GONE);
+        }
+
+        this.setupViewPager(cacheModel.hasPhotos(), cacheModel.hasLogs());
         this.tabLayout.setupWithViewPager(this.viewPager);
 
         this.initMenu();
@@ -176,7 +181,10 @@ public class CacheActivity extends AppCompatActivity {
         owner.setText(cacheModel.getOwner());
 
         this.tabDetails.setView(this, cacheModel);
-        this.tabLogs.setView(this, cacheModel);
+
+        if(cacheModel.hasLogs()){
+            this.tabLogs.setView(this, cacheModel);
+        }
 
         if(cacheModel.hasPhotos()){
             this.tabGallery.setView(this, cacheModel);
@@ -185,12 +193,15 @@ public class CacheActivity extends AppCompatActivity {
         this.loaded = true;
     }
 
-    private void setupViewPager(final boolean gallery) {
+    private void setupViewPager(final boolean gallery, final boolean logs) {
         this.initTabs();
 
         final ViewPagerAdapter adapter = new ViewPagerAdapter(this.getSupportFragmentManager());
         adapter.addFragment((Fragment) this.tabDetails, this.getString(R.string.cache_tabs_details));
-        adapter.addFragment((Fragment) this.tabLogs, this.getString(R.string.cache_tabs_logs));
+
+        if(logs){
+            adapter.addFragment((Fragment) this.tabLogs, this.getString(R.string.cache_tabs_logs));
+        }
 
         if(gallery){
             adapter.addFragment((Fragment) this.tabGallery, this.getString(R.string.cache_tabs_gallery));

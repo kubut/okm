@@ -48,6 +48,14 @@ public class CacheModel {
         this.photos.addAll(photosToAppend);
     }
 
+    public boolean hasAttributes(){
+        return !this.attrs.isEmpty();
+    }
+
+    public boolean hasLogs(){
+        return !this.logs.isEmpty();
+    }
+
     public ArrayList<CachePhotoValue> getPhotos(){
         return this.photos;
     }
