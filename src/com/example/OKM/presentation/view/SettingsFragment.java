@@ -12,15 +12,17 @@ import com.example.OKM.presentation.presenter.SettingsPresenter;
 /**
  * Created by kubut on 2015-08-17.
  */
-public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class SettingsFragment extends com.fnp.materialpreferences.PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
     private SettingsPresenter presenter;
 
+    @Override
+    public int addPreferencesFromResource() {
+        return R.xml.settings;
+    }
 
     @Override
-    public void onCreate(final Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-        this.addPreferencesFromResource(R.xml.settings);
-
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         PreferenceManager.getDefaultSharedPreferences(this.getActivity()).registerOnSharedPreferenceChangeListener(this);
 
         final Preference selectMap = this.findPreference("prefSelectMap");

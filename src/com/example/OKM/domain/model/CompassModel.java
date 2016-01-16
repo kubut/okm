@@ -64,7 +64,7 @@ public class CompassModel {
     public void syncMode(){
         final int color;
 
-        if((this.compassMode != null) && (Objects.equals(this.actual, this.compassMode))){
+        if((this.compassMode != null) && (this.compassMode.equals(this.actual))){
             return;
         }
 

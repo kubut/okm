@@ -12,3 +12,9 @@ To set-up project:
 
 3. (optional) Create local.properties file and define path to your sdk:
 sdk.dir=D\:\\ADT\\sdk
+
+4. (optional) Configure your AVD to Google Maps
+- Create new AVD (no Google API!)
+- Install 2 packages: com.android.vending and com.google.android.gms:
+adb -e install <apk>
+- Restart AVD

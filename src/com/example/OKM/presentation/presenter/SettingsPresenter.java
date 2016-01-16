@@ -1,9 +1,6 @@
 package com.example.OKM.presentation.presenter;
 
-import android.preference.EditTextPreference;
-import android.preference.ListPreference;
-import android.preference.Preference;
-import android.preference.SwitchPreference;
+import android.preference.*;
 import com.example.OKM.R;
 import com.example.OKM.domain.service.PreferencesService;
 import com.example.OKM.presentation.view.SettingsFragment;
@@ -24,7 +21,7 @@ public class SettingsPresenter {
 
         this.usernamePreference = (EditTextPreference) this.settingsFragment.findPreference("prefUsername");
         this.serversList = (ListPreference) this.settingsFragment.findPreference("prefServer");
-        final SwitchPreference isMapAutoposition = (SwitchPreference) this.settingsFragment.findPreference("prefMapAutoPosition");
+        final CheckBoxPreference isMapAutoposition = (CheckBoxPreference) this.settingsFragment.findPreference("prefMapAutoPosition");
         this.seletMapPosition = this.settingsFragment.findPreference("prefSelectMap");
 
         isMapAutoposition.setChecked(this.isMapSelectDisabled());

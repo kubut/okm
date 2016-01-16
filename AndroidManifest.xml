@@ -28,7 +28,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".presentation.view.MainActivity"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/AppBaseTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -41,7 +41,7 @@
         </activity>
         <activity
             android:name=".presentation.view.SettingsMapActivity"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/AppBaseTheme" >
         </activity>
 
         <meta-data
@@ -53,11 +53,11 @@
 
         <activity
             android:name=".presentation.view.CacheActivity"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/AppBaseTheme" >
         </activity>
 
         <activity android:name=".presentation.view.CachePhotoActivity"
-                  android:theme="@style/AppTheme">
+                  android:theme="@style/AppBaseTheme">
         </activity>
     </application>
 

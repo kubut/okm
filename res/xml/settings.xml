@@ -1,25 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:key="settings">
     <EditTextPreference
             android:title="@string/settings_username"
             android:key="prefUsername"/>
-    <SwitchPreference
+    <CheckBoxPreference
             android:title="@string/settings_low_limit"
             android:summary="@string/settings_low_limit_sub"
-            android:key="prefLimit"/>
-    <SwitchPreference
+            android:key="prefLimit"
+            android:widgetLayout="@layout/mp_preference_switch"/>
+    <CheckBoxPreference
             android:title="@string/settings_hide_found"
             android:summary="@string/settings_hide_found_sub"
-            android:key="prefHideFound"/>
+            android:key="prefHideFound"
+            android:widgetLayout="@layout/mp_preference_switch"/>
     <ListPreference
             android:title="@string/settings_server"
             android:entries="@array/settings_servers_list_entries"
             android:entryValues="@array/settings_servers_list_values"
             android:key="prefServer"/>
-    <SwitchPreference
+    <CheckBoxPreference
             android:title="@string/settings_reset_map"
             android:summary="@string/settings_reset_map_sub"
-            android:key="prefMapAutoPosition"/>
+            android:key="prefMapAutoPosition"
+            android:widgetLayout="@layout/mp_preference_switch"/>
     <Preference
             android:title="@string/settings_set_map"
             android:summary="@string/settings_set_map_sub"
