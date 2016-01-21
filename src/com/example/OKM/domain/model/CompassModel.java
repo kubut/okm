@@ -3,6 +3,7 @@ package com.example.OKM.domain.model;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.location.Location;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
@@ -19,10 +20,13 @@ import java.util.Objects;
  * Created by Jakub on 30.11.2015.
  */
 public class CompassModel {
+    public enum Mode {ORIENTATION, MAGNETIC}
+
     private final InfowindowPresenter infowindowPresenter;
     private Boolean actual, compassMode;
     private TextView distance;
     private ImageView compass;
+    private boolean showCompass;
     private float degree;
 
     public CompassModel(final InfowindowPresenter infowindowPresenter){
@@ -31,10 +35,13 @@ public class CompassModel {
         this.actual = false;
     }
 
-    public void sync(final ImageView compass, final TextView distance){
+    public void sync(final boolean showCompass, final ImageView compass, final TextView distance){
+        this.showCompass = showCompass;
         this.compass = compass;
         this.distance = distance;
         this.compassMode = null;
+
+        this.syncCompassView();
     }
 
     public void updateDistance(final GoogleMap map, final LatLng position){
@@ -45,6 +52,7 @@ public class CompassModel {
 
         if(this.actual){
             this.distance.setText(LocationHelper.getDistance(myLocation, markerLocation));
+            this.syncMode();
         }
     }
 
@@ -55,7 +63,7 @@ public class CompassModel {
     }
 
     public void updateCompass(final RotateAnimation animation, final float degree){
-        if(this.actual){
+        if(this.actual && this.showCompass){
             this.infowindowPresenter.getActivity().animateCompass(animation);
             this.degree = degree;
         }
@@ -78,35 +86,53 @@ public class CompassModel {
             this.distance.setText(this.infowindowPresenter.getContext().getString(R.string.label_no_gps));
         }
 
-        final PorterDuffColorFilter filter = new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP);
-        this.compass.setColorFilter(filter);
+        if(this.showCompass){
+            final PorterDuffColorFilter filter = new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP);
+            this.compass.setColorFilter(filter);
+        }
+
         this.distance.setTextColor(color);
     }
 
     public void reset(){
         final int color = this.infowindowPresenter.getContext().getResources().getColor(R.color.colorPrimaryLight);
 
-        final PorterDuffColorFilter filter = new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP);
         this.distance.setText(this.infowindowPresenter.getContext().getString(R.string.label_no_gps));
-        this.compass.setColorFilter(filter);
         this.distance.setTextColor(color);
 
-        final RotateAnimation rotateAnimation = new RotateAnimation(
-                this.degree,
-                0,
-                Animation.RELATIVE_TO_SELF,
-                0.5f,
-                Animation.RELATIVE_TO_SELF,
-                0.5f
-        );
+        if(this.showCompass){
+            final PorterDuffColorFilter filter = new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP);
+            this.compass.setColorFilter(filter);
 
-        rotateAnimation.setDuration(200);
-        rotateAnimation.setFillAfter(true);
+            final RotateAnimation rotateAnimation = new RotateAnimation(
+                    this.degree,
+                    0,
+                    Animation.RELATIVE_TO_SELF,
+                    0.5f,
+                    Animation.RELATIVE_TO_SELF,
+                    0.5f
+            );
 
-        this.updateCompass(rotateAnimation, 0);
+            rotateAnimation.setDuration(200);
+            rotateAnimation.setFillAfter(true);
 
-        this.degree = 0;
+            this.updateCompass(rotateAnimation, 0);
+
+            this.degree = 0;
+        }
+
         this.actual = false;
 
+    }
+
+    private void syncCompassView(){
+        if(!this.showCompass){
+            this.compass.clearAnimation();
+            this.compass.setVisibility(View.GONE);
+            this.distance.setTextSize(22);
+        } else {
+            this.compass.setVisibility(View.VISIBLE);
+            this.distance.setTextSize(12);
+        }
     }
 }

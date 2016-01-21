@@ -77,4 +77,13 @@
     <string name="cache_dialog_ok">Zamknij</string>
     <string name="cache_gallery_no_photos" tools:ignore="UnusedResources">Brak zdjęć</string>
     <string name="cache_load_more_logs">Więcej</string>
+    <string name="settings_compass">Kompas (w fazie testów)</string>
+    <string name="settings_compass_sub">Kompas pokazujący kierunek do wybranego kesza</string>
+    <string name="settings_compass_warning_ok">Rozumiem</string>
+    <string name="settings_compass_warning_label">Uwaga</string>
+    <string name="settings_compass_warning">Na niektórych urządzeniach kompas może nie działać poprawnie. Poniżej możesz wybrać z jakich czujników ma korzystać kompas</string>
+    <string name="settings_category_compass">Kompas</string>
+    <string name="settings_category_general">Ogólne</string>
+    <string name="settings_category_other">Inne</string>
+    <string name="settings_compass_mode_label">Tryb pracy kompasu</string>
 </resources>

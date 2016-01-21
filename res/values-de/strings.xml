@@ -61,4 +61,5 @@
     <string name="toast_downloading">Herunterladen…</string>
     <string name="settings_language" tools:ignore="UnusedResources">Sprache</string>
     <string name="cache_load_more_logs">Mehr</string>
+    <string name="settings_compass_warning_ok">OK</string>
 </resources>

@@ -114,6 +114,7 @@
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:orientation="vertical"
+                    android:gravity="center_vertical"
                     android:layout_height="match_parent">
                 <ImageView
                         android:id="@+id/compass"

@@ -12,7 +12,10 @@ import android.widget.TextView;
 import com.example.OKM.R;
 import com.example.OKM.domain.model.CacheMakerModel;
 import com.example.OKM.domain.model.CompassModel;
+import com.example.OKM.domain.service.PreferencesService;
 import com.example.OKM.domain.task.CompassListener;
+import com.example.OKM.domain.task.CompassMagneticListener;
+import com.example.OKM.domain.task.CompassOrientationListener;
 import com.example.OKM.domain.task.TimerTask;
 import com.example.OKM.presentation.view.MainActivity;
 import com.google.android.gms.maps.GoogleMap;
@@ -29,26 +32,40 @@ public class InfowindowPresenter {
     private TextView type, size, owner, found;
     private ActionBar actionBar;
     private SensorManager sensorManager;
-    private CompassListener compassListener;
+    private CompassOrientationListener compassOrientationListener;
+    private CompassMagneticListener compassMagneticListener;
     private Thread thread;
+    private boolean showCompass;
     private final CompassModel compassModel;
+    private final Sensor mAccelerometer;
+    private final Sensor mMagnetometer;
+    private final Sensor mOrientation;
+    private CompassModel.Mode selectedCompassType;
 
     public InfowindowPresenter(final MainMapPresenter mainMapPresenter){
         this.mainMapPresenter = mainMapPresenter;
         this.compassModel = new CompassModel(this);
         this.sync();
         this.compassModel.setColor();
+        this.mAccelerometer = this.getSensorManager().getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        this.mMagnetometer = this.getSensorManager().getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+        this.mOrientation = this.getSensorManager().getDefaultSensor(Sensor.TYPE_ORIENTATION);
     }
 
     public void sync(){
         final LinearLayout infowindow = this.mainMapPresenter.getActivity().getInfowindowLayout();
-        this.type = (TextView) infowindow.findViewById(R.id.infoCacheType);
-        this.size = (TextView) infowindow.findViewById(R.id.infoCacheSize);
-        this.owner = (TextView) infowindow.findViewById(R.id.infoCacheOwner);
-        this.found = (TextView) infowindow.findViewById(R.id.infoCacheLastfound);
-        this.actionBar = this.mainMapPresenter.getActivity().getSupportActionBar();
+        final PreferencesService preferencesService = new PreferencesService(this.mainMapPresenter.getContext());
+
+        this.type                   = (TextView) infowindow.findViewById(R.id.infoCacheType);
+        this.size                   = (TextView) infowindow.findViewById(R.id.infoCacheSize);
+        this.owner                  = (TextView) infowindow.findViewById(R.id.infoCacheOwner);
+        this.found                  = (TextView) infowindow.findViewById(R.id.infoCacheLastfound);
+        this.actionBar              = this.mainMapPresenter.getActivity().getSupportActionBar();
+        this.showCompass            = preferencesService.isCompass();
+        this.selectedCompassType    = preferencesService.getCompassMode();
 
         this.compassModel.sync(
+                this.showCompass,
                 (ImageView) infowindow.findViewById(R.id.compass),
                 (TextView) infowindow.findViewById(R.id.distance)
         );
@@ -180,17 +197,11 @@ public class InfowindowPresenter {
     }
 
     private void startLocationTask(){
-        if(!this.getActivity().isCompassAvaible()){
-            return;
-        }
-
         this.stopLocationTask();
 
-        this.getSensorManager().registerListener(
-                this.getCompassListener(),
-                this.getSensorManager().getDefaultSensor(Sensor.TYPE_ORIENTATION),
-                SensorManager.SENSOR_DELAY_GAME
-        );
+        if(this.showCompass){
+            this.registerCompassListener();
+        }
 
         final GoogleMap googleMap = this.mainMapPresenter.getGoogleMap();
 
@@ -217,19 +228,50 @@ public class InfowindowPresenter {
         this.compassModel.syncMode();
     }
 
+    private void registerCompassListener(){
+        switch(this.selectedCompassType){
+            case MAGNETIC:
+                this.getSensorManager().registerListener(
+                        this.getCompassMagneticListener(),
+                        this.mAccelerometer,
+                        SensorManager.SENSOR_DELAY_NORMAL
+                );
+
+                this.getSensorManager().registerListener(
+                        this.getCompassMagneticListener(),
+                        this.mMagnetometer,
+                        SensorManager.SENSOR_DELAY_NORMAL
+                );
+                break;
+            case ORIENTATION:
+                this.getSensorManager().registerListener(
+                        this.getCompassOrientationListener(),
+                        this.getSensorManager().getDefaultSensor(Sensor.TYPE_ORIENTATION),
+                        SensorManager.SENSOR_DELAY_GAME
+                );
+                break;
+        }
+    }
+
     private void stopLocationTask(){
-        if(!this.getActivity().isCompassAvaible()){
-            return;
+        this.compassModel.syncMode();
+
+        switch(this.selectedCompassType){
+            case MAGNETIC:
+                this.getSensorManager().unregisterListener(this.getCompassMagneticListener(), this.mMagnetometer);
+                this.getSensorManager().unregisterListener(this.getCompassMagneticListener(), this.mAccelerometer);
+                break;
+            case ORIENTATION:
+                this.getSensorManager().unregisterListener(this.getCompassOrientationListener(), this.mOrientation);
+                break;
         }
 
-        this.compassModel.syncMode();
-        this.getSensorManager().unregisterListener(this.getCompassListener());
         if(this.thread != null){
             this.thread.interrupt();
         }
     }
 
-    private SensorManager getSensorManager(){
+    public SensorManager getSensorManager(){
         if(this.sensorManager == null){
             this.sensorManager = (SensorManager) this.mainMapPresenter.getActivity().getSystemService(Context.SENSOR_SERVICE);
         }
@@ -237,11 +279,19 @@ public class InfowindowPresenter {
         return this.sensorManager;
     }
 
-    private CompassListener getCompassListener(){
-        if(this.compassListener == null){
-            this.compassListener = new CompassListener(this.mainMapPresenter);
+    public CompassMagneticListener getCompassMagneticListener(){
+        if(this.compassMagneticListener == null){
+            this.compassMagneticListener = new CompassMagneticListener(this.mainMapPresenter, this.mAccelerometer, this.mMagnetometer);
         }
 
-        return this.compassListener;
+        return this.compassMagneticListener;
+    }
+
+    public CompassOrientationListener getCompassOrientationListener(){
+        if(this.compassOrientationListener == null){
+            this.compassOrientationListener = new CompassOrientationListener(this.mainMapPresenter);
+        }
+
+        return this.compassOrientationListener;
     }
 }

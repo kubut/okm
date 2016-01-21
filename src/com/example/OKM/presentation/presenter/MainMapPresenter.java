@@ -270,7 +270,7 @@ public final class MainMapPresenter {
     }
 
     public int getScreenRotation(){
-        return this.getActivity().getWindowManager().getDefaultDisplay().getRotation() * 90;
+        return this.getActivity().getWindowManager().getDefaultDisplay().getRotation();
     }
 
     public CacheMarkerCollectionModel getMarkerList(){

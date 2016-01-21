@@ -330,19 +330,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             this.infowindow.startAnimation(this.animationUp);
         }
         this.infowindow.setVisibility(View.VISIBLE);
-
-        if(!this.isCompassAvaible()){
-            this.infowindow.findViewById(R.id.compassDistanceView).setVisibility(View.GONE);
-        }
     }
 
     public void animateCompass(final Animation animation){
         this.presenter.getInfowindowPresenter().getCompass().syncMode();
         this.getCompass().startAnimation(animation);
-    }
-
-    public boolean isCompassAvaible(){
-        final SensorManager mSensorManager = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
-        return mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION) != null;
     }
 }

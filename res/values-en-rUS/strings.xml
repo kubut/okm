@@ -61,4 +61,13 @@
     <string name="toast_downloading_error">Downloading error</string>
     <string name="settings_reset_map_sub">Map will be centered based on your location</string>
     <string name="cache_load_more_logs">More</string>
+    <string name="settings_compass">Compass (experimental)</string>
+    <string name="settings_compass_sub">Compass, which will show you direction to selected cache</string>
+    <string name="settings_compass_warning_ok">GOT IT</string>
+    <string name="settings_compass_warning_label">Warning</string>
+    <string name="settings_compass_warning">On some devices this feature may not work properly. You can choose which sensors should be used by compass</string>
+    <string name="settings_category_compass">Compass</string>
+    <string name="settings_category_general">General</string>
+    <string name="settings_category_other">Other</string>
+    <string name="settings_compass_mode_label">Compass mode</string>
 </resources>

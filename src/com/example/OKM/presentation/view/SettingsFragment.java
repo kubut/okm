@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.OKM.R;
 import com.example.OKM.presentation.presenter.SettingsPresenter;
 
@@ -62,6 +63,15 @@ public class SettingsFragment extends com.fnp.materialpreferences.PreferenceFrag
                     break;
                 case "prefHideFound":
                     this.presenter.reloadMap();
+                    break;
+                case "prefCompass":
+                    if(this.getPreferenceManager().getSharedPreferences().getBoolean("prefCompass", false)){
+                        new MaterialDialog.Builder(this.getActivity())
+                                .title(R.string.settings_compass_warning_label)
+                                .content(R.string.settings_compass_warning)
+                                .positiveText(R.string.settings_compass_warning_ok)
+                                .show();
+                    }
                     break;
             }
         }

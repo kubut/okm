@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- general -->
     <string name="app_name" translatable="false">Opencaching Kubut Maps</string>
     <string name="default_map_position">38.36;-96.37;3.5</string>
@@ -19,20 +19,35 @@
     <string name="toast_downloading_error">Downloading error</string>
 
     <!-- Settings-->
-    <string name="title_activity_settings" tools:ignore="UnusedResources">Settings</string>
-    <string name="settings_downloading" tools:ignore="UnusedResources">Downloading</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="settings_category_general">General</string>
+    <string name="settings_category_compass">Compass</string>
+    <string name="settings_category_other">Other</string>
+    <string name="settings_downloading">Downloading</string>
     <string name="settings_username">Username</string>
     <string name="settings_username_blank">Empty</string>
     <string name="settings_low_limit">Eco mode</string>
     <string name="settings_low_limit_sub">Save up cellular data by downloading less caches</string>
     <string name="settings_hide_found">Hide found caches</string>
     <string name="settings_hide_found_sub">Don\'t show caches you already found</string>
-    <string name="settings_language" tools:ignore="UnusedResources">Language</string>
     <string name="settings_set_map">Set map position</string>
     <string name="settings_set_map_sub">Choose what kind of map you want to see when you start</string>
     <string name="settings_reset_map">Map auto-position</string>
     <string name="settings_reset_map_sub">Map will be centered based on your location</string>
     <string name="settings_server">Server</string>
+    <string name="settings_compass">Compass (experimental)</string>
+    <string name="settings_compass_sub">Compass which will show you direction to selected cache</string>
+    <string name="settings_compass_warning_label">Warning</string>
+    <string name="settings_compass_warning">On some devices this feature may not work properly. You can choose which sensors should be used by compass</string>
+    <string name="settings_compass_mode_label">Compass mode</string>
+    <string-array name="settings_compass_mode_entries">
+        <item>Orientation</item>
+        <item>Magnetic</item>
+    </string-array>
+    <string-array name="settings_compass_mode_values">
+        <item>orientation</item>
+        <item>magnetic</item>
+    </string-array>
     <string-array name="settings_servers_list_entries" translatable="false">
         <item>opencaching.pl</item>
         <item>opencaching.de</item>
@@ -58,20 +73,20 @@
     <string name="label_type">Type:</string>
 
     <!-- Caches types-->
-    <string name="Event" tools:ignore="UnusedResources">Event</string>
-    <string name="Multi" tools:ignore="UnusedResources">Multi</string>
+    <string name="Event">Event</string>
+    <string name="Multi">Multi</string>
     <string name="Other">Other</string>
     <string name="Quiz">Quiz</string>
     <string name="Traditional">Traditional</string>
-    <string name="Virtual" tools:ignore="UnusedResources">Virtual</string>
+    <string name="Virtual">Virtual</string>
 
     <!-- Caches sizes -->
-    <string name="size_large" tools:ignore="UnusedResources">Large</string>
+    <string name="size_large">Large</string>
     <string name="size_micro">Micro</string>
-    <string name="size_nano" tools:ignore="UnusedResources">Nano</string>
+    <string name="size_nano">Nano</string>
     <string name="size_other">Other</string>
     <string name="size_regular">Regular</string>
-    <string name="size_small" tools:ignore="UnusedResources">Small</string>
+    <string name="size_small">Small</string>
     <string name="size_xlarge">Huge</string>
     
     <!-- Cache details -->
@@ -87,6 +102,6 @@
     <string name="cache_menu_www">Show cache website</string>
     <string name="cache_dialog_ok">Close</string>
     <string name="cache_dialog_title">Hint</string>
-    <string name="cache_gallery_no_photos" tools:ignore="UnusedResources">No photos</string>
     <string name="cache_load_more_logs">More</string>
+    <string name="settings_compass_warning_ok">GOT IT</string>
 </resources>

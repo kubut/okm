@@ -1,5 +1,8 @@
 package com.example.OKM.presentation.presenter;
 
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.preference.*;
 import com.example.OKM.R;
 import com.example.OKM.domain.service.PreferencesService;
@@ -12,17 +15,21 @@ public class SettingsPresenter {
     private final SettingsFragment settingsFragment;
     private final PreferencesService preferencesService;
     private final EditTextPreference usernamePreference;
-    private final ListPreference serversList;
+    private final ListPreference serversList, compassModeList;
     private final Preference seletMapPosition;
+    private final CheckBoxPreference compassSwitch;
 
     public SettingsPresenter(final SettingsFragment settingsFragment){
         this.settingsFragment = settingsFragment;
         this.preferencesService = new PreferencesService(this.settingsFragment.getActivity());
 
-        this.usernamePreference = (EditTextPreference) this.settingsFragment.findPreference("prefUsername");
-        this.serversList = (ListPreference) this.settingsFragment.findPreference("prefServer");
         final CheckBoxPreference isMapAutoposition = (CheckBoxPreference) this.settingsFragment.findPreference("prefMapAutoPosition");
-        this.seletMapPosition = this.settingsFragment.findPreference("prefSelectMap");
+
+        this.usernamePreference     = (EditTextPreference) this.settingsFragment.findPreference("prefUsername");
+        this.serversList            = (ListPreference) this.settingsFragment.findPreference("prefServer");
+        this.compassModeList        = (ListPreference) this.settingsFragment.findPreference("prefCompassMode");
+        this.compassSwitch          = (CheckBoxPreference) this.settingsFragment.findPreference("prefCompass");
+        this.seletMapPosition       = this.settingsFragment.findPreference("prefSelectMap");
 
         isMapAutoposition.setChecked(this.isMapSelectDisabled());
     }
@@ -45,10 +52,31 @@ public class SettingsPresenter {
         return this.preferencesService.isMapAutoposition();
     }
 
+    private boolean isCompassEnabled(){
+        return this.preferencesService.isCompass();
+    }
+
+    private String getCompassModeSumamry(){
+        return this.preferencesService.getCompassModeName();
+    }
+
+    private boolean isMagneticCompassAvaible(){
+        final SensorManager sm = (SensorManager) this.settingsFragment.getActivity().getSystemService(Context.SENSOR_SERVICE);
+        return (sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) && (sm.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) != null);
+    }
+
+    private boolean isOrientationCompassAvaible(){
+        final SensorManager sm = (SensorManager) this.settingsFragment.getActivity().getSystemService(Context.SENSOR_SERVICE);
+        return sm.getDefaultSensor(Sensor.TYPE_ORIENTATION) != null;
+    }
+
     public void syncPreferencesSummary(){
         this.usernamePreference.setSummary(this.getUsernameSummary());
         this.serversList.setSummary(this.getServerSummary());
+        this.compassModeList.setSummary(this.getCompassModeSumamry());
         this.seletMapPosition.setEnabled(!this.isMapSelectDisabled());
+        this.compassModeList.setEnabled(this.isCompassEnabled());
+        this.compassSwitch.setEnabled(this.isMagneticCompassAvaible() || this.isOrientationCompassAvaible());
     }
 
     public void resetUuid(){

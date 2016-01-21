@@ -15,6 +15,8 @@ public class PreferencesRepository {
     private static final boolean HIDE_FOUND = false;
     private static final String MAP_POSITION = null;
     private static final boolean MAP_AUTOPOSITION = true;
+    private static final boolean COMPASS = false;
+    private static final String COMPASS_MODE = "orientation";
 
     private final SharedPreferences sharedPref;
 
@@ -28,6 +30,14 @@ public class PreferencesRepository {
 
     public boolean isMapAutoposition(){
         return this.sharedPref.getBoolean("prefMapAutoPosition", MAP_AUTOPOSITION);
+    }
+
+    public boolean isCompass() {
+        return  this.sharedPref.getBoolean("prefCompass", COMPASS);
+    }
+
+    public String getCompassMode(){
+        return this.sharedPref.getString("prefCompassMode", COMPASS_MODE);
     }
 
     public void setMapPosition(final String mapPosition){

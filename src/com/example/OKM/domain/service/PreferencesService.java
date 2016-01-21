@@ -2,7 +2,9 @@ package com.example.OKM.domain.service;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import com.example.OKM.R;
 import com.example.OKM.data.repositories.PreferencesRepository;
+import com.example.OKM.domain.model.CompassModel;
 import com.example.OKM.domain.valueObject.MapPositionValue;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -13,9 +15,11 @@ import java.util.Locale;
  */
 public class PreferencesService {
     private final PreferencesRepository repository;
+    private final Context context;
 
     public PreferencesService(final Context context){
         this.repository = new PreferencesRepository(context);
+        this.context = context;
     }
 
     @Nullable
@@ -78,7 +82,33 @@ public class PreferencesService {
         return this.repository.isHideFound();
     }
 
-    @SuppressWarnings("MethodMayBeStatic")
+    public boolean isCompass(){
+        return this.repository.isCompass();
+    }
+
+    public CompassModel.Mode getCompassMode(){
+        if(this.repository.getCompassMode().equals("magnetic")){
+            return CompassModel.Mode.MAGNETIC;
+        } else {
+            return CompassModel.Mode.ORIENTATION;
+        }
+    }
+
+    public String getCompassModeName(){
+        String modeName = "";
+        final String mode = this.repository.getCompassMode();
+        final String[] entries = this.context.getResources().getStringArray(R.array.settings_compass_mode_entries);
+        final String[] values = this.context.getResources().getStringArray(R.array.settings_compass_mode_values);
+
+        for(int i=0; i<values.length; i++){
+            if(values[i].equals(mode)){
+                modeName = entries[i];
+            }
+        }
+
+        return modeName;
+    }
+
     public String getLanguageCode(){
         return Locale.getDefault().getLanguage();
     }
