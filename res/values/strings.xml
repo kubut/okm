@@ -3,6 +3,10 @@
     <!-- general -->
     <string name="app_name" translatable="false">Opencaching Kubut Maps</string>
     <string name="default_map_position">38.36;-96.37;3.5</string>
+    <string name="location_dialog_title">Localization is turn off</string>
+    <string name="location_dialog_content">If you want to use GPS, you must go to settings and turn on location service</string>
+    <string name="location_dialog_cancel">DISMISS</string>
+    <string name="location_dialog_ok">OPEN SETTINGS</string>
 
     <!-- drawer -->
     <string name="drawer_cache_info">Description</string>

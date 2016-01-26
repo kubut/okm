@@ -1,10 +1,18 @@
 package com.example.OKM.presentation.presenter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.OKM.R;
 import com.example.OKM.data.services.OkapiCommunication;
 import com.example.OKM.domain.model.CacheMarkerCollectionModel;
@@ -114,16 +122,25 @@ public final class MainMapPresenter {
     }
 
     public void setGpsMode(final boolean modeOn){
+        if(this.googleMap == null){
+            return;
+        }
+
+        final LocationManager locationManager = (LocationManager) this.getContext().getSystemService(Context.LOCATION_SERVICE);
+        final boolean isLocation = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+        if(!isLocation || !this.checkLocationPermission()){
+            this.showLocationPermissionDialog();
+            this.setDrawerOptionState(this.getContext().getString(R.string.drawer_gps), false);
+            return;
+        }
+
         this.isGPS = modeOn;
 
         if(modeOn){
             this.infowindowPresenter.start();
         } else {
             this.infowindowPresenter.stop();
-        }
-
-        if(this.googleMap == null){
-            return;
         }
 
         this.googleMap.setMyLocationEnabled(modeOn);
@@ -302,4 +319,29 @@ public final class MainMapPresenter {
         return !this.markerList.isEmpty() || this.downloadTask;
     }
 
+    private boolean checkLocationPermission(){
+        final String permission = "android.permission.ACCESS_FINE_LOCATION";
+        final String permission2 = "android.permission.ACCESS_COARSE_LOCATION";
+        final int res = this.getContext().checkCallingOrSelfPermission(permission);
+        final int res2 = this.getContext().checkCallingOrSelfPermission(permission2);
+        return (res == PackageManager.PERMISSION_GRANTED) && (res2 == PackageManager.PERMISSION_GRANTED);
+    }
+
+    private void showLocationPermissionDialog(){
+        new MaterialDialog.Builder(this.getActivity())
+                .title(R.string.location_dialog_title)
+                .content(R.string.location_dialog_content)
+                .positiveText(R.string.location_dialog_ok)
+                .negativeText(R.string.location_dialog_cancel)
+                .negativeColor(ContextCompat.getColor(this.getContext(), R.color.colorPrimaryDark))
+                .onPositive(new MaterialDialog.SingleButtonCallback(){
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which){
+                        Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        MainMapPresenter.this.getContext().startActivity(myIntent);
+                    }
+                })
+                .show();
+    }
 }
