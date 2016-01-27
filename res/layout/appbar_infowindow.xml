@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
                                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                                   xmlns:tools="http://schemas.android.com/tools"
                                    app:titleTextAppearance="@style/Toolbar.TitleText"
                                    app:subtitleTextAppearance="@style/Toolbar.SubtitleText"
                                    android:layout_width="match_parent"
                                    android:layout_height="56dp"
                                    android:paddingRight="16dp"
+                                   android:paddingLeft="16dp"
                                    android:paddingEnd="16dp"
-                                   android:elevation="0dp">
+                                   android:elevation="0dp"
+                                   tools:ignore="UnusedAttribute">
 
 </android.support.v7.widget.Toolbar>

@@ -17,7 +17,6 @@
     <string name="toast_downloading_error">Błąd pobierania</string>
 
     <!-- Settings-->
-    <string name="title_activity_settings">Ustawienia</string>
     <string name="settings_downloading" tools:ignore="UnusedResources">Pobieranie</string>
     <string name="settings_username">Nazwa użytkownika</string>
     <string name="settings_username_blank">Brak</string>
@@ -25,7 +24,6 @@
     <string name="settings_low_limit_sub">Oszczędzaj transfer pobierając mniej skrzynek</string>
     <string name="settings_hide_found">Ukryj znalezione</string>
     <string name="settings_hide_found_sub">Nie pokazuj na mapie skrzynek które już znalazłeś</string>
-    <string name="settings_language" tools:ignore="UnusedResources">Język</string>
     <string name="settings_set_map">Ustaw pozycję mapy</string>
     <string name="settings_set_map_sub">Wybierz jaką mapę chcesz zobaczyć po uruchomieniu aplikacji</string>
     <string name="settings_reset_map">Automatyczne określanie pozycji</string>
@@ -75,8 +73,6 @@
     <string name="cache_menu_www">Pokaż stronę kesza</string>
     <string name="cache_dialog_title">Podpowiedź</string>
     <string name="cache_dialog_ok">Zamknij</string>
-    <string name="cache_gallery_no_photos" tools:ignore="UnusedResources">Brak zdjęć</string>
-    <string name="cache_load_more_logs">Więcej</string>
     <string name="settings_compass">Kompas (w fazie testów)</string>
     <string name="settings_compass_sub">Kompas pokazujący kierunek do wybranego kesza</string>
     <string name="settings_compass_warning_ok">Rozumiem</string>
@@ -86,4 +82,13 @@
     <string name="settings_category_general">Ogólne</string>
     <string name="settings_category_other">Inne</string>
     <string name="settings_compass_mode_label">Tryb pracy kompasu</string>
+    <string name="location_dialog_cancel">ANULUJ</string>
+    <string name="location_dialog_ok">OTWÓRZ USTAWIENIA</string>
+    <string name="location_dialog_title">Lokalizacja jest wyłączona</string>
+    <string name="location_dialog_content">Aby użyać GPS, musisz włączyć usługę lokalizacji w ustawieniach telefonu</string>
+    <string-array name="settings_compass_mode_entries">
+        <item>Magnetyczny</item>
+        <item>Akceleromagnetyczny</item>
+    </string-array>
+
 </resources>

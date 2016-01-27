@@ -319,7 +319,7 @@ public final class MainMapPresenter {
         return !this.markerList.isEmpty() || this.downloadTask;
     }
 
-    private boolean checkLocationPermission(){
+    public boolean checkLocationPermission(){
         final String permission = "android.permission.ACCESS_FINE_LOCATION";
         final String permission2 = "android.permission.ACCESS_COARSE_LOCATION";
         final int res = this.getContext().checkCallingOrSelfPermission(permission);
@@ -336,8 +336,8 @@ public final class MainMapPresenter {
                 .negativeColor(ContextCompat.getColor(this.getContext(), R.color.colorPrimaryDark))
                 .onPositive(new MaterialDialog.SingleButtonCallback(){
                     @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which){
-                        Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    public void onClick(@NonNull final MaterialDialog dialog, @NonNull final DialogAction which){
+                        final Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                         myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         MainMapPresenter.this.getContext().startActivity(myIntent);
                     }

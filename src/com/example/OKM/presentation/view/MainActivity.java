@@ -1,9 +1,6 @@
 package com.example.OKM.presentation.view;
 
-import android.content.Context;
 import android.content.Intent;
-import android.hardware.Sensor;
-import android.hardware.SensorManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -239,7 +236,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         final LocationManager locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
         final Criteria criteria = new Criteria();
         final String bestProvider = locationManager.getBestProvider(criteria, false);
-        final Location location = locationManager.getLastKnownLocation(bestProvider);
+
+        Location location = null;
+
+        if(this.presenter.checkLocationPermission()){
+            location = locationManager.getLastKnownLocation(bestProvider);
+        }
 
         this.presenter.setLastLocation(location);
         this.presenter.setMapPosition();

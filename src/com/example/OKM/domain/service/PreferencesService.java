@@ -13,6 +13,7 @@ import java.util.Locale;
 /**
  * Created by kubut on 2015-08-22.
  */
+@SuppressWarnings("MethodMayBeStatic")
 public class PreferencesService {
     private final PreferencesRepository repository;
     private final Context context;

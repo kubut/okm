@@ -21,6 +21,7 @@
     <ImageView
             android:id="@+id/gallery_item_thumb"
             android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:visibility="gone"
             android:layout_gravity="center_vertical"
             android:layout_width="80dp"

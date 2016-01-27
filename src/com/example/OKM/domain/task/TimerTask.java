@@ -13,7 +13,6 @@ public class TimerTask implements Runnable {
     private final Callable callback;
     private int time;
 
-    @SuppressWarnings("SameParameterValue")
     public TimerTask(final Handler handler, final int time, final Callable callable){
         this.handler = handler;
         this.callback = callable;

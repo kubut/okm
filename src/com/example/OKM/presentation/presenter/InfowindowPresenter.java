@@ -13,7 +13,6 @@ import com.example.OKM.R;
 import com.example.OKM.domain.model.CacheMakerModel;
 import com.example.OKM.domain.model.CompassModel;
 import com.example.OKM.domain.service.PreferencesService;
-import com.example.OKM.domain.task.CompassListener;
 import com.example.OKM.domain.task.CompassMagneticListener;
 import com.example.OKM.domain.task.CompassOrientationListener;
 import com.example.OKM.domain.task.TimerTask;
@@ -199,6 +198,10 @@ public class InfowindowPresenter {
     private void startLocationTask(){
         this.stopLocationTask();
 
+        if(!this.mainMapPresenter.checkLocationPermission()){
+            return;
+        }
+
         if(this.showCompass){
             this.registerCompassListener();
         }
@@ -271,7 +274,7 @@ public class InfowindowPresenter {
         }
     }
 
-    public SensorManager getSensorManager(){
+    private SensorManager getSensorManager(){
         if(this.sensorManager == null){
             this.sensorManager = (SensorManager) this.mainMapPresenter.getActivity().getSystemService(Context.SENSOR_SERVICE);
         }
@@ -279,7 +282,7 @@ public class InfowindowPresenter {
         return this.sensorManager;
     }
 
-    public CompassMagneticListener getCompassMagneticListener(){
+    private CompassMagneticListener getCompassMagneticListener(){
         if(this.compassMagneticListener == null){
             this.compassMagneticListener = new CompassMagneticListener(this.mainMapPresenter, this.mAccelerometer, this.mMagnetometer);
         }
@@ -287,7 +290,7 @@ public class InfowindowPresenter {
         return this.compassMagneticListener;
     }
 
-    public CompassOrientationListener getCompassOrientationListener(){
+    private CompassOrientationListener getCompassOrientationListener(){
         if(this.compassOrientationListener == null){
             this.compassOrientationListener = new CompassOrientationListener(this.mainMapPresenter);
         }

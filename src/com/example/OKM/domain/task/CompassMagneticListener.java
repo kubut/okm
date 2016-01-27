@@ -4,15 +4,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.support.annotation.IntegerRes;
-import android.view.Surface;
-import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
-import com.example.OKM.domain.service.LocationHelper;
 import com.example.OKM.presentation.presenter.MainMapPresenter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Jakub on 08.10.2015.
@@ -21,12 +13,12 @@ public class CompassMagneticListener extends CompassListener implements SensorEv
     private final Sensor mAccelerometer;
     private final Sensor mMagnetometer;
 
-    private float[] mLastAccelerometer = new float[3];
-    private float[] mLastMagnetometer = new float[3];
+    private final float[] mLastAccelerometer = new float[3];
+    private final float[] mLastMagnetometer = new float[3];
     private boolean mLastAccelerometerSet;
     private boolean mLastMagnetometerSet;
-    private float[] mR = new float[9];
-    private float[] mOrientation = new float[3];
+    private final float[] mR = new float[9];
+    private final float[] mOrientation = new float[3];
 
     public CompassMagneticListener(final MainMapPresenter mainMapPresenter, final Sensor mAccelerometer, final Sensor mMagnetometer){
         super(mainMapPresenter);
@@ -36,17 +28,19 @@ public class CompassMagneticListener extends CompassListener implements SensorEv
 
     @Override
     public void onSensorChanged(final SensorEvent sensorEvent) {
-        if (sensorEvent.sensor == mAccelerometer) {
-            System.arraycopy(sensorEvent.values, 0, mLastAccelerometer, 0, sensorEvent.values.length);
-            mLastAccelerometerSet = true;
-        } else if (sensorEvent.sensor == mMagnetometer) {
-            System.arraycopy(sensorEvent.values, 0, mLastMagnetometer, 0, sensorEvent.values.length);
-            mLastMagnetometerSet = true;
+        //noinspection ObjectEquality
+        if (sensorEvent.sensor == this.mAccelerometer) {
+            System.arraycopy(sensorEvent.values, 0, this.mLastAccelerometer, 0, sensorEvent.values.length);
+            this.mLastAccelerometerSet = true;
+        } else //noinspection ObjectEquality
+            if (sensorEvent.sensor == this.mMagnetometer) {
+            System.arraycopy(sensorEvent.values, 0, this.mLastMagnetometer, 0, sensorEvent.values.length);
+            this.mLastMagnetometerSet = true;
         }
-        if (mLastAccelerometerSet && mLastMagnetometerSet) {
-            SensorManager.getRotationMatrix(mR, null, mLastAccelerometer, mLastMagnetometer);
-            SensorManager.getOrientation(mR, mOrientation);
-            float azimuthInDegress = (float) (Math.toDegrees(mOrientation[0]) + 360) % 360;
+        if (this.mLastAccelerometerSet && this.mLastMagnetometerSet) {
+            SensorManager.getRotationMatrix(this.mR, null, this.mLastAccelerometer, this.mLastMagnetometer);
+            SensorManager.getOrientation(this.mR, this.mOrientation);
+            final float azimuthInDegress = (float) (Math.toDegrees(this.mOrientation[0]) + 360) % 360;
 
             this.update(Math.round(azimuthInDegress));
         }

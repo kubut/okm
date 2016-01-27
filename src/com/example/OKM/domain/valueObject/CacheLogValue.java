@@ -1,6 +1,7 @@
 package com.example.OKM.domain.valueObject;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import com.example.OKM.R;
 
 import java.util.Date;
@@ -22,13 +23,13 @@ public class CacheLogValue {
     public void setType(final String type) {
         switch (type){
             case "Found it":
-                this.color = this.context.getResources().getColor(R.color.cacheFound);
+                this.color = ContextCompat.getColor(this.context, R.color.cacheFound);
                 break;
             case "Didn't find it":
-                this.color = this.context.getResources().getColor(R.color.cacheNotFound);
+                this.color = ContextCompat.getColor(this.context, R.color.cacheNotFound);
                 break;
             default:
-                this.color = this.context.getResources().getColor(R.color.cacheOther);
+                this.color = ContextCompat.getColor(this.context, R.color.cacheOther);
                 break;
         }
     }

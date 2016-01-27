@@ -8,15 +8,15 @@ import com.example.OKM.presentation.presenter.MainMapPresenter;
 /**
  * Created by Jakub on 17.01.2016
  */
-abstract public class CompassListener {
-    protected final MainMapPresenter mainMapPresenter;
-    protected float currentDegree;
+abstract class CompassListener {
+    private final MainMapPresenter mainMapPresenter;
+    private float currentDegree;
 
-    public CompassListener(final MainMapPresenter mainMapPresenter){
+    CompassListener(final MainMapPresenter mainMapPresenter){
         this.mainMapPresenter = mainMapPresenter;
     }
 
-    protected void update(Integer degree){
+    void update(Integer degree){
         //noinspection ConstantConditions
         degree = LocationHelper.getMarkerAzimuth(-degree);
 

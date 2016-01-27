@@ -10,7 +10,6 @@
     <string name="cache_attrs">Attribute</string>
     <string name="cache_dialog_ok">Schließen</string>
     <string name="cache_dialog_title">Hinweis</string>
-    <string name="cache_gallery_no_photos" tools:ignore="UnusedResources">Keine Fotos</string>
     <string name="cache_menu_hint">Hinweis anzeigen</string>
     <string name="cache_menu_maps">In Google Maps anzeigen</string>
     <string name="cache_menu_nav">Navigieren</string>
@@ -55,11 +54,24 @@
     <string name="size_regular" tools:ignore="UnusedResources">Normal</string>
     <string name="size_small" tools:ignore="UnusedResources">Klein</string>
     <string name="size_xlarge" tools:ignore="UnusedResources">Riesig</string>
-    <string name="title_activity_settings">Einstellungen</string>
     <string name="drawer_settings">Einstellungen</string>
     <string name="toast_downloading_error">Fehler beim Download</string>
     <string name="toast_downloading">Herunterladen…</string>
-    <string name="settings_language" tools:ignore="UnusedResources">Sprache</string>
-    <string name="cache_load_more_logs">Mehr</string>
     <string name="settings_compass_warning_ok">OK</string>
+    <string name="location_dialog_cancel"></string>
+    <string name="location_dialog_content"></string>
+    <string name="location_dialog_ok"></string>
+    <string name="location_dialog_title"></string>
+    <string name="settings_category_compass"></string>
+    <string name="settings_category_general"></string>
+    <string name="settings_category_other"></string>
+    <string name="settings_compass"></string>
+    <string name="settings_compass_mode_label"></string>
+    <string name="settings_compass_sub"></string>
+    <string name="settings_compass_warning"></string>
+    <string name="settings_compass_warning_label"></string>
+    <string-array name="settings_compass_mode_entries">
+        <item> </item>
+        <item> </item>
+    </string-array>
 </resources>

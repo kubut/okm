@@ -16,14 +16,13 @@ public final class AttributesTable{
     }
 
     public static void onCreate(final SQLiteDatabase db){
-        final StringBuilder sb = new StringBuilder();
-        sb.append("CREATE TABLE " + AttributesTable.TABLE_NAME + " (");
-        sb.append(BaseColumns._ID + " INTEGER PRIMARY KEY, ");
-        sb.append(AttributesColumns.ACODE + " TEXT, ");
-        sb.append(AttributesColumns.LANGUAGE + " TEXT, ");
-        sb.append(AttributesColumns.NAME + " TEXT ");
-        sb.append(");");
-        db.execSQL(sb.toString());
+        final String sb = "CREATE TABLE " + AttributesTable.TABLE_NAME + " (" +
+                BaseColumns._ID + " INTEGER PRIMARY KEY, " +
+                AttributesColumns.ACODE + " TEXT, " +
+                AttributesColumns.LANGUAGE + " TEXT, " +
+                AttributesColumns.NAME + " TEXT " +
+                ");";
+        db.execSQL(sb);
     }
 
     public static void onUpgrade(final SQLiteDatabase db, final int oldVersion, final int newVersion){

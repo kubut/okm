@@ -46,9 +46,9 @@ public class MainDrawerListAdapter extends ArrayAdapter<IMainDrawerItem>{
         item = this.getItem(position);
 
         if(item.isActive()){
-            color = this.context.getResources().getColor(R.color.textColorPrimary);
+            color = ContextCompat.getColor(this.context, R.color.textColorPrimary);
         } else {
-            color = this.context.getResources().getColor(R.color.textColorPrimaryInactive);
+            color = ContextCompat.getColor(this.context, R.color.textColorPrimaryInactive);
         }
 
         title.setText(item.getTitle());

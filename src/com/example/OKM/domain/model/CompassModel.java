@@ -3,6 +3,7 @@ package com.example.OKM.domain.model;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.location.Location;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
@@ -13,8 +14,6 @@ import com.example.OKM.domain.service.LocationHelper;
 import com.example.OKM.presentation.presenter.InfowindowPresenter;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
-
-import java.util.Objects;
 
 /**
  * Created by Jakub on 30.11.2015.
@@ -57,7 +56,7 @@ public class CompassModel {
     }
 
     public void setColor(){
-        final int color = this.infowindowPresenter.getContext().getResources().getColor(R.color.colorPrimaryLight);
+        final int color = ContextCompat.getColor(this.infowindowPresenter.getContext(), R.color.colorPrimaryLight);
         final PorterDuffColorFilter filter = new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP);
         this.compass.setColorFilter(filter);
     }
@@ -79,9 +78,9 @@ public class CompassModel {
         this.compassMode = this.actual;
 
         if(this.actual){
-            color = this.infowindowPresenter.getContext().getResources().getColor(R.color.textColorPrimary);
+            color = ContextCompat.getColor(this.infowindowPresenter.getContext(), R.color.textColorPrimary);
         } else {
-            color = this.infowindowPresenter.getContext().getResources().getColor(R.color.colorPrimaryLight);
+            color = ContextCompat.getColor(this.infowindowPresenter.getContext(), R.color.colorPrimaryLight);
             this.compass.invalidate();
             this.distance.setText(this.infowindowPresenter.getContext().getString(R.string.label_no_gps));
         }
@@ -95,7 +94,7 @@ public class CompassModel {
     }
 
     public void reset(){
-        final int color = this.infowindowPresenter.getContext().getResources().getColor(R.color.colorPrimaryLight);
+        final int color = ContextCompat.getColor(this.infowindowPresenter.getContext(), R.color.colorPrimaryLight);
 
         this.distance.setText(this.infowindowPresenter.getContext().getString(R.string.label_no_gps));
         this.distance.setTextColor(color);
