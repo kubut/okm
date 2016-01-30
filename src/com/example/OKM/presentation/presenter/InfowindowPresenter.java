@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -33,6 +34,7 @@ public class InfowindowPresenter {
     private final MainMapPresenter mainMapPresenter;
     private CacheMakerModel selectedMarker;
     private TextView type, size, owner, found, rating;
+    private LinearLayout ratingView;
     private ActionBar actionBar;
     private SensorManager sensorManager;
     private CompassOrientationListener compassOrientationListener;
@@ -64,6 +66,7 @@ public class InfowindowPresenter {
         this.owner                  = (TextView) infowindow.findViewById(R.id.infoCacheOwner);
         this.found                  = (TextView) infowindow.findViewById(R.id.infoCacheLastfound);
         this.rating                 = (TextView) infowindow.findViewById(R.id.infoCacheRating);
+        this.ratingView             = (LinearLayout) infowindow.findViewById(R.id.infoCacheRatingView);
         this.actionBar              = this.mainMapPresenter.getActivity().getSupportActionBar();
         this.showCompass            = preferencesService.isCompass();
         this.selectedCompassType    = preferencesService.getCompassMode();
@@ -202,7 +205,12 @@ public class InfowindowPresenter {
         this.owner.setText(this.selectedMarker.getOwner());
         this.found.setText(lastFound);
 
-        CacheRatingHelper.setStars(this.selectedMarker.getRating(), this.getContext(), this.rating);
+        if(this.selectedMarker.getRating() > -1){
+            this.ratingView.setVisibility(View.VISIBLE);
+            CacheRatingHelper.setStars(this.selectedMarker.getRating(), this.getContext(), this.rating);
+        } else {
+            this.ratingView.setVisibility(View.GONE);
+        }
     }
 
     private void startLocationTask(){

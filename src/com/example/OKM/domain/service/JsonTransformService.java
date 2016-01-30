@@ -36,7 +36,7 @@ public class JsonTransformService {
                     lastFound = jsonCache.getString("last_found");
                 }
 
-                int rating = 0;
+                int rating = -1;
 
                 try{
                     rating = jsonCache.getInt("rating");
@@ -111,7 +111,7 @@ public class JsonTransformService {
         try{
             cacheModel.setRating(jsonObject.getInt("rating"));
         } catch (final Exception e){
-            cacheModel.setRating(0);
+            cacheModel.setRating(-1);
         }
 
         cacheModel.appendLogs(JsonTransformService.getCacheLogsValueByJson(context, jsonObject.getJSONArray("latest_logs")));

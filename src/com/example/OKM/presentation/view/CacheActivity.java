@@ -164,11 +164,12 @@ public class CacheActivity extends AppCompatActivity {
     }
 
     public void setCacheDetails(final CacheModel cacheModel){
-        final TextView type         = (TextView) this.bottomPanel.findViewById(R.id.infoCacheType);
-        final TextView size         = (TextView) this.bottomPanel.findViewById(R.id.infoCacheSize);
-        final TextView owner        = (TextView) this.bottomPanel.findViewById(R.id.infoCacheOwner);
-        final TextView attributes   = (TextView) this.bottomPanel.findViewById(R.id.infoCacheAttributes);
-        final TextView rating       = (TextView) this.bottomPanel.findViewById(R.id.infoCacheRating);
+        final TextView type             = (TextView) this.bottomPanel.findViewById(R.id.infoCacheType);
+        final TextView size             = (TextView) this.bottomPanel.findViewById(R.id.infoCacheSize);
+        final TextView owner            = (TextView) this.bottomPanel.findViewById(R.id.infoCacheOwner);
+        final TextView attributes       = (TextView) this.bottomPanel.findViewById(R.id.infoCacheAttributes);
+        final TextView rating           = (TextView) this.bottomPanel.findViewById(R.id.infoCacheRating);
+        final LinearLayout ratingView   = (LinearLayout) this.bottomPanel.findViewById(R.id.infoCacheRatingView);
 
         final Typeface font = Typeface.createFromAsset(getAssets(), "fontawesome-webfont.ttf");
         rating.setTypeface(font);
@@ -196,7 +197,12 @@ public class CacheActivity extends AppCompatActivity {
             this.tabGallery.setView(this, cacheModel);
         }
 
-        CacheRatingHelper.setStars(cacheModel.getRating(), this, rating);
+        if(cacheModel.getRating() > -1){
+            ratingView.setVisibility(View.VISIBLE);
+            CacheRatingHelper.setStars(cacheModel.getRating(), this, rating);
+        } else {
+            ratingView.setVisibility(View.GONE);
+        }
 
         this.loaded = true;
     }
