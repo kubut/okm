@@ -103,6 +103,14 @@ public class InfowindowPresenter {
         this.syncInfo();
         this.startLocationTask();
         this.compassModel.syncMode();
+
+        this.mainMapPresenter.getActivity().getInfowindowLayout().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                //noinspection UnqualifiedFieldAccess
+                mainMapPresenter.getActivity().goToCacheInfo();
+            }
+        });
     }
 
     public void close(){
