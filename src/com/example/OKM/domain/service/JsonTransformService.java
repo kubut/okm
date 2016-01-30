@@ -36,6 +36,14 @@ public class JsonTransformService {
                     lastFound = jsonCache.getString("last_found");
                 }
 
+                int rating = 0;
+
+                try{
+                    rating = jsonCache.getInt("rating");
+                } catch (final Exception e){
+                    e.printStackTrace();
+                }
+
                 final CacheMakerModel cache = new CacheMakerModel(
                         context,
                         new LatLng(Double.parseDouble(cacheLocation[0]), Double.parseDouble(cacheLocation[1])),
@@ -44,7 +52,8 @@ public class JsonTransformService {
                         jsonCache.getString("type"),
                         owner.getString("username"),
                         lastFound,
-                        jsonCache.getString("size2")
+                        jsonCache.getString("size2"),
+                        rating
                 );
 
                 list.put(cache.getCode(), cache);
@@ -98,6 +107,12 @@ public class JsonTransformService {
         cacheModel.setHint(jsonObject.getString("hint2"));
         cacheModel.setDescription(HtmlParser.parseHtml(jsonObject.getString("description"), context));
         cacheModel.appendPhotos(JsonTransformService.getCachePhotosValueByJson(jsonObject.getJSONArray("images")));
+
+        try{
+            cacheModel.setRating(jsonObject.getInt("rating"));
+        } catch (final Exception e){
+            cacheModel.setRating(0);
+        }
 
         cacheModel.appendLogs(JsonTransformService.getCacheLogsValueByJson(context, jsonObject.getJSONArray("latest_logs")));
         cacheModel.appendAttrs(attrs);

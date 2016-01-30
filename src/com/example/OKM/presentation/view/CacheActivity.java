@@ -1,5 +1,6 @@
 package com.example.OKM.presentation.view;
 
+import android.graphics.Typeface;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -15,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.example.OKM.R;
 import com.example.OKM.domain.model.CacheModel;
+import com.example.OKM.domain.service.CacheRatingHelper;
 import com.example.OKM.presentation.presenter.CachePresenter;
 import com.example.OKM.presentation.adapter.ViewPagerAdapter;
 import com.rey.material.widget.ProgressView;
@@ -166,6 +168,10 @@ public class CacheActivity extends AppCompatActivity {
         final TextView size         = (TextView) this.bottomPanel.findViewById(R.id.infoCacheSize);
         final TextView owner        = (TextView) this.bottomPanel.findViewById(R.id.infoCacheOwner);
         final TextView attributes   = (TextView) this.bottomPanel.findViewById(R.id.infoCacheAttributes);
+        final TextView rating       = (TextView) this.bottomPanel.findViewById(R.id.infoCacheRating);
+
+        final Typeface font = Typeface.createFromAsset(getAssets(), "fontawesome-webfont.ttf");
+        rating.setTypeface(font);
 
         if(!cacheModel.hasAttributes()){
             attributes.setVisibility(View.GONE);
@@ -189,6 +195,8 @@ public class CacheActivity extends AppCompatActivity {
         if(cacheModel.hasPhotos()){
             this.tabGallery.setView(this, cacheModel);
         }
+
+        CacheRatingHelper.setStars(cacheModel.getRating(), this, rating);
 
         this.loaded = true;
     }

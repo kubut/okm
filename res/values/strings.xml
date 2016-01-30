@@ -7,6 +7,12 @@
     <string name="location_dialog_content">If you want to use GPS, you must go to settings and turn on location service</string>
     <string name="location_dialog_cancel">DISMISS</string>
     <string name="location_dialog_ok">OPEN SETTINGS</string>
+    <string name="ok">OK</string>
+
+    <!--First run-->
+    <string name="first_run_select_server_title">Please select server:</string>
+    <string name="first_run_welcome_title">Welcome!</string>
+    <string name="first_run_welcome">Thanks for downloading Opencaching Kubut Maps! Use menu or icon in the right-top corner to download caches</string>
 
     <!-- drawer -->
     <string name="drawer_cache_info">Description</string>
@@ -56,11 +62,6 @@
         <item>opencaching.de</item>
         <item>opencaching.us</item>
     </string-array>
-    <string-array name="settings_servers_list_values" translatable="false">
-        <item>opencaching.pl</item>
-        <item>opencaching.de</item>
-        <item>opencaching.us</item>
-    </string-array>
 
     <!-- Settings set map-->
     <string name="settings_set_map_title">Choose position</string>
@@ -74,6 +75,7 @@
     <string name="label_owner">Owner:</string>
     <string name="label_size">Size:</string>
     <string name="label_type">Type:</string>
+    <string name="label_rating">Rating:</string>
 
     <!-- Caches types-->
     <string name="Event">Event</string>

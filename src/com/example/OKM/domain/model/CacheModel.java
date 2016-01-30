@@ -18,6 +18,7 @@ public class CacheModel {
     private LatLng location;
     private CacheTypeValue type;
     private CacheSizeValue size;
+    private int rating;
     private final ArrayList<CacheAttributeValue> attrs;
     private final ArrayList<CacheLogValue> logs;
     private final ArrayList<CachePhotoValue> photos;
@@ -26,6 +27,7 @@ public class CacheModel {
         this.attrs = new ArrayList<>();
         this.logs = new ArrayList<>();
         this.photos = new ArrayList<>();
+        this.rating = 0;
     }
 
     public void appendAttrs(final ArrayList<CacheAttributeValue> attrsToAppend){
@@ -112,5 +114,11 @@ public class CacheModel {
     }
     public void setSize(final CacheSizeValue size) {
         this.size = size;
+    }
+    public int getRating() {
+        return this.rating;
+    }
+    public void setRating(final int rating) {
+        this.rating = rating;
     }
 }

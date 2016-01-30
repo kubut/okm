@@ -1,17 +1,21 @@
 package com.example.OKM.presentation.presenter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.example.OKM.R;
 import com.example.OKM.domain.model.CacheMakerModel;
 import com.example.OKM.domain.model.CompassModel;
+import com.example.OKM.domain.service.CacheRatingHelper;
 import com.example.OKM.domain.service.PreferencesService;
 import com.example.OKM.domain.task.CompassMagneticListener;
 import com.example.OKM.domain.task.CompassOrientationListener;
@@ -28,7 +32,7 @@ import java.util.concurrent.Callable;
 public class InfowindowPresenter {
     private final MainMapPresenter mainMapPresenter;
     private CacheMakerModel selectedMarker;
-    private TextView type, size, owner, found;
+    private TextView type, size, owner, found, rating;
     private ActionBar actionBar;
     private SensorManager sensorManager;
     private CompassOrientationListener compassOrientationListener;
@@ -59,9 +63,13 @@ public class InfowindowPresenter {
         this.size                   = (TextView) infowindow.findViewById(R.id.infoCacheSize);
         this.owner                  = (TextView) infowindow.findViewById(R.id.infoCacheOwner);
         this.found                  = (TextView) infowindow.findViewById(R.id.infoCacheLastfound);
+        this.rating                 = (TextView) infowindow.findViewById(R.id.infoCacheRating);
         this.actionBar              = this.mainMapPresenter.getActivity().getSupportActionBar();
         this.showCompass            = preferencesService.isCompass();
         this.selectedCompassType    = preferencesService.getCompassMode();
+
+        final Typeface font = Typeface.createFromAsset(this.getContext().getAssets(), "fontawesome-webfont.ttf");
+        this.rating.setTypeface(font);
 
         this.compassModel.sync(
                 this.showCompass,
@@ -193,6 +201,8 @@ public class InfowindowPresenter {
         this.size.setText(this.selectedMarker.getSize().getName());
         this.owner.setText(this.selectedMarker.getOwner());
         this.found.setText(lastFound);
+
+        CacheRatingHelper.setStars(this.selectedMarker.getRating(), this.getContext(), this.rating);
     }
 
     private void startLocationTask(){

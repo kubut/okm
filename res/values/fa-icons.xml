@@ -74,4 +74,6 @@
     <string name="cache_attr_A72" translatable="false" tools:ignore="UnusedResources">&#xf047;</string>
     <string name="cache_attr_A73" translatable="false" tools:ignore="UnusedResources">&#xf017;</string>
     <string name="cache_attr_A74" translatable="false" tools:ignore="UnusedResources">&#xf06e;</string>
+    <string name="cache_star" translatable="false" tools:ignore="UnusedResources">&#xf006;</string>
+    <string name="cache_star_full" translatable="false" tools:ignore="UnusedResources">&#xf005;</string>
 </resources>

@@ -90,5 +90,10 @@
         <item>Magnetyczny</item>
         <item>Akceleromagnetyczny</item>
     </string-array>
+    <string name="label_rating">Ocena:</string>
+    <string name="ok">OK</string>
+    <string name="first_run_select_server_title">Proszę wybrać serwer:</string>
+    <string name="first_run_welcome_title">Witaj!</string>
+    <string name="first_run_welcome">Dziękujemy za pobranie Opencaching Kubut Maps! Aby pobrać skrzynki, wybierz odpowiednią pozycję w menu po lewej stronie, lub użyj przycisku w prawym górnym rogu ekranu.</string>
 
 </resources>

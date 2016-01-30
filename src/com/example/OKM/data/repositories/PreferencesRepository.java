@@ -17,6 +17,7 @@ public class PreferencesRepository {
     private static final boolean MAP_AUTOPOSITION = true;
     private static final boolean COMPASS = false;
     private static final String COMPASS_MODE = "orientation";
+    private static final long LAST_RUN = 0;
 
     private final SharedPreferences sharedPref;
 
@@ -70,5 +71,21 @@ public class PreferencesRepository {
 
     public String getServer(){
         return this.sharedPref.getString("prefServer", SERVER);
+    }
+
+    public long getLastRunTime(){
+        return this.sharedPref.getLong("firstRun", LAST_RUN);
+    }
+
+    public void setLastRunTime(final long time){
+        final SharedPreferences.Editor editor = this.sharedPref.edit();
+        editor.putLong("firstRun", time);
+        editor.apply();
+    }
+
+    public void setServer(final String server){
+        final SharedPreferences.Editor editor = this.sharedPref.edit();
+        editor.putString("prefServer", server);
+        editor.apply();
     }
 }

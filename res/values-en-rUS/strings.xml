@@ -74,4 +74,9 @@
         <item>Orientation</item>
         <item>Magnetic</item>
     </string-array>
+    <string name="label_rating">Rating:</string>
+    <string name="ok">OK</string>
+    <string name="first_run_select_server_title">Please select server:</string>
+    <string name="first_run_welcome_title">Welcome!</string>
+    <string name="first_run_welcome">Thanks for downloading Opencaching Kubut Maps! Use menu or icon in the right-top corner to download caches</string>
 </resources>

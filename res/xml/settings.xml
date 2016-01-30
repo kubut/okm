@@ -37,7 +37,7 @@
         <ListPreference
                 android:title="@string/settings_server"
                 android:entries="@array/settings_servers_list_entries"
-                android:entryValues="@array/settings_servers_list_values"
+                android:entryValues="@array/settings_servers_list_entries"
                 android:key="prefServer"/>
         <CheckBoxPreference
                 android:title="@string/settings_reset_map"

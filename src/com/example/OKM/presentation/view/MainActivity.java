@@ -21,6 +21,7 @@ import com.example.OKM.R;
 import com.example.OKM.data.factories.IMainDrawerItemListFactory;
 import com.example.OKM.data.factories.MainDrawerActionItemListFactory;
 import com.example.OKM.data.factories.MainDrawerIntentItemListFactory;
+import com.example.OKM.domain.model.FirstRunModel;
 import com.example.OKM.domain.model.IMainDrawerItem;
 import com.example.OKM.presentation.adapter.MainDrawerListAdapter;
 import com.example.OKM.presentation.presenter.MainMapPresenter;
@@ -102,6 +103,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onResume(){
         super.onResume();
+
+        FirstRunModel.showIfFirstTime(this);
+
         if(this.presenter.getInfowindowPresenter().isOpen()){
             this.presenter.getInfowindowPresenter().sync();
             this.showInfowindow(false);

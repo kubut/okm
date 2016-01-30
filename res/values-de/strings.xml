@@ -74,4 +74,9 @@
         <item> </item>
         <item> </item>
     </string-array>
+    <string name="label_rating"></string>
+    <string name="ok">OK</string>
+    <string name="first_run_welcome_title"></string>
+    <string name="first_run_welcome"></string>
+    <string name="first_run_select_server_title"></string>
 </resources>

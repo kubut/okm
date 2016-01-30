@@ -17,7 +17,7 @@ public class CacheMakerModel {
     private final String owner;
     private final String lastFound;
     private final CacheSizeValue size;
-
+    private final int rating;
 
     public CacheMakerModel(
             final Context context,
@@ -27,7 +27,8 @@ public class CacheMakerModel {
             final String type,
             final String owner,
             final String lastFound,
-            final String size
+            final String size,
+            final int rating
     ){
         this.position = position;
         this.code = code;
@@ -36,6 +37,7 @@ public class CacheMakerModel {
         this.type = new CacheTypeValue(context, type);
         this.owner = owner;
         this.lastFound = lastFound;
+        this.rating = rating;
     }
 
     @Override
@@ -84,6 +86,10 @@ public class CacheMakerModel {
 
     public String getLastFound() {
         return this.lastFound;
+    }
+
+    public int getRating(){
+        return this.rating;
     }
 
 }

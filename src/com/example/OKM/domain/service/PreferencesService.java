@@ -1,6 +1,7 @@
 package com.example.OKM.domain.service;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
 import com.example.OKM.R;
 import com.example.OKM.data.repositories.PreferencesRepository;
@@ -120,5 +121,17 @@ public class PreferencesService {
 
     public String getServerAPI(){
         return "http://www." + this.getServerName() + "/okapi/";
+    }
+
+    public long getLastRunTime(){
+        return this.repository.getLastRunTime();
+    }
+
+    public void setLastRunTime(){
+        this.repository.setLastRunTime(new java.util.Date().getTime());
+    }
+
+    public void setServerName(final String serverName){
+        this.repository.setServer(serverName);
     }
 }
