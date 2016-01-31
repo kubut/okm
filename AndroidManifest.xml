@@ -28,7 +28,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".presentation.view.MainActivity"
-            android:theme="@style/AppBaseTheme" >
+            android:theme="@style/AppBaseTheme"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,11 +38,13 @@
         </activity>
         <activity
             android:name=".presentation.view.SettingsActivity"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".presentation.view.SettingsMapActivity"
-            android:theme="@style/AppBaseTheme" >
+            android:theme="@style/AppBaseTheme"
+            android:screenOrientation="portrait">
         </activity>
 
         <meta-data
@@ -53,11 +56,13 @@
 
         <activity
             android:name=".presentation.view.CacheActivity"
-            android:theme="@style/AppBaseTheme" >
+            android:theme="@style/AppBaseTheme"
+            android:screenOrientation="portrait">
         </activity>
 
         <activity android:name=".presentation.view.CachePhotoActivity"
-                  android:theme="@style/AppBaseTheme">
+                  android:theme="@style/AppBaseTheme"
+                  android:screenOrientation="portrait">
         </activity>
     </application>
 

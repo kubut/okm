@@ -64,7 +64,7 @@
     <string name="location_dialog_title"></string>
     <string name="settings_category_compass"></string>
     <string name="settings_category_general"></string>
-    <string name="settings_category_other"></string>
+    <string name="settings_category_other">Andere</string>
     <string name="settings_compass"></string>
     <string name="settings_compass_mode_label"></string>
     <string name="settings_compass_sub"></string>

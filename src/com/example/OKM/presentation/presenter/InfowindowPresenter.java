@@ -23,6 +23,7 @@ import com.example.OKM.domain.task.CompassOrientationListener;
 import com.example.OKM.domain.task.TimerTask;
 import com.example.OKM.presentation.view.MainActivity;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Marker;
 
 import java.util.concurrent.Callable;
@@ -46,6 +47,7 @@ public class InfowindowPresenter {
     private final Sensor mMagnetometer;
     private final Sensor mOrientation;
     private CompassModel.Mode selectedCompassType;
+    private Marker marker;
 
     public InfowindowPresenter(final MainMapPresenter mainMapPresenter){
         this.mainMapPresenter = mainMapPresenter;
@@ -93,12 +95,15 @@ public class InfowindowPresenter {
             this.mainMapPresenter.getActivity().showInfowindow(true);
         }
 
+        this.unselectMarker();
+
         this.selectedMarker = this.mainMapPresenter.getMarkerList().getMarker(marker.getTitle());
 
         if(this.selectedMarker == null){
             return;
         }
 
+        this.selectMarker(marker);
         this.syncToolbar();
         this.syncInfo();
         this.startLocationTask();
@@ -115,6 +120,9 @@ public class InfowindowPresenter {
 
     public void close(){
         if(this.isOpen()){
+            this.marker.setIcon(BitmapDescriptorFactory.fromResource(this.selectedMarker.getType().getIcon()));
+            this.marker.hideInfoWindow();
+            this.marker = null;
             this.selectedMarker = null;
             this.stop();
             this.mainMapPresenter.getActivity().invalidateOptionsMenu();
@@ -135,7 +143,7 @@ public class InfowindowPresenter {
     }
 
     public boolean isOpen(){
-        return this.selectedMarker != null;
+        return (this.selectedMarker != null) && (this.marker != null);
     }
 
     public CompassModel getCompass(){
@@ -322,5 +330,18 @@ public class InfowindowPresenter {
         }
 
         return this.compassOrientationListener;
+    }
+
+    private void unselectMarker(){
+        if((this.marker != null) && (this.selectedMarker != null)){
+            this.marker.setIcon(BitmapDescriptorFactory.fromResource(this.selectedMarker.getType().getIcon()));
+            this.marker.hideInfoWindow();
+        }
+    }
+
+    private void selectMarker(final Marker marker){
+        this.marker = marker;
+        this.marker.setIcon(BitmapDescriptorFactory.fromResource(this.selectedMarker.getType().getSelectedIcon()));
+        this.marker.showInfoWindow(); //empty infowindow, only for z-ordering
     }
 }

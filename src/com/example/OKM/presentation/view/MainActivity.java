@@ -24,7 +24,9 @@ import com.example.OKM.data.factories.MainDrawerIntentItemListFactory;
 import com.example.OKM.domain.model.FirstRunModel;
 import com.example.OKM.domain.model.IMainDrawerItem;
 import com.example.OKM.presentation.adapter.MainDrawerListAdapter;
+import com.example.OKM.presentation.adapter.NoInfowindowAdapter;
 import com.example.OKM.presentation.presenter.MainMapPresenter;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -250,10 +252,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         this.presenter.setLastLocation(location);
         this.presenter.setMapPosition();
 
+        map.setInfoWindowAdapter(new NoInfowindowAdapter(this));
+
         map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(final Marker marker) {
                 MainActivity.this.presenter.getInfowindowPresenter().show(marker);
+                map.animateCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
                 return true;
             }
         });

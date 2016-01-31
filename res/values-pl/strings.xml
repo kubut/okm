@@ -74,7 +74,7 @@
     <string name="cache_dialog_title">Podpowiedź</string>
     <string name="cache_dialog_ok">Zamknij</string>
     <string name="settings_compass">Kompas (w fazie testów)</string>
-    <string name="settings_compass_sub">Kompas pokazujący kierunek do wybranego kesza</string>
+    <string name="settings_compass_sub">Kompas pokazujący kierunek do wybranej skrzynki</string>
     <string name="settings_compass_warning_ok">Rozumiem</string>
     <string name="settings_compass_warning_label">Uwaga</string>
     <string name="settings_compass_warning">Na niektórych urządzeniach kompas może nie działać poprawnie. Poniżej możesz wybrać z jakich czujników ma korzystać kompas</string>
