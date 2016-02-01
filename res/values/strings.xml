@@ -3,16 +3,16 @@
     <!-- general -->
     <string name="app_name" translatable="false">Opencaching Kubut Maps</string>
     <string name="default_map_position">38.36;-96.37;3.5</string>
-    <string name="location_dialog_title">Localization is turn off</string>
-    <string name="location_dialog_content">If you want to use GPS, you must go to settings and turn on location service</string>
+    <string name="location_dialog_title">Localization is turned off</string>
+    <string name="location_dialog_content">If you want to use GPS, open settings and turn on the location service</string>
     <string name="location_dialog_cancel">DISMISS</string>
     <string name="location_dialog_ok">OPEN SETTINGS</string>
     <string name="ok">OK</string>
 
     <!--First run-->
-    <string name="first_run_select_server_title">Please select server:</string>
+    <string name="first_run_select_server_title">Please select the server:</string>
     <string name="first_run_welcome_title">Welcome!</string>
-    <string name="first_run_welcome">Thanks for downloading Opencaching Kubut Maps! Use menu or icon in the right-top corner to download caches</string>
+    <string name="first_run_welcome">Thanks for downloading Opencaching Kubut Maps! Use the menu or the icon in the right-top corner to download caches</string>
 
     <!-- drawer -->
     <string name="drawer_cache_info">Description</string>
@@ -45,13 +45,13 @@
     <string name="settings_reset_map_sub">Map will be centered based on your location</string>
     <string name="settings_server">Server</string>
     <string name="settings_compass">Compass (experimental)</string>
-    <string name="settings_compass_sub">Compass which will show you direction to selected cache</string>
+    <string name="settings_compass_sub">Compass that will show you direction to the selected cache</string>
     <string name="settings_compass_warning_label">Warning</string>
-    <string name="settings_compass_warning">On some devices this feature may not work properly. You can choose which sensors should be used by compass</string>
+    <string name="settings_compass_warning">This feature might not work properly on some devices. You can choose sensors that will be used in the compass</string>
     <string name="settings_compass_mode_label">Compass mode</string>
     <string-array name="settings_compass_mode_entries">
-        <item>Orientation</item>
-        <item>Magnetic</item>
+        <item>Basic</item>
+        <item>Acceleromagnetic</item>
     </string-array>
     <string-array name="settings_compass_mode_values"  translatable="false">
         <item>orientation</item>

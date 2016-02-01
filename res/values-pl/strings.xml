@@ -87,7 +87,7 @@
     <string name="location_dialog_title">Lokalizacja jest wyłączona</string>
     <string name="location_dialog_content">Aby użyać GPS, musisz włączyć usługę lokalizacji w ustawieniach telefonu</string>
     <string-array name="settings_compass_mode_entries">
-        <item>Magnetyczny</item>
+        <item>Podstawowy</item>
         <item>Akceleromagnetyczny</item>
     </string-array>
     <string name="label_rating">Ocena:</string>
