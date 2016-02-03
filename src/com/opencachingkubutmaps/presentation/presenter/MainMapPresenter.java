@@ -182,10 +182,7 @@ public final class MainMapPresenter {
                 this.getAndApplyCaches(uuid);
             }
         } else {
-            this.cancelDownloader();
-            this.markerList.clear();
-            this.googleMap.clear();
-            this.infowindowPresenter.close();
+            this.cleanCaches();
         }
     }
 
@@ -325,6 +322,13 @@ public final class MainMapPresenter {
         final int res = this.getContext().checkCallingOrSelfPermission(permission);
         final int res2 = this.getContext().checkCallingOrSelfPermission(permission2);
         return (res == PackageManager.PERMISSION_GRANTED) && (res2 == PackageManager.PERMISSION_GRANTED);
+    }
+
+    private void cleanCaches(){
+        this.cancelDownloader();
+        this.markerList.clear();
+        this.googleMap.clear();
+        this.infowindowPresenter.close();
     }
 
     private void showLocationPermissionDialog(){

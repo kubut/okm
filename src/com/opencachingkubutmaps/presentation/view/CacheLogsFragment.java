@@ -33,7 +33,7 @@ public class CacheLogsFragment extends Fragment implements ICacheTabs{
         final View view = inflater.inflate(R.layout.fragment_cache_logs, container, false);
 
         this.logsView = (WebView) view.findViewById(R.id.cache_logs);
-        this.logsView.setBackgroundColor(Color.TRANSPARENT);
+        this.logsView.setBackgroundColor(Color.argb(1, 0, 0, 0));
 
         this.ready = true;
         this.syncView();
