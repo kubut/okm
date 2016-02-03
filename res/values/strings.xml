@@ -27,6 +27,7 @@
     <!-- toasts-->
     <string name="toast_downloading">Downloading…</string>
     <string name="toast_downloading_error">Downloading error</string>
+    <string name="toast_click_again_to_leave">Please click BACK again to exit</string>
 
     <!-- Settings-->
     <string name="settings_category_general">General</string>

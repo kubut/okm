@@ -222,7 +222,7 @@ public final class MainMapPresenter {
         this.mainActivity.hideNavigationDrawer();
     }
 
-    private void showToast(final String text){
+    public void showToast(final String text){
         if(this.toast != null){
             this.toast.cancel();
         }

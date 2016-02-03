@@ -79,4 +79,5 @@
     <string name="first_run_welcome_title">Willkommen!</string>
     <string name="first_run_welcome">Danke fürs Herunterladen von Opencaching Kubut Maps! Nutze das Menü oder das Icon in der oberen rechten Ecke, um Caches herunterzuladen.</string>
     <string name="first_run_select_server_title">Bitte wähle den Server aus:</string>
+    <string name="toast_click_again_to_leave">Bitte klicken Sie wieder zu verlassen</string>
 </resources>

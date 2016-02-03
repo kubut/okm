@@ -95,5 +95,6 @@
     <string name="first_run_select_server_title">Proszę wybrać serwer:</string>
     <string name="first_run_welcome_title">Witaj!</string>
     <string name="first_run_welcome">Dziękujemy za pobranie Opencaching Kubut Maps! Aby pobrać skrzynki, wybierz odpowiednią pozycję w menu po lewej stronie, lub użyj przycisku w prawym górnym rogu ekranu.</string>
+    <string name="toast_click_again_to_leave">Proszę kliknąć WSTECZ ponownie, aby wyjść</string>
 
 </resources>

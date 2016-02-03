@@ -5,6 +5,7 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Animation animationUp, animationBottom;
     private LinearLayout infowindow;
     private Toolbar toolbar, toolbar_infowindow;
+    private boolean doubleBackToExitPressedOnce = false;
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
@@ -164,6 +166,25 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (this.doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        this.presenter.showToast(this.getString(R.string.toast_click_again_to_leave));
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //noinspection UnqualifiedFieldAccess
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
     }
 
     private void initializeDrawerMenu(final DrawerLayout mDrawerLayout, final Toolbar toolbar){
