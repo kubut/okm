@@ -34,6 +34,7 @@ import org.json.JSONObject;
 public final class MainMapPresenter {
     private static MainMapPresenter singleton;
 
+    private boolean locationChecked;
     private MainActivity mainActivity;
     private final MapInteractor mapInteractor;
     private final CacheMarkerCollectionModel markerList;
@@ -127,10 +128,16 @@ public final class MainMapPresenter {
         }
 
         final LocationManager locationManager = (LocationManager) this.getContext().getSystemService(Context.LOCATION_SERVICE);
-        final boolean isLocation = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        final boolean isLocationGPS = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        final boolean isLocationNetwork = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
-        if(!isLocation || !this.checkLocationPermission()){
+        if(!this.locationChecked && (!isLocationGPS || !this.checkLocationPermission())){
+            this.locationChecked = true;
             this.showLocationPermissionDialog();
+        }
+
+        if(!this.checkLocationPermission() || (!isLocationGPS && !isLocationNetwork)){
+            this.locationChecked = false;
             this.setDrawerOptionState(this.getContext().getString(R.string.drawer_gps), false);
             return;
         }
@@ -341,6 +348,8 @@ public final class MainMapPresenter {
                 .onPositive(new MaterialDialog.SingleButtonCallback(){
                     @Override
                     public void onClick(@NonNull final MaterialDialog dialog, @NonNull final DialogAction which){
+                        //noinspection UnqualifiedFieldAccess
+                        locationChecked = true;
                         final Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                         myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         MainMapPresenter.this.getContext().startActivity(myIntent);
