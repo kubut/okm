@@ -67,6 +67,7 @@ public class SettingsPresenter {
 
     private boolean isOrientationCompassAvaible(){
         final SensorManager sm = (SensorManager) this.settingsFragment.getActivity().getSystemService(Context.SENSOR_SERVICE);
+        //noinspection deprecation
         return sm.getDefaultSensor(Sensor.TYPE_ORIENTATION) != null;
     }
 

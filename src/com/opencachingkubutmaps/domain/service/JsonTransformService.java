@@ -80,7 +80,7 @@ public class JsonTransformService {
                 //noinspection StringConcatenationMissingWhitespace
                 name = name.substring(0,1).toUpperCase() + name.substring(1);
 
-                final CacheAttributeValue attr = new CacheAttributeValue(context, 0, key);
+                final CacheAttributeValue attr = new CacheAttributeValue(context, key);
                 attr.setLanguage(lang);
                 attr.setName(name);
 

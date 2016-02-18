@@ -34,7 +34,7 @@ public class SettingsMapActivity extends AppCompatActivity implements OnMapReady
         if(this.presenter == null){
             this.presenter = new SettingsMapPresenter(this);
         }
-        this.presenter.connectContext(this, map);
+        this.presenter.connectContext(this);
 
         this.setSupportActionBar(toolbar);
 
@@ -79,7 +79,9 @@ public class SettingsMapActivity extends AppCompatActivity implements OnMapReady
         this.presenter.disconnectContext();
     }
 
+    @Override
     public void onMapReady(final GoogleMap map) {
+        this.presenter.connectMap(map);
         this.presenter.setMapPosition();
     }
 

@@ -1,6 +1,5 @@
 package com.opencachingkubutmaps.data.repositories;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -38,18 +37,6 @@ public class AttributesDAO {
         this.insertStatement.bindString(3,entity.getName());
     }
 
-    public void update(final CacheAttributeValue entity){
-        final ContentValues values = new ContentValues();
-
-        values.put(AttributesTable.AttributesColumns.ACODE, entity.getAcode());
-        values.put(AttributesTable.AttributesColumns.LANGUAGE, entity.getLanguage());
-        values.put(AttributesTable.AttributesColumns.NAME, entity.getName());
-
-        this.db.update(AttributesTable.TABLE_NAME, values, BaseColumns._ID + " = ?", new String[]{
-                String.valueOf(entity.getId())
-        });
-    }
-
     @Nullable
     public CacheAttributeValue findByAcodeAndLanguage(final String acode, final String language){
         CacheAttributeValue attr = null;
@@ -81,7 +68,7 @@ public class AttributesDAO {
         CacheAttributeValue cacheAttributeValue = null;
 
         if(cursor != null){
-            cacheAttributeValue = new CacheAttributeValue(this.context, cursor.getLong(0), cursor.getString(1));
+            cacheAttributeValue = new CacheAttributeValue(this.context, cursor.getString(1));
             cacheAttributeValue.setName(cursor.getString(2));
             cacheAttributeValue.setLanguage(cursor.getString(3));
         }

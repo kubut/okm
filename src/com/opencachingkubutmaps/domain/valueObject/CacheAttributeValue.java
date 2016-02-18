@@ -10,12 +10,10 @@ public class CacheAttributeValue {
     private String name;
     private String language;
     private final int icon;
-    private final long id;
 
-    public CacheAttributeValue(final Context context, final long id, final String acode){
+    public CacheAttributeValue(final Context context, final String acode){
         this.acode = acode;
         final String iconName = "cache_attr_" + acode;
-        this.id = id;
 
         this.icon = context.getResources().getIdentifier(iconName, "string", context.getPackageName());
     }
@@ -38,9 +36,5 @@ public class CacheAttributeValue {
     }
     public int getIcon() {
         return this.icon;
-    }
-
-    public long getId() {
-        return this.id;
     }
 }

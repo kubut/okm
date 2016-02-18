@@ -54,6 +54,7 @@ public class InfowindowPresenter {
         this.compassModel.setColor();
         this.mAccelerometer = this.getSensorManager().getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         this.mMagnetometer = this.getSensorManager().getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+        //noinspection deprecation
         this.mOrientation = this.getSensorManager().getDefaultSensor(Sensor.TYPE_ORIENTATION);
     }
 
@@ -279,6 +280,7 @@ public class InfowindowPresenter {
                 );
                 break;
             case ORIENTATION:
+                //noinspection deprecation
                 this.getSensorManager().registerListener(
                         this.getCompassOrientationListener(),
                         this.getSensorManager().getDefaultSensor(Sensor.TYPE_ORIENTATION),

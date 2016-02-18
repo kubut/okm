@@ -24,7 +24,6 @@ import com.opencachingkubutmaps.domain.valueObject.MapPositionValue;
 import com.opencachingkubutmaps.presentation.interactor.MapInteractor;
 import com.opencachingkubutmaps.presentation.view.MainActivity;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import org.json.JSONObject;
 
@@ -87,16 +86,15 @@ public final class MainMapPresenter {
         }
     }
 
-    public void connectContext(final MainActivity mainActivity, final SupportMapFragment map){
+    public void connectContext(final MainActivity mainActivity){
         this.mainActivity = mainActivity;
         this.preferencesService = new PreferencesService(this.getContext());
-
-        if((map != null) && (map.getMap() != null)){
-            this.googleMap = map.getMap();
-            this.mapInteractor.connectMap(this.googleMap, mainActivity.getApplicationContext());
-        }
-
         this.infowindowPresenter.sync();
+    }
+
+    public void connectMap(final GoogleMap map){
+        this.googleMap = map;
+        this.mapInteractor.connectMap(this.googleMap, this.mainActivity.getApplicationContext());
     }
 
     public void disconnectContext(){

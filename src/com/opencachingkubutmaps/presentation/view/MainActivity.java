@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Animation animationUp, animationBottom;
     private LinearLayout infowindow;
     private Toolbar toolbar, toolbar_infowindow;
-    private boolean doubleBackToExitPressedOnce = false;
+    private boolean doubleBackToExitPressedOnce;
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         if(this.presenter == null){
             this.presenter = MainMapPresenter.getInstance(this);
         }
-        this.presenter.connectContext(this, map);
+        this.presenter.connectContext(this);
 
         this.setSupportActionBar(this.toolbar);
 
@@ -187,6 +187,46 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }, 2000);
     }
 
+    @Override
+    public void onMapReady(final GoogleMap map) {
+        final LocationManager locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+        final Criteria criteria = new Criteria();
+        final String bestProvider = locationManager.getBestProvider(criteria, false);
+
+        Location location = null;
+
+        this.presenter.connectMap(map);
+
+        if(this.presenter.checkLocationPermission()){
+            location = locationManager.getLastKnownLocation(bestProvider);
+        }
+
+        this.presenter.setLastLocation(location);
+        this.presenter.setMapPosition();
+
+        map.setInfoWindowAdapter(new NoInfowindowAdapter(this));
+
+        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(final Marker marker) {
+                MainActivity.this.presenter.getInfowindowPresenter().show(marker);
+                map.animateCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
+                return true;
+            }
+        });
+
+        map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(final LatLng latLng) {
+                MainActivity.this.presenter.getInfowindowPresenter().close();
+            }
+        });
+
+        map.setBuildingsEnabled(false);
+        map.getUiSettings().setTiltGesturesEnabled(false);
+        map.getUiSettings().setZoomControlsEnabled(true);
+    }
+
     private void initializeDrawerMenu(final DrawerLayout mDrawerLayout, final Toolbar toolbar){
         final IMainDrawerItemListFactory actionFactory = new MainDrawerActionItemListFactory(this.presenter);
         final IMainDrawerItemListFactory intentFactory = new MainDrawerIntentItemListFactory(this.presenter);
@@ -257,43 +297,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             MainActivity.this.drawerIntentAdapter.getItem(position).click();
             MainActivity.this.drawerIntentAdapter.notifyDataSetChanged();
         }
-    }
-
-    public void onMapReady(final GoogleMap map) {
-        final LocationManager locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
-        final Criteria criteria = new Criteria();
-        final String bestProvider = locationManager.getBestProvider(criteria, false);
-
-        Location location = null;
-
-        if(this.presenter.checkLocationPermission()){
-            location = locationManager.getLastKnownLocation(bestProvider);
-        }
-
-        this.presenter.setLastLocation(location);
-        this.presenter.setMapPosition();
-
-        map.setInfoWindowAdapter(new NoInfowindowAdapter(this));
-
-        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(final Marker marker) {
-                MainActivity.this.presenter.getInfowindowPresenter().show(marker);
-                map.animateCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
-                return true;
-            }
-        });
-
-        map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(final LatLng latLng) {
-                MainActivity.this.presenter.getInfowindowPresenter().close();
-            }
-        });
-
-        map.setBuildingsEnabled(false);
-        map.getUiSettings().setTiltGesturesEnabled(false);
-        map.getUiSettings().setZoomControlsEnabled(true);
     }
 
     public void goToSettings(){

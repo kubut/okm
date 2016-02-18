@@ -1,5 +1,6 @@
 package com.opencachingkubutmaps.presentation.adapter;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.view.View;
@@ -17,6 +18,7 @@ public class NoInfowindowAdapter implements GoogleMap.InfoWindowAdapter {
         this.context = context;
     }
 
+    @SuppressLint("InflateParams")
     @Override
     public View getInfoWindow(final Marker marker) {
         return ((Activity) this.context).getLayoutInflater().inflate(R.layout.no_info_window, null);
