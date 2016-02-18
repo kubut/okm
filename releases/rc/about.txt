@@ -2,7 +2,7 @@ DATE: 01.02.2016 14:42
 
 JAVA LINES (total): 4402 (+504 lines)
 JAVA LINES (source): 3475 (+412 lines)
-SIZE: 4676 3190 KB (-1486 KB)
+SIZE: 3190 KB (-1486 KB)
 
 FEATURES:
 - information if gps is turned off

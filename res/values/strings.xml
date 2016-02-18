@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- general -->
-    <string name="app_name" translatable="false">Opencaching Kubut Maps</string>
+    <string name="app_name" translatable="false">OKM</string>
     <string name="default_map_position">38.36;-96.37;3.5</string>
     <string name="location_dialog_title">Localization is turned off</string>
     <string name="location_dialog_content">If you want to use GPS, open settings and turn on the location service</string>
