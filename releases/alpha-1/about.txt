@@ -1,0 +1,8 @@
+DATE: 02.01.2016 16:28
+
+JAVA LINES (total): 3952
+JAVA LINES (source): 3117
+SIZE: 4637 KB
+
+FEATURES:
+Basic functionality

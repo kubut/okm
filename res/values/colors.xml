@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPopup">#FFFFFF</color>
+    <color name="colorPrimary">#F5F5F5</color>
+    <color name="colorPrimaryDark">#ffa2a2a2</color>
+    <color name="colorPrimaryLight">#ffc3c3c3</color>
+    <color name="textColorPrimary">#3792b4</color>
+    <color name="textColorPrimaryInactive">#767676</color>
+
+    <color name="cacheNotFound">#ff6262</color>
+    <color name="cacheFound">#39ac40</color>
+    <color name="cacheOther">#6c82ff</color>
+</resources>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <!--Photo-->
+    <ImageView
+        android:id="@+id/photoZoom"
+        android:visibility="gone"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
+
+    <!--Progress Circle-->
+    <com.rey.material.widget.ProgressView
+            android:id="@+id/progressCircle"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone"
+            app:pv_autostart="true"
+            app:pv_circular="true"
+            app:pv_progressStyle="@style/ProgressCircleStyle"
+            app:pv_progressMode="indeterminate"/>
+
+    <!--Try Again-->
+    <RelativeLayout
+            android:id="@+id/tryAgainView"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_mood_bad_black_48dp"
+                android:layout_above="@+id/tryAgainText"
+                android:layout_centerHorizontal="true"/>
+        <TextView
+                android:id="@+id/tryAgainText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cache_try_again_text"
+                android:textSize="25sp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"/>
+        <com.rey.material.widget.Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cache_try_again_button"
+                app:rd_enable="true"
+                android:id="@+id/tryAgainButton"
+                android:layout_marginBottom="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:onClick="loadPhoto"
+                />
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:okm="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/action_nav"
+          android:visible="false"
+          android:title="@string/cache_menu_nav"
+          okm:showAsAction="never"/>
+    <item android:id="@+id/action_maps"
+          android:visible="false"
+          android:title="@string/cache_menu_maps"
+          okm:showAsAction="never"/>
+    <item android:id="@+id/action_www"
+          android:visible="false"
+          android:title="@string/cache_menu_www"
+          okm:showAsAction="never"/>
+    <item android:id="@+id/action_hint"
+          android:visible="false"
+          android:title="@string/cache_menu_hint"
+          okm:showAsAction="never"/>
+</menu>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="default_map_position">51.70;18.85;5.5</string>
+
+    <!-- drawer -->
+    <string name="drawer_open">Otwórz pasek nawigacji</string>
+    <string name="drawer_close">Zamknij pasek nawigacji</string>
+    <string name="drawer_satellite">Satelita</string>
+    <string name="drawer_gps">GPS</string>
+    <string name="drawer_caches">Skrzynki</string>
+    <string name="drawer_cache_info">Opis</string>
+    <string name="drawer_exit">Zamknij</string>
+    <string name="drawer_settings">Ustawienia</string>
+
+    <!-- toasts-->
+    <string name="toast_downloading">Pobieranie…</string>
+    <string name="toast_downloading_error">Błąd pobierania</string>
+
+    <!-- Settings-->
+    <string name="settings_downloading" tools:ignore="UnusedResources">Pobieranie</string>
+    <string name="settings_username">Nazwa użytkownika</string>
+    <string name="settings_username_blank">Brak</string>
+    <string name="settings_low_limit">Tryb oszczędny</string>
+    <string name="settings_low_limit_sub">Oszczędzaj transfer pobierając mniej skrzynek</string>
+    <string name="settings_hide_found">Ukryj znalezione</string>
+    <string name="settings_hide_found_sub">Nie pokazuj na mapie skrzynek które już znalazłeś</string>
+    <string name="settings_set_map">Ustaw pozycję mapy</string>
+    <string name="settings_set_map_sub">Wybierz jaką mapę chcesz zobaczyć po uruchomieniu aplikacji</string>
+    <string name="settings_reset_map">Automatyczne określanie pozycji</string>
+    <string name="settings_reset_map_sub">Pozycja początkowa mapy będzie określana automatycznie</string>
+    <string name="settings_server">Serwer</string>
+
+    <!-- Settings set map-->
+    <string name="settings_set_map_title">Wybierz pozycję</string>
+    <string name="settings_set_map_ok">OK</string>
+    <string name="settings_set_map_cancel">Jednak nie</string>
+
+    <!-- InfoWindow labels-->
+    <string name="label_type">Typ: </string>
+    <string name="label_size">Rozmiar: </string>
+    <string name="label_last_found">Znaleziono: </string>
+    <string name="label_last_found_none">Bądź pierwszy!</string>
+    <string name="label_owner">Właściciel: </string>
+    <string name="label_no_gps">Brak GPS</string>
+
+    <!-- Caches types-->
+    <string name="Multi" tools:ignore="UnusedResources">Multi</string>
+    <string name="Traditional">Tradycyjna</string>
+    <string name="Quiz">Quiz</string>
+    <string name="Virtual" tools:ignore="UnusedResources">Wirtualna</string>
+    <string name="Event" tools:ignore="UnusedResources">Wydarzenie</string>
+    <string name="Other">Nietypowa</string>
+
+    <!-- Caches sizes -->
+    <string name="size_nano" tools:ignore="UnusedResources">Nano</string>
+    <string name="size_micro">Mikro</string>
+    <string name="size_small" tools:ignore="UnusedResources">Mała</string>
+    <string name="size_regular">Normalna</string>
+    <string name="size_large" tools:ignore="UnusedResources">Duża</string>
+    <string name="size_xlarge">Ogromna</string>
+    <string name="size_other">Inna</string>
+    
+    <!-- Cache details -->
+    <string name="cache_tabs_logs">Logi</string>
+    <string name="cache_tabs_details">Opis</string>
+    <string name="cache_tabs_gallery">Zdjęcia</string>
+    <string name="cache_try_again_button">Spróbuj ponownie</string>
+    <string name="cache_try_again_text">Ups… coś poszło nie tak</string>
+    <string name="cache_attrs">Atrybuty</string>
+    <string name="cache_menu_nav">Włącz nawigacje</string>
+    <string name="cache_menu_maps">Pokaż na Google Maps</string>
+    <string name="cache_menu_hint">Pokaż podpowiedź</string>
+    <string name="cache_menu_www">Pokaż stronę kesza</string>
+    <string name="cache_dialog_title">Podpowiedź</string>
+    <string name="cache_dialog_ok">Zamknij</string>
+    <string name="settings_compass">Kompas (w fazie testów)</string>
+    <string name="settings_compass_sub">Kompas pokazujący kierunek do wybranej skrzynki</string>
+    <string name="settings_compass_warning_ok">Rozumiem</string>
+    <string name="settings_compass_warning_label">Uwaga</string>
+    <string name="settings_compass_warning">Na niektórych urządzeniach kompas może nie działać poprawnie. Poniżej możesz wybrać z jakich czujników ma korzystać kompas</string>
+    <string name="settings_category_compass">Kompas</string>
+    <string name="settings_category_general">Ogólne</string>
+    <string name="settings_category_other">Inne</string>
+    <string name="settings_compass_mode_label">Tryb pracy kompasu</string>
+    <string name="location_dialog_cancel">ANULUJ</string>
+    <string name="location_dialog_ok">OTWÓRZ USTAWIENIA</string>
+    <string name="location_dialog_title">Lokalizacja jest wyłączona</string>
+    <string name="location_dialog_content">Aby użyać GPS, musisz włączyć usługę lokalizacji w ustawieniach telefonu</string>
+    <string-array name="settings_compass_mode_entries">
+        <item>Podstawowy</item>
+        <item>Akceleromagnetyczny</item>
+    </string-array>
+    <string name="label_rating">Ocena:</string>
+    <string name="ok">OK</string>
+    <string name="first_run_select_server_title">Proszę wybrać serwer:</string>
+    <string name="first_run_welcome_title">Witaj!</string>
+    <string name="first_run_welcome">Dziękujemy za pobranie Opencaching Kubut Maps! Aby pobrać skrzynki, wybierz odpowiednią pozycję w menu po lewej stronie, lub użyj przycisku w prawym górnym rogu ekranu.</string>
+    <string name="toast_click_again_to_leave">Proszę kliknąć WSTECZ ponownie, aby wyjść</string>
+
+</resources>

@@ -1,4 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">OKM</string>
+    <!-- general -->
+    <string name="app_name" translatable="false">OKM</string>
+    <string name="default_map_position">38.36;-96.37;3.5</string>
+    <string name="location_dialog_title">Localization is turned off</string>
+    <string name="location_dialog_content">If you want to use GPS, open settings and turn on the location service</string>
+    <string name="location_dialog_cancel">DISMISS</string>
+    <string name="location_dialog_ok">OPEN SETTINGS</string>
+    <string name="ok">OK</string>
+
+    <!--First run-->
+    <string name="first_run_select_server_title">Please select the server:</string>
+    <string name="first_run_welcome_title">Welcome!</string>
+    <string name="first_run_welcome">Thanks for downloading Opencaching Kubut Maps! Use the menu or the icon in the right-top corner to download caches</string>
+
+    <!-- drawer -->
+    <string name="drawer_cache_info">Description</string>
+    <string name="drawer_caches">Caches</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="drawer_exit">Close</string>
+    <string name="drawer_gps">GPS</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_satellite">Satellite</string>
+    <string name="drawer_settings">Settings</string>
+
+    <!-- toasts-->
+    <string name="toast_downloading">Downloading…</string>
+    <string name="toast_downloading_error">Downloading error</string>
+    <string name="toast_click_again_to_leave">Please click BACK again to exit</string>
+
+    <!-- Settings-->
+    <string name="settings_category_general">General</string>
+    <string name="settings_category_compass">Compass</string>
+    <string name="settings_category_other">Other</string>
+    <string name="settings_downloading">Downloading</string>
+    <string name="settings_username">Username</string>
+    <string name="settings_username_blank">Empty</string>
+    <string name="settings_low_limit">Eco mode</string>
+    <string name="settings_low_limit_sub">Save up cellular data by downloading less caches</string>
+    <string name="settings_hide_found">Hide found caches</string>
+    <string name="settings_hide_found_sub">Don\'t show caches you already found</string>
+    <string name="settings_set_map">Set map position</string>
+    <string name="settings_set_map_sub">Choose what kind of map you want to see when you start</string>
+    <string name="settings_reset_map">Map auto-position</string>
+    <string name="settings_reset_map_sub">Map will be centered based on your location</string>
+    <string name="settings_server">Server</string>
+    <string name="settings_compass">Compass (experimental)</string>
+    <string name="settings_compass_sub">Compass that will show you direction to the selected cache</string>
+    <string name="settings_compass_warning_label">Warning</string>
+    <string name="settings_compass_warning">This feature might not work properly on some devices. You can choose sensors that will be used in the compass</string>
+    <string name="settings_compass_mode_label">Compass mode</string>
+    <string-array name="settings_compass_mode_entries">
+        <item>Basic</item>
+        <item>Acceleromagnetic</item>
+    </string-array>
+    <string-array name="settings_compass_mode_values"  translatable="false">
+        <item>orientation</item>
+        <item>magnetic</item>
+    </string-array>
+    <string-array name="settings_servers_list_entries" translatable="false">
+        <item>opencaching.pl</item>
+        <item>opencaching.de</item>
+        <item>opencaching.us</item>
+    </string-array>
+
+    <!-- Settings set map-->
+    <string name="settings_set_map_title">Choose position</string>
+    <string name="settings_set_map_ok">OK</string>
+    <string name="settings_set_map_cancel">Cancel</string>
+
+    <!-- InfoWindow labels-->
+    <string name="label_last_found">Found:</string>
+    <string name="label_last_found_none">Be first!</string>
+    <string name="label_no_gps">No GPS</string>
+    <string name="label_owner">Owner:</string>
+    <string name="label_size">Size:</string>
+    <string name="label_type">Type:</string>
+    <string name="label_rating">Rating:</string>
+
+    <!-- Caches types-->
+    <string name="Event">Event</string>
+    <string name="Multi">Multi</string>
+    <string name="Other">Other</string>
+    <string name="Quiz">Quiz</string>
+    <string name="Traditional">Traditional</string>
+    <string name="Virtual">Virtual</string>
+
+    <!-- Caches sizes -->
+    <string name="size_large">Large</string>
+    <string name="size_micro">Micro</string>
+    <string name="size_nano">Nano</string>
+    <string name="size_other">Other</string>
+    <string name="size_regular">Regular</string>
+    <string name="size_small">Small</string>
+    <string name="size_xlarge">Huge</string>
+    
+    <!-- Cache details -->
+    <string name="cache_tabs_details">Description</string>
+    <string name="cache_tabs_gallery">Photos</string>
+    <string name="cache_tabs_logs">Logs</string>
+    <string name="cache_try_again_button">Try again</string>
+    <string name="cache_try_again_text">Ups… something went wrong</string>
+    <string name="cache_attrs">Attributes</string>
+    <string name="cache_menu_hint">Show hint</string>
+    <string name="cache_menu_maps">Show in Google Maps</string>
+    <string name="cache_menu_nav">Turn on navigation</string>
+    <string name="cache_menu_www">Show cache website</string>
+    <string name="cache_dialog_ok">Close</string>
+    <string name="cache_dialog_title">Hint</string>
+    <string name="settings_compass_warning_ok">GOT IT</string>
 </resources>

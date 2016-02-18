@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="default_map_position">51.28;12.05;6.5</string>
+    <string name="Event" tools:ignore="UnusedResources">Event-Cache</string>
+    <string name="Multi" tools:ignore="UnusedResources">Multicache</string>
+    <string name="Other">Anderer Cache</string>
+    <string name="Quiz" tools:ignore="UnusedResources">Rätselcache</string>
+    <string name="Traditional" tools:ignore="UnusedResources">Normaler Cache</string>
+    <string name="Virtual" tools:ignore="UnusedResources">Virtueller Cache</string>
+    <string name="cache_attrs">Attribute</string>
+    <string name="cache_dialog_ok">Schließen</string>
+    <string name="cache_dialog_title">Hinweis</string>
+    <string name="cache_menu_hint">Hinweis anzeigen</string>
+    <string name="cache_menu_maps">In Google Maps anzeigen</string>
+    <string name="cache_menu_nav">Navigieren</string>
+    <string name="cache_menu_www">Webseite des Caches anzeigen</string>
+    <string name="cache_tabs_details">Beschreibung</string>
+    <string name="cache_tabs_gallery">Galerie</string>
+    <string name="cache_tabs_logs">Logs</string>
+    <string name="cache_try_again_text">Ups… Etwas ist fehlgeschlagen</string>
+    <string name="cache_try_again_button">Noch einmal versuchen</string>
+    <string name="drawer_cache_info">Beschreibung</string>
+    <string name="drawer_caches">Caches</string>
+    <string name="drawer_gps">GPS</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="drawer_exit">Schließen</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_satellite">Satelliten</string>
+    <string name="label_last_found">Letzter Fund:</string>
+    <string name="label_last_found_none">Sei der Erste!</string>
+    <string name="label_no_gps">Kein GPS</string>
+    <string name="label_owner">Besitzer:</string>
+    <string name="label_size">Größe:</string>
+    <string name="label_type">Typ:</string>
+    <string name="settings_downloading" tools:ignore="UnusedResources">Herunterladen</string>
+    <string name="settings_hide_found">Verberge gefundene Caches</string>
+    <string name="settings_hide_found_sub">Verberge Caches, die du bereits gefunden hast</string>
+    <string name="settings_low_limit">Sparmodus</string>
+    <string name="settings_low_limit_sub">Spare Datenvolumen durch den Download von weniger Caches.</string>
+    <string name="settings_reset_map">Automatische Bestimmung der Position</string>
+    <string name="settings_reset_map_sub">Karte wird auf Deine aktuelle Position zentriert</string>
+    <string name="settings_server">Server</string>
+    <string name="settings_set_map">Kartenposition einstellen</string>
+    <string name="settings_set_map_ok">OK</string>
+    <string name="settings_set_map_cancel">Schließen</string>
+    <string name="settings_set_map_title">Position wählen</string>
+    <string name="settings_set_map_sub">Wähle den Kartentyp für den Programmstart</string>
+    <string name="settings_username">Benutzername</string>
+    <string name="settings_username_blank">Leer</string>
+    <string name="size_large" tools:ignore="UnusedResources">Groß</string>
+    <string name="size_micro">Mikro</string>
+    <string name="size_nano" tools:ignore="UnusedResources">Nano</string>
+    <string name="size_other">Andere</string>
+    <string name="size_regular" tools:ignore="UnusedResources">Normal</string>
+    <string name="size_small" tools:ignore="UnusedResources">Klein</string>
+    <string name="size_xlarge" tools:ignore="UnusedResources">Riesig</string>
+    <string name="drawer_settings">Einstellungen</string>
+    <string name="toast_downloading_error">Fehler beim Download</string>
+    <string name="toast_downloading">Herunterladen…</string>
+    <string name="settings_compass_warning_ok">OK</string>
+    <string name="location_dialog_cancel">VERWERFEN</string>
+    <string name="location_dialog_content">Zur Verwendung des GPS bitte die Standortermittlung in den Einstellungen einschalten</string>
+    <string name="location_dialog_ok">EINSTELLUNGEN ÖFFNEN</string>
+    <string name="location_dialog_title">Standortermittlung ist abgeschaltet</string>
+    <string name="settings_category_compass">Kompass</string>
+    <string name="settings_category_general">Allgemein</string>
+    <string name="settings_category_other">Andere</string>
+    <string name="settings_compass">Kompass (experimentell)</string>
+    <string name="settings_compass_mode_label">Kompassmodus</string>
+    <string name="settings_compass_sub">Dieser Kompass zeigt die Richtung zum ausgewählten Cache</string>
+    <string name="settings_compass_warning">Diese Eigenschaft kann bei einige Geräten nicht funktionieren. Du kannst für den Kompass zu verwendende Sensoren auswählen.</string>
+    <string name="settings_compass_warning_label">Warnung</string>
+    <string-array name="settings_compass_mode_entries">
+        <item>Grundlegendes</item>
+        <item>Beschleunigungssensor</item>
+    </string-array>
+    <string name="label_rating">Bewertung:</string>
+    <string name="ok">OK</string>
+    <string name="first_run_welcome_title">Willkommen!</string>
+    <string name="first_run_welcome">Danke fürs Herunterladen von Opencaching Kubut Maps! Nutze das Menü oder das Icon in der oberen rechten Ecke, um Caches herunterzuladen.</string>
+    <string name="first_run_select_server_title">Bitte wähle den Server aus:</string>
+    <string name="toast_click_again_to_leave">Bitte klicken Sie wieder zu verlassen</string>
+</resources>

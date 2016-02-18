@@ -1,0 +1,25 @@
+<resources>
+    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="android:defaultValue">true</item>
+        <item name="color">@color/textColorPrimaryInactive</item>
+    </style>
+
+    <style name="ProgressBarStyle" parent="Material.Drawable.LinearProgress">
+        <item name="lpd_strokeColor">@color/textColorPrimary</item>
+        <item name="lpd_strokeSecondaryColor">#00000000</item>
+    </style>
+
+    <style name="ProgressCircleStyle" parent="Material.Drawable.CircularProgress">
+        <item name="cpd_strokeColor">@color/textColorPrimary</item>
+        <item name="cpd_strokeSecondaryColor">#00000000</item>
+    </style>
+
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Toolbar.SubtitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Subtitle">
+        <item name="android:textSize">10sp</item>
+    </style>
+</resources>
