@@ -329,11 +329,11 @@ public final class MainMapPresenter {
         return (res == PackageManager.PERMISSION_GRANTED) && (res2 == PackageManager.PERMISSION_GRANTED);
     }
 
-    private void cleanCaches(){
+    public void cleanCaches(){
         this.cancelDownloader();
         this.markerList.clear();
-        this.googleMap.clear();
         this.infowindowPresenter.close();
+        this.googleMap.clear();
     }
 
     private void showLocationPermissionDialog(){

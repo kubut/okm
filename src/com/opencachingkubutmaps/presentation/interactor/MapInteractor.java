@@ -51,7 +51,7 @@ public class MapInteractor {
     }
 
     public void setMapPosition(final MapPositionValue mapPosition){
-        if(mapPosition != null){
+        if((mapPosition != null) && (this.map != null)){
             this.map.moveCamera(CameraUpdateFactory.newLatLngZoom(mapPosition.getPosition(), mapPosition.getZoom()));
         } else {
             this.setLastMapPosition();
@@ -59,7 +59,7 @@ public class MapInteractor {
     }
 
     public void setLastMapPosition(){
-        if(this.lastLocation != null){
+        if((this.lastLocation != null) && (this.map != null)){
             this.map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(this.lastLocation.getLatitude(), this.lastLocation.getLongitude()), 10));
         } else {
             this.setDefaultPosition();
@@ -67,6 +67,10 @@ public class MapInteractor {
     }
 
     private void setDefaultPosition(){
+        if(this.map == null){
+            return;
+        }
+
         final String encoded = this.context.getString(R.string.default_map_position);
 
         final String[] parts = encoded.split(";");
