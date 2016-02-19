@@ -171,6 +171,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onBackPressed() {
         if (this.doubleBackToExitPressedOnce) {
+            this.presenter.cleanCaches();
             super.onBackPressed();
             return;
         }
