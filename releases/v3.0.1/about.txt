@@ -1,0 +1,10 @@
+DATE: 19.02.2016 21:05
+
+JAVA LINES (total): 4436 (+5 lines)
+JAVA LINES (source): 3500 (+4 lines)
+SIZE: 3254 KB (+0KB)
+
+FEATURES:
+
+BUGS:
+- fixed little bug with application start

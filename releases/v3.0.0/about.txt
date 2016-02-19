@@ -1,0 +1,13 @@
+DATE: 18.02.2016 23:50
+
+JAVA LINES (total): 4431 (+29 lines)
+JAVA LINES (source): 3496 (+21 lines)
+SIZE: 3254 KB (+64KB)
+
+FEATURES:
+- package name changed
+- disabled return button on main screen
+
+BUGS:
+- fixed webview for Android 4.x
+- support for localization from WLAN
