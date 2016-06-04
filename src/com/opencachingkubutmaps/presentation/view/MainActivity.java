@@ -1,11 +1,13 @@
 package com.opencachingkubutmaps.presentation.view;
 
+import android.Manifest;
 import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -90,6 +92,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         this.initializeDrawerMenu(this.mDrawerLayout, this.toolbar);
 
         this.presenter.sync();
+
+        if(!this.presenter.checkLocationPermission()){
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
     }
 
     @Override
