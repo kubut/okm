@@ -1,0 +1,10 @@
+DATE: 04.06.2016 17:47
+
+JAVA LINES (total): 4442 (+6 lines)
+JAVA LINES (source): 3505 (+5 lines)
+SIZE: 3420 KB (+166KB)
+
+FEATURES:
+
+BUGS:
+- fixed bug related to permissions on Android 6.0
