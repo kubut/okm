@@ -1,7 +1,7 @@
 package com.opencachingkubutmaps.domain.service;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import com.opencachingkubutmaps.domain.model.CacheMakerModel;
 import com.opencachingkubutmaps.domain.model.CacheModel;
 import com.opencachingkubutmaps.domain.valueObject.*;
@@ -152,7 +152,6 @@ public class JsonTransformService {
             final JSONObject jsonPhoto = jsonArray.getJSONObject(i);
 
             final CachePhotoValue photo = new CachePhotoValue();
-            photo.setMinUrl(jsonPhoto.getString("thumb_url"));
             photo.setUrl(jsonPhoto.getString("url"));
             photo.setTitle(jsonPhoto.getString("caption"));
             photo.setSpoiler(jsonPhoto.getBoolean("is_spoiler"));

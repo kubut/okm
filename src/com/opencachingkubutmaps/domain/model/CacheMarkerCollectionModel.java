@@ -1,6 +1,6 @@
 package com.opencachingkubutmaps.domain.model;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import java.util.Collection;
 import java.util.HashMap;

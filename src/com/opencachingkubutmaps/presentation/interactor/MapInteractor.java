@@ -2,7 +2,7 @@ package com.opencachingkubutmaps.presentation.interactor;
 
 import android.content.Context;
 import android.location.Location;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import com.opencachingkubutmaps.R;
 import com.opencachingkubutmaps.domain.model.CacheMakerModel;
 import com.opencachingkubutmaps.domain.model.CacheMarkerCollectionModel;

@@ -4,7 +4,7 @@ package com.opencachingkubutmaps.domain.valueObject;
  * Created by Jakub on 01.01.2016.
  */
 public class CachePhotoValue {
-    private String minUrl, url, title;
+    private String url, title;
     private boolean spoiler;
 
     public boolean isSpoiler() {
@@ -13,12 +13,7 @@ public class CachePhotoValue {
     public void setSpoiler(final boolean spoiler) {
         this.spoiler = spoiler;
     }
-    public String getMinUrl() {
-        return this.minUrl;
-    }
-    public void setMinUrl(final String minUrl) {
-        this.minUrl = minUrl;
-    }
+
     public String getUrl() {
         return this.url;
     }

@@ -2,7 +2,7 @@ package com.opencachingkubutmaps.data.dataManagers;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import com.opencachingkubutmaps.data.repositories.AttributesDAO;
 import com.opencachingkubutmaps.data.services.OpenHelper;
 import com.opencachingkubutmaps.domain.valueObject.CacheAttributeValue;

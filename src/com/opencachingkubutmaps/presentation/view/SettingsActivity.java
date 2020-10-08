@@ -3,7 +3,7 @@ package com.opencachingkubutmaps.presentation.view;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 import com.opencachingkubutmaps.R;
 
 /**
@@ -15,7 +15,7 @@ public class SettingsActivity extends com.fnp.materialpreferences.PreferenceActi
         super.onCreate(savedInstanceState);
         this.getSupportActionBar().setTitle(R.string.drawer_settings);
 
-        final Drawable upArrow = ContextCompat.getDrawable(this, R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        final Drawable upArrow = ContextCompat.getDrawable(this, R.drawable.okm_arrow_back);
         upArrow.setColorFilter(ContextCompat.getColor(this, R.color.textColorPrimaryInactive), PorterDuff.Mode.SRC_ATOP);
         this.getSupportActionBar().setHomeAsUpIndicator(upArrow);
 

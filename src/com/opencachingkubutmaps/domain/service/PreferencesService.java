@@ -1,7 +1,7 @@
 package com.opencachingkubutmaps.domain.service;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import com.opencachingkubutmaps.R;
 import com.opencachingkubutmaps.data.repositories.PreferencesRepository;
 import com.opencachingkubutmaps.domain.model.CompassModel;
@@ -119,7 +119,7 @@ public class PreferencesService {
     }
 
     public String getServerAPI(){
-        return "http://www." + this.getServerName() + "/okapi/";
+        return "https://www." + this.getServerName() + "/okapi/";
     }
 
     public long getLastRunTime(){

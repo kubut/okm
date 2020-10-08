@@ -5,7 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 import android.provider.BaseColumns;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import com.opencachingkubutmaps.data.sqlTables.AttributesTable;
 import com.opencachingkubutmaps.domain.valueObject.CacheAttributeValue;
 
