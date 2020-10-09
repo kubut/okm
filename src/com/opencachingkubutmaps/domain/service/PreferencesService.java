@@ -2,6 +2,8 @@ package com.opencachingkubutmaps.domain.service;
 
 import android.content.Context;
 import androidx.annotation.Nullable;
+
+import com.github.scribejava.core.model.OAuth1AccessToken;
 import com.opencachingkubutmaps.R;
 import com.opencachingkubutmaps.data.repositories.PreferencesRepository;
 import com.opencachingkubutmaps.domain.model.CompassModel;
@@ -54,6 +56,14 @@ public class PreferencesService {
 
     public String getUuid() {
         return this.repository.getUuid();
+    }
+
+    public OAuth1AccessToken getAccessToken() {
+        return this.repository.getAccessToken();
+    }
+
+    public void setAccessToken(String token, String tokenSecret) {
+        this.repository.setAccessToken(token, tokenSecret);
     }
 
     public void setMapPosition(final MapPositionValue position){

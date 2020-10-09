@@ -65,7 +65,7 @@ public class OkapiService {
         return apiUrl + serviceUrl + okapiKey;
     }
 
-    private static String getOkapiKey(final Context context, String server){
+    public static String getOkapiKey(final Context context, String server){
         server = server.replace("/okapi/","");
         server = server.replace("https://www.opencaching","okapiKey");
         server = server.replace(".","_");

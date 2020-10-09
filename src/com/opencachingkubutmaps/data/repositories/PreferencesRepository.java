@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.github.scribejava.core.model.OAuth1AccessToken;
+
 /**
  * Created by kubut on 2015-08-22.
  */
@@ -18,6 +20,8 @@ public class PreferencesRepository {
     private static final boolean COMPASS = false;
     private static final String COMPASS_MODE = "orientation";
     private static final long LAST_RUN = 0;
+    private static final String ACCESS_TOKEN = null;
+    private static final String ACCESS_TOKEN_SECRET = null;
 
     private final SharedPreferences sharedPref;
 
@@ -39,6 +43,20 @@ public class PreferencesRepository {
 
     public String getCompassMode(){
         return this.sharedPref.getString("prefCompassMode", COMPASS_MODE);
+    }
+
+    public OAuth1AccessToken getAccessToken() {
+        String token = this.sharedPref.getString("prefAccessToken", ACCESS_TOKEN);
+        String tokenSecret =  this.sharedPref.getString("prefAccessTokenSecret", ACCESS_TOKEN_SECRET);
+
+        return new OAuth1AccessToken(token, tokenSecret);
+    }
+
+    public void setAccessToken(final String accessToken, final String accessTokenSecret) {
+        final SharedPreferences.Editor editor = this.sharedPref.edit();
+        editor.putString("prefAccessToken", accessToken);
+        editor.putString("prefAccessTokenSecret", accessTokenSecret);
+        editor.apply();
     }
 
     public void setMapPosition(final String mapPosition){
