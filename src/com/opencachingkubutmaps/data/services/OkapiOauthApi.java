@@ -1,27 +1,40 @@
 package com.opencachingkubutmaps.data.services;
 
+import android.content.Context;
+
 import com.github.scribejava.core.builder.api.DefaultApi10a;
 import com.github.scribejava.core.builder.api.OAuth1SignatureType;
 import com.github.scribejava.core.model.OAuth1RequestToken;
 import com.github.scribejava.core.model.Verb;
+import com.opencachingkubutmaps.R;
+import com.opencachingkubutmaps.domain.service.PreferencesService;
 
 public class OkapiOauthApi extends DefaultApi10a {
-    private static final String AUTHORIZE_URL = "https://opencaching.pl/okapi/services/oauth/authorize?oauth_token=%s";
+    private String authorizeUrl;
+    private String requestTokenUrl;
+    private String accessTokenUrl;
+    private static OkapiOauthApi instance = null;
 
-    protected OkapiOauthApi() {
+    protected OkapiOauthApi(Context context) {
+        final PreferencesService preferencesService = new PreferencesService(context);
+        final String apiUrl = preferencesService.getServerAPI();
+
+        authorizeUrl = apiUrl + context.getString(R.string.okapi_oath_authorize);
+        requestTokenUrl = apiUrl + context.getString(R.string.okapi_oath_request_token);
+        accessTokenUrl = apiUrl + context.getString(R.string.okapi_oauth_access_token);
     }
 
-    private static class InstanceHolder {
-        private static final OkapiOauthApi INSTANCE = new OkapiOauthApi();
-    }
+    public static OkapiOauthApi getInstance(Context context) {
+        if (instance == null) {
+            instance = new OkapiOauthApi(context);
+        }
 
-    public static OkapiOauthApi instance() {
-        return InstanceHolder.INSTANCE;
+        return instance;
     }
 
     @Override
-    public String getAccessTokenEndpoint(){
-        return "https://opencaching.pl/okapi/services/oauth/access_token";
+    public String getAccessTokenEndpoint() {
+        return accessTokenUrl;
     }
 
     @Override
@@ -31,17 +44,17 @@ public class OkapiOauthApi extends DefaultApi10a {
 
     @Override
     protected String getAuthorizationBaseUrl() {
-        return AUTHORIZE_URL;
+        return authorizeUrl+"?oauth_token=%s";
     }
 
     @Override
     public String getRequestTokenEndpoint() {
-        return "https://opencaching.pl/okapi/services/oauth/request_token";
+        return requestTokenUrl;
     }
 
     @Override
     public String getAuthorizationUrl(OAuth1RequestToken requestToken) {
-        return String.format(AUTHORIZE_URL, requestToken.getToken());
+        return String.format(accessTokenUrl+"?oauth_token=%s", requestToken.getToken());
     }
 
     @Override

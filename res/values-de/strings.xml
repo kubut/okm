@@ -80,4 +80,14 @@
     <string name="first_run_welcome">Danke fürs Herunterladen von Opencaching Kubut Maps! Nutze das Menü oder das Icon in der oberen rechten Ecke, um Caches herunterzuladen.</string>
     <string name="first_run_select_server_title">Bitte wähle den Server aus:</string>
     <string name="toast_click_again_to_leave">Bitte klicken Sie wieder zu verlassen</string>
+    <string name="okapi_oath_request_token">services/oauth/request_token</string>
+    <string name="okapi_oath_authorize">services/oauth/authorize</string>
+    <string name="okapi_oauth_access_token">services/oauth/access_token</string>
+    <string name="cancel">Stornieren</string>
+    <string name="oauth_in_progress">Autorisierung läuft ...</string>
+    <string name="oauth_network_error">Fehler aufgetreten - überprüfen Sie Ihre Netzwerkverbindung</string>
+    <string name="oauth_PIN_title">Geben Sie den PIN-Code ein</string>
+    <string name="oauth_PIN_subtitle">Geben Sie den PIN-Code von der opencaching.de-Website ein.</string>
+    <string name="oauth_PIN">Geheimzahl</string>
+    <string name="oauth_wrong_PIN">Fehler aufgetreten - PIN-Code ist falsch oder Ihr Telefon hat keine Internetverbindung</string>
 </resources>

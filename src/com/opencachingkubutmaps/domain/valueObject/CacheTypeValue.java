@@ -8,7 +8,7 @@ import com.opencachingkubutmaps.R;
  */
 public class CacheTypeValue {
     private final String name;
-    private final int icon;
+    private int icon = 0;
     private final int selectedIcon;
 
     public CacheTypeValue(final Context context, final String key){
@@ -38,7 +38,7 @@ public class CacheTypeValue {
     }
 
     public int getIcon() {
-        return this.icon;
+        return this.icon != 0 ? this.icon : R.drawable.cache_icon_other;
     }
 
     public int getSelectedIcon(){

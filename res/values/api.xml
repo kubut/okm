@@ -5,4 +5,7 @@
     <string name="okapi_getNearbyCaches">services/caches/shortcuts/search_and_retrieve?search_method=services/caches/search/nearest&amp;search_params={\"limit\":\"[$LIMIT$]\",\"langpref\":\"en\",\"center\":\"[$CENTER$]\"}&amp;retr_method=services/caches/geocaches&amp;retr_params={\"fields\":\"last_found|code|name|size2|type|owner|location|rating\"}&amp;wrap=false</string>
     <string name="okapi_getNearbyCachesNotFound">services/caches/shortcuts/search_and_retrieve?search_method=services/caches/search/nearest&amp;search_params={\"limit\":\"[$LIMIT$]\",\"langpref\":\"en\",\"not_found_by\":\"[$UUID$]\",\"owner_uuid\":\"-[$UUID$]\",\"center\":\"[$CENTER$]\"}&amp;retr_method=services/caches/geocaches&amp;retr_params={\"fields\":\"last_found|code|name|size2|type|owner|location|rating\"}&amp;wrap=false</string>
     <string name="okapi_getUuid">services/users/by_username?username=[$USER$]&amp;fields=uuid</string>
+    <string name="okapi_oath_request_token">services/oauth/request_token</string>
+    <string name="okapi_oath_authorize">services/oauth/authorize</string>
+    <string name="okapi_oauth_access_token">services/oauth/access_token</string>
 </resources>

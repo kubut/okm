@@ -96,5 +96,15 @@
     <string name="first_run_welcome_title">Witaj!</string>
     <string name="first_run_welcome">Dziękujemy za pobranie Opencaching Kubut Maps! Aby pobrać skrzynki, wybierz odpowiednią pozycję w menu po lewej stronie, lub użyj przycisku w prawym górnym rogu ekranu.</string>
     <string name="toast_click_again_to_leave">Proszę kliknąć WSTECZ ponownie, aby wyjść</string>
+    <string name="okapi_oath_request_token">services/oauth/request_token</string>
+    <string name="okapi_oath_authorize">services/oauth/authorize</string>
+    <string name="okapi_oauth_access_token">services/oauth/access_token</string>
+    <string name="cancel">Anuluj</string>
+    <string name="oauth_in_progress">Autoryzacja w trakcie...</string>
+    <string name="oauth_network_error">Wystąpił problem, sprawdź swoje połączenie z internetem</string>
+    <string name="oauth_PIN_title">Wprowadź kod PIN</string>
+    <string name="oauth_PIN_subtitle">Wprowadź kod PIN uzyskany na stronie opencaching.pl po zalogowaniu i udzieleniu dostępu aplikacji OKM</string>
+    <string name="oauth_PIN">Kod PIN</string>
+    <string name="oauth_wrong_PIN">Wystąpił problem - prawdopdoobnie podałeś błędny kod PIN lub Twoje połączenie internetowe zostało zerwane</string>
 
 </resources>

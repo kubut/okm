@@ -1,5 +1,7 @@
 package com.opencachingkubutmaps.data.services;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
 
 import com.github.scribejava.core.builder.ServiceBuilder;
@@ -7,19 +9,26 @@ import com.github.scribejava.core.model.OAuth1RequestToken;
 import com.github.scribejava.core.oauth.OAuth10aService;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.concurrent.ExecutionException;
 
 public class OkapiOauthAuthorizationUrlTask extends AsyncTask<String, Void, String> {
+    private final WeakReference<Context> weakContext;
+
+    OkapiOauthAuthorizationUrlTask(Context context) {
+        this.weakContext = new WeakReference<Context>(context);
+    }
+
     @Override
     protected String doInBackground(final String... params) {
         String response = null;
 
-        String consumerKey = "599yAKYxPVjsVG4TTLQG"; //api key
-        String consumerSecret = "HG3bfbesfetbdtzE3q2HabYWHSFsvnY4TS5YTagZ"; //api secret
+        String consumerKey = params[0];
+        String consumerSecret = params[1];
 
         OAuth10aService service = new ServiceBuilder(consumerKey)
                 .apiSecret(consumerSecret)
-                .build(OkapiOauthApi.instance());
+                .build(OkapiOauthApi.getInstance(weakContext.get()));
 
         try {
             final OAuth1RequestToken requestToken = service.getRequestToken();

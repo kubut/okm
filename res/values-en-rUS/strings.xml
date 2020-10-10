@@ -80,4 +80,14 @@
     <string name="first_run_welcome_title">Welcome!</string>
     <string name="first_run_welcome">Thanks for downloading Opencaching Kubut Maps! Use the menu or the icon in the right-top corner to download caches</string>
     <string name="toast_click_again_to_leave">Please click BACK again to exit</string>
+    <string name="okapi_oath_request_token">services/oauth/request_token</string>
+    <string name="okapi_oath_authorize">services/oauth/authorize</string>
+    <string name="okapi_oauth_access_token">services/oauth/access_token</string>
+    <string name="cancel">Cancel</string>
+    <string name="oauth_in_progress">Authorization in progress...</string>
+    <string name="oauth_network_error">Error occurred - check your network connection</string>
+    <string name="oauth_PIN_title">Enter PIN code</string>
+    <string name="oauth_PIN_subtitle">Enter PIN code from opencaching.us website.</string>
+    <string name="oauth_PIN">PIN code</string>
+    <string name="oauth_wrong_PIN">Error occurred - PIN code is incorrect or your phone has no internet connection</string>
 </resources>

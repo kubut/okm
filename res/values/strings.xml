@@ -8,11 +8,20 @@
     <string name="location_dialog_cancel">DISMISS</string>
     <string name="location_dialog_ok">OPEN SETTINGS</string>
     <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
 
     <!--First run-->
     <string name="first_run_select_server_title">Please select the server:</string>
     <string name="first_run_welcome_title">Welcome!</string>
     <string name="first_run_welcome">Thanks for downloading Opencaching Kubut Maps! Use the menu or the icon in the right-top corner to download caches</string>
+
+    <!-- Oauth-->
+    <string name="oauth_in_progress">Authorization in progress...</string>
+    <string name="oauth_network_error">Error occurred - check your network connection</string>
+    <string name="oauth_PIN_title">Enter PIN code</string>
+    <string name="oauth_PIN_subtitle">Enter PIN code from opencaching.us website.</string>
+    <string name="oauth_PIN">PIN code</string>
+    <string name="oauth_wrong_PIN">Error occurred - PIN code is incorrect or your phone has no internet connection</string>
 
     <!-- drawer -->
     <string name="drawer_cache_info">Description</string>
@@ -54,7 +63,7 @@
         <item>Basic</item>
         <item>Acceleromagnetic</item>
     </string-array>
-    <string-array name="settings_compass_mode_values"  translatable="false">
+    <string-array name="settings_compass_mode_values" translatable="false">
         <item>orientation</item>
         <item>magnetic</item>
     </string-array>
@@ -94,7 +103,7 @@
     <string name="size_regular">Regular</string>
     <string name="size_small">Small</string>
     <string name="size_xlarge">Huge</string>
-    
+
     <!-- Cache details -->
     <string name="cache_tabs_details">Description</string>
     <string name="cache_tabs_gallery">Photos</string>

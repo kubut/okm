@@ -1,5 +1,6 @@
 package com.opencachingkubutmaps.data.services;
 
+import android.content.Context;
 import android.os.AsyncTask;
 
 import com.github.scribejava.core.builder.ServiceBuilder;
@@ -9,28 +10,33 @@ import com.github.scribejava.core.model.OAuth1RequestToken;
 import com.github.scribejava.core.oauth.OAuth10aService;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.concurrent.ExecutionException;
 
 public class OkapiOauthAccessTokenTask extends AsyncTask<String, Void, OAuth1AccessToken> {
+    private final WeakReference<Context> weakContext;
+
+    OkapiOauthAccessTokenTask(Context context) {
+        this.weakContext = new WeakReference<Context>(context);
+    }
+
     @Override
     protected OAuth1AccessToken doInBackground(final String... params) {
-        String verifier = params[0];
         OAuth1AccessToken response = null;
 
-        String consumerKey = "599yAKYxPVjsVG4TTLQG"; //api key
-        String consumerSecret = "HG3bfbesfetbdtzE3q2HabYWHSFsvnY4TS5YTagZ"; //api secret
+        String verifier = params[0];
+        String consumerKey = params[1];
+        String consumerSecret = params[2];
 
         OAuth10aService service = new ServiceBuilder(consumerKey)
                 .apiSecret(consumerSecret)
                 .debug()
-                .build(OkapiOauthApi.instance());
+                .build(OkapiOauthApi.getInstance(weakContext.get()));
 
         try {
             final OAuth1RequestToken requestToken = service.getRequestToken();
             response = service.getAccessToken(requestToken, verifier);
-        } catch (IOException | InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        } catch (OAuthException e) {
+        } catch (IOException | InterruptedException | ExecutionException | OAuthException e) {
             e.printStackTrace();
         }
 

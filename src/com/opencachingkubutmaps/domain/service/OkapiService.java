@@ -73,4 +73,11 @@ public class OkapiService {
         return context.getString(context.getResources().getIdentifier(server, "string", context.getPackageName()));
     }
 
+    public static String getOkapiSecret(final Context context, String server){
+        server = server.replace("/okapi/","");
+        server = server.replace("https://www.opencaching","okapiSecret");
+        server = server.replace(".","_");
+
+        return context.getString(context.getResources().getIdentifier(server, "string", context.getPackageName()));
+    }
 }
