@@ -129,7 +129,7 @@ public class PreferencesService {
     }
 
     public String getServerAPI(){
-        return "https://www." + this.getServerName() + "/okapi/";
+        return "https://" + this.getServerName() + "/okapi/";
     }
 
     public long getLastRunTime(){

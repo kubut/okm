@@ -53,8 +53,13 @@ public class OkapiOauthApi extends DefaultApi10a {
     }
 
     @Override
+    public Verb getRequestTokenVerb() {
+        return Verb.GET;
+    }
+
+    @Override
     public String getAuthorizationUrl(OAuth1RequestToken requestToken) {
-        return String.format(accessTokenUrl+"?oauth_token=%s", requestToken.getToken());
+        return String.format(authorizeUrl+"?oauth_token=%s", requestToken.getToken());
     }
 
     @Override

@@ -188,10 +188,7 @@ public class CacheActivity extends AppCompatActivity {
         owner.setText(cacheModel.getOwner());
 
         this.tabDetails.setView(this, cacheModel);
-
-        if(cacheModel.hasLogs()){
-            this.tabLogs.setView(this, cacheModel);
-        }
+        this.tabLogs.setView(this, cacheModel);
 
         if(cacheModel.hasPhotos()){
             this.tabGallery.setView(this, cacheModel);

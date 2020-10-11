@@ -106,5 +106,7 @@
     <string name="oauth_PIN_subtitle">Wprowadź kod PIN uzyskany na stronie opencaching.pl po zalogowaniu i udzieleniu dostępu aplikacji OKM</string>
     <string name="oauth_PIN">Kod PIN</string>
     <string name="oauth_wrong_PIN">Wystąpił problem - prawdopdoobnie podałeś błędny kod PIN lub Twoje połączenie internetowe zostało zerwane</string>
+    <string name="oauth_begin_title">Wymagane logowanie</string>
+    <string name="oauth_begin_subtitle">Aby użyć tej funkcji musisz być zalogowany. W tym celu zostaniesz przekierowany na stronę Opencaching, gdzie zostanie wygenerowany kod PIN. Skopiuj go i wprowadź w modalu który zostanie pokazany w następnym kroku</string>
 
 </resources>

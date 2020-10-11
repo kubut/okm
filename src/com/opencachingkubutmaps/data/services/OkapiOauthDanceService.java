@@ -11,12 +11,13 @@ import androidx.core.content.ContextCompat;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.github.scribejava.core.model.OAuth1AccessToken;
+import com.github.scribejava.core.model.OAuth1RequestToken;
 import com.opencachingkubutmaps.R;
 import com.opencachingkubutmaps.domain.service.OkapiService;
 import com.opencachingkubutmaps.domain.service.PreferencesService;
 
 public class OkapiOauthDanceService {
-    public static void MakeDance(final Context context) {
+    public static void MakeDance(final Context context, final Runnable callback) {
         Toast.makeText(context, context.getString(R.string.oauth_in_progress), Toast.LENGTH_SHORT).show();
 
         final PreferencesService preferencesService = new PreferencesService(context);
@@ -33,7 +34,7 @@ public class OkapiOauthDanceService {
                     return;
                 }
 
-                OpenPINDialog(context, consumerKey, consumerSecret);
+                OpenPINDialog(context, consumerKey, consumerSecret, requestToken, callback);
 
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(result));
@@ -44,7 +45,7 @@ public class OkapiOauthDanceService {
                 .execute(consumerKey, consumerSecret);
     }
 
-    private static void OpenPINDialog(final Context context, final String consumerKey, final String consumerSecret) {
+    private static void OpenPINDialog(final Context context, final String consumerKey, final String consumerSecret, final OAuth1RequestToken requestToken, final Runnable callback) {
         new MaterialDialog.Builder(context)
                 .title(context.getString(R.string.oauth_PIN_title))
                 .content(context.getString(R.string.oauth_PIN_subtitle))
@@ -55,13 +56,13 @@ public class OkapiOauthDanceService {
                 .input(context.getString(R.string.oauth_PIN), null, false, new MaterialDialog.InputCallback() {
                     @Override
                     public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
-                        GetAccessToken(input.toString(), context, consumerKey, consumerSecret);
+                        GetAccessToken(input.toString(), context, consumerKey, consumerSecret, requestToken, callback);
                     }
                 })
                 .show();
     }
 
-    private static void GetAccessToken(String verifier, final Context context, String consumerKey, String consumerSecret) {
+    private static void GetAccessToken(String verifier, final Context context, String consumerKey, String consumerSecret, OAuth1RequestToken requestToken, final Runnable callback) {
         new OkapiOauthAccessTokenTask(context) {
             @Override
             public void onPostExecute(final OAuth1AccessToken result) {
@@ -72,8 +73,10 @@ public class OkapiOauthDanceService {
 
                 PreferencesService preferencesService = new PreferencesService(context);
                 preferencesService.setAccessToken(result.getToken(), result.getTokenSecret());
+
+                callback.run();
             }
         }
-                .execute(verifier, consumerKey, consumerSecret);
+                .execute(verifier, consumerKey, consumerSecret, requestToken.getToken(), requestToken.getTokenSecret());
     }
 }

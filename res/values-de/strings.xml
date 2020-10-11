@@ -90,4 +90,6 @@
     <string name="oauth_PIN_subtitle">Geben Sie den PIN-Code von der opencaching.de-Website ein.</string>
     <string name="oauth_PIN">Geheimzahl</string>
     <string name="oauth_wrong_PIN">Fehler aufgetreten - PIN-Code ist falsch oder Ihr Telefon hat keine Internetverbindung</string>
+    <string name="oauth_begin_title">Erlaubnis benötigt</string>
+    <string name="oauth_begin_subtitle">Um diese Funktion nutzen zu können, müssen Sie angemeldet sein. Sie werden zur Opencaching-Website weitergeleitet, auf der ein PIN-Code generiert wird. Kopieren Sie diesen Code und geben Sie ihn in das Modal ein, das im nächsten Schritt in der Anwendung angezeigt wird</string>
 </resources>

@@ -90,4 +90,6 @@
     <string name="oauth_PIN_subtitle">Enter PIN code from opencaching.us website.</string>
     <string name="oauth_PIN">PIN code</string>
     <string name="oauth_wrong_PIN">Error occurred - PIN code is incorrect or your phone has no internet connection</string>
+    <string name="oauth_begin_title">Authorization required</string>
+    <string name="oauth_begin_subtitle">To use this function you have to be logged in. You will be redirected to the Opencaching website where a PIN code will be generated. Copy that code and enter it in the modal that will popup in the application in the next step</string>
 </resources>

@@ -27,6 +27,8 @@ public class OkapiOauthAccessTokenTask extends AsyncTask<String, Void, OAuth1Acc
         String verifier = params[0];
         String consumerKey = params[1];
         String consumerSecret = params[2];
+        String requestToken = params[3];
+        String requestTokenSecret = params[4];
 
         OAuth10aService service = new ServiceBuilder(consumerKey)
                 .apiSecret(consumerSecret)
@@ -34,8 +36,8 @@ public class OkapiOauthAccessTokenTask extends AsyncTask<String, Void, OAuth1Acc
                 .build(OkapiOauthApi.getInstance(weakContext.get()));
 
         try {
-            final OAuth1RequestToken requestToken = service.getRequestToken();
-            response = service.getAccessToken(requestToken, verifier);
+            final OAuth1RequestToken token = new OAuth1RequestToken(requestToken, requestTokenSecret);
+            response = service.getAccessToken(token, verifier);
         } catch (IOException | InterruptedException | ExecutionException | OAuthException e) {
             e.printStackTrace();
         }

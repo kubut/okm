@@ -14,6 +14,7 @@ import java.util.concurrent.ExecutionException;
 
 public class OkapiOauthAuthorizationUrlTask extends AsyncTask<String, Void, String> {
     private final WeakReference<Context> weakContext;
+    public OAuth1RequestToken requestToken;
 
     OkapiOauthAuthorizationUrlTask(Context context) {
         this.weakContext = new WeakReference<Context>(context);
@@ -27,11 +28,12 @@ public class OkapiOauthAuthorizationUrlTask extends AsyncTask<String, Void, Stri
         String consumerSecret = params[1];
 
         OAuth10aService service = new ServiceBuilder(consumerKey)
+                .debug()
                 .apiSecret(consumerSecret)
                 .build(OkapiOauthApi.getInstance(weakContext.get()));
 
         try {
-            final OAuth1RequestToken requestToken = service.getRequestToken();
+            this.requestToken = service.getRequestToken();
             response = service.getAuthorizationUrl(requestToken);
         } catch (IOException | InterruptedException | ExecutionException e) {
             e.printStackTrace();
