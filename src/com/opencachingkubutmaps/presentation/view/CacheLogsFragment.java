@@ -19,9 +19,16 @@ import com.github.scribejava.core.model.OAuth1AccessToken;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.opencachingkubutmaps.R;
 import com.opencachingkubutmaps.data.services.OkapiOauthDanceService;
+import com.opencachingkubutmaps.data.services.OkapiOauthSignedRequest;
 import com.opencachingkubutmaps.domain.model.CacheModel;
+import com.opencachingkubutmaps.domain.service.OkapiService;
 import com.opencachingkubutmaps.domain.service.PreferencesService;
 import com.opencachingkubutmaps.domain.valueObject.CacheLogValue;
+import com.opencachingkubutmaps.presentation.presenter.CachePresenter;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -33,11 +40,15 @@ public class CacheLogsFragment extends Fragment implements ICacheTabs {
     private FloatingActionButton addLog;
     private boolean ready, loaded;
     private String htmlLogs;
+    private CacheModel cacheModel;
+    private PreferencesService _preferencesService;
+    private CachePresenter cachePresenter;
 
-    public CacheLogsFragment() {
+    public CacheLogsFragment(CachePresenter cachePresenter) {
         this.ready = false;
         this.loaded = false;
         this.htmlLogs = "";
+        this.cachePresenter = cachePresenter;
     }
 
     @Override
@@ -64,6 +75,8 @@ public class CacheLogsFragment extends Fragment implements ICacheTabs {
 
     @Override
     public void setView(final Context context, final CacheModel cacheModel) {
+        this.cacheModel = cacheModel;
+
         final DateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
 
         for (final CacheLogValue log : cacheModel.getLogs()) {
@@ -74,18 +87,79 @@ public class CacheLogsFragment extends Fragment implements ICacheTabs {
             this.htmlLogs += "</div>";
         }
 
+        if (cacheModel.getLogs().isEmpty()) {
+            this.htmlLogs += "<h1 style='margin-top: 50px; text-align: center'>"+context.getString(R.string.label_last_found_none)+"</h1>";
+        }
+
         this.htmlLogs += "<div class='paddingBottom' style='height: 70px'></div>";
 
         this.loaded = true;
         this.syncView();
     }
 
+    public void createLogCallback(String logType, String comment, int rating, String pass) {
+        final String apiUrl = getPreferencesService().getServerAPI();
+
+        final String consumerKey = OkapiService.getOkapiKey(getContext(), apiUrl);
+        final String consumerSecret = OkapiService.getOkapiSecret(getContext(), apiUrl);
+        final OAuth1AccessToken accessToken = getPreferencesService().getAccessToken();
+
+        final String endpointUrl = OkapiService.getLogSubmitUrl(this.getContext(), cacheModel.getCode(), logType, comment, rating, pass);
+
+        new OkapiOauthSignedRequest(getContext()) {
+            @Override
+            public void onPostExecute(final String result) {
+                if (result == null) {
+                    showModal(getString(R.string.create_log_error_title), getString(R.string.create_log_error_general));
+                    return;
+                }
+
+                try {
+                    final JSONObject jsonResult = new JSONObject(result);
+
+                    if (jsonResult.has("error")) {
+                        handleApiError(jsonResult);
+                        return;
+                    }
+
+                    if (jsonResult.has("success")) {
+                        if (jsonResult.getBoolean("success")) {
+                            showModal(getString(R.string.create_log_success_title), getString(R.string.create_log_success));
+                            cachePresenter.loadCacheDetails(cacheModel.getCode());
+                        } else {
+                            showModal(getString(R.string.create_log_error_title), jsonResult.getString("message"));
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    showModal(getString(R.string.create_log_error_title), getString(R.string.create_log_error_general));
+                }
+            }
+        }
+                .execute(consumerKey, consumerSecret, accessToken.getToken(), accessToken.getTokenSecret(), endpointUrl);
+    }
+
+    private void handleApiError(JSONObject jsonResult) throws JSONException {
+        final JSONObject jsonError = jsonResult.getJSONObject("error");
+        final JSONArray jsonReasonStack = jsonError.getJSONArray("reason_stack");
+
+        for (int i = 0; i < jsonReasonStack.length(); i++) {
+            if ("invalid_token".equals(jsonReasonStack.get(i))) {
+                showModal(getString(R.string.create_log_error_title), getString(R.string.create_log_error_auth));
+                getPreferencesService().setAccessToken(null, null);
+
+                return;
+            }
+        }
+
+        showModal(getString(R.string.create_log_error_title), getString(R.string.create_log_error_general));
+    }
+
     private void setListeners() {
         this.addLog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final PreferencesService preferencesService = new PreferencesService(getContext());
-                OAuth1AccessToken accessToken = preferencesService.getAccessToken();
+                OAuth1AccessToken accessToken = getPreferencesService().getAccessToken();
 
                 if (accessToken == null) {
                     new MaterialDialog.Builder(Objects.requireNonNull(getContext()))
@@ -114,11 +188,23 @@ public class CacheLogsFragment extends Fragment implements ICacheTabs {
     }
 
     private void openLogEditor() {
-        new MaterialDialog.Builder(Objects.requireNonNull(getContext()))
-                .title("Poszło")
-                .positiveText(getString(R.string.ok))
-                .negativeText(getString(R.string.cancel))
-                .negativeColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark))
+        CreateLogFragment custom = CreateLogFragment.newInstance(cacheModel);
+        custom.show(CacheLogsFragment.this.getChildFragmentManager(), "dialog_fragment");
+    }
+
+    private void showModal(String title, String content) {
+        new MaterialDialog.Builder(getContext())
+                .title(title)
+                .content(content)
+                .positiveText(R.string.ok)
                 .show();
+    }
+
+    private PreferencesService getPreferencesService() {
+        if (this._preferencesService == null) {
+            this._preferencesService = new PreferencesService(getContext());
+        }
+
+        return this._preferencesService;
     }
 }

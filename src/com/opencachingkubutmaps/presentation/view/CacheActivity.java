@@ -1,12 +1,7 @@
 package com.opencachingkubutmaps.presentation.view;
 
 import android.graphics.Typeface;
-import com.google.android.material.tabs.TabLayout;
-import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,11 +9,18 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.tabs.TabLayout;
 import com.opencachingkubutmaps.R;
 import com.opencachingkubutmaps.domain.model.CacheModel;
 import com.opencachingkubutmaps.domain.service.CacheRatingHelper;
-import com.opencachingkubutmaps.presentation.presenter.CachePresenter;
 import com.opencachingkubutmaps.presentation.adapter.ViewPagerAdapter;
+import com.opencachingkubutmaps.presentation.presenter.CachePresenter;
 import com.rey.material.widget.ProgressView;
 
 public class CacheActivity extends AppCompatActivity {
@@ -39,14 +41,14 @@ public class CacheActivity extends AppCompatActivity {
         this.setContentView(R.layout.activity_cache);
 
         final Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
-        this.tabLayout      = (TabLayout) this.findViewById(R.id.tabs);
-        this.viewPager      = (ViewPager) this.findViewById(R.id.viewpager);
-        this.progressView   = (ProgressView) this.findViewById(R.id.progressCircle);
-        this.tryAgainView   = (RelativeLayout) this.findViewById(R.id.tryAgainView);
-        this.bottomPanel    = (LinearLayout) this.findViewById(R.id.bottom_panel);
+        this.tabLayout = (TabLayout) this.findViewById(R.id.tabs);
+        this.viewPager = (ViewPager) this.findViewById(R.id.viewpager);
+        this.progressView = (ProgressView) this.findViewById(R.id.progressCircle);
+        this.tryAgainView = (RelativeLayout) this.findViewById(R.id.tryAgainView);
+        this.bottomPanel = (LinearLayout) this.findViewById(R.id.bottom_panel);
 
         this.presenter = (CachePresenter) this.getLastCustomNonConfigurationInstance();
-        if(this.presenter == null){
+        if (this.presenter == null) {
             this.presenter = new CachePresenter(this);
         }
 
@@ -83,17 +85,17 @@ public class CacheActivity extends AppCompatActivity {
     }
 
     @Override
-    public Object onRetainCustomNonConfigurationInstance(){
+    public Object onRetainCustomNonConfigurationInstance() {
         return this.presenter;
     }
 
     @Override
-    public boolean onCreateOptionsMenu(final Menu menu){
+    public boolean onCreateOptionsMenu(final Menu menu) {
         final MenuInflater inflater = this.getMenuInflater();
         inflater.inflate(R.menu.cache_details_actions, menu);
         this.menu = menu;
 
-        if(this.loaded){
+        if (this.loaded) {
             this.initMenu();
         }
 
@@ -121,23 +123,23 @@ public class CacheActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
         this.presenter.disconnectContext();
     }
 
     @SuppressWarnings("UnusedParameters")
-    public void loadCache(final View v){
+    public void loadCache(final View v) {
         this.presenter.loadCacheDetails(this.cacheCode);
         this.switchToLoader();
     }
 
     @SuppressWarnings("UnusedParameters")
-    public void showAttributes(final View v){
+    public void showAttributes(final View v) {
         this.presenter.showAttributes();
     }
 
-    public void switchToCache(){
+    public void switchToCache() {
         this.progressView.setVisibility(View.GONE);
         this.tryAgainView.setVisibility(View.GONE);
         this.viewPager.setVisibility(View.VISIBLE);
@@ -145,7 +147,7 @@ public class CacheActivity extends AppCompatActivity {
         this.bottomPanel.setVisibility(View.VISIBLE);
     }
 
-    public void switchToTryAgain(){
+    public void switchToTryAgain() {
         this.progressView.setVisibility(View.GONE);
         this.tryAgainView.setVisibility(View.VISIBLE);
         this.viewPager.setVisibility(View.GONE);
@@ -154,7 +156,7 @@ public class CacheActivity extends AppCompatActivity {
 
     }
 
-    private void switchToLoader(){
+    private void switchToLoader() {
         this.progressView.setVisibility(View.VISIBLE);
         this.tryAgainView.setVisibility(View.GONE);
         this.viewPager.setVisibility(View.GONE);
@@ -163,22 +165,22 @@ public class CacheActivity extends AppCompatActivity {
 
     }
 
-    public void setCacheDetails(final CacheModel cacheModel){
-        final TextView type             = (TextView) this.bottomPanel.findViewById(R.id.infoCacheType);
-        final TextView size             = (TextView) this.bottomPanel.findViewById(R.id.infoCacheSize);
-        final TextView owner            = (TextView) this.bottomPanel.findViewById(R.id.infoCacheOwner);
-        final TextView attributes       = (TextView) this.bottomPanel.findViewById(R.id.infoCacheAttributes);
-        final TextView rating           = (TextView) this.bottomPanel.findViewById(R.id.infoCacheRating);
-        final LinearLayout ratingView   = (LinearLayout) this.bottomPanel.findViewById(R.id.infoCacheRatingView);
+    public void setCacheDetails(final CacheModel cacheModel) {
+        final TextView type = (TextView) this.bottomPanel.findViewById(R.id.infoCacheType);
+        final TextView size = (TextView) this.bottomPanel.findViewById(R.id.infoCacheSize);
+        final TextView owner = (TextView) this.bottomPanel.findViewById(R.id.infoCacheOwner);
+        final TextView attributes = (TextView) this.bottomPanel.findViewById(R.id.infoCacheAttributes);
+        final TextView rating = (TextView) this.bottomPanel.findViewById(R.id.infoCacheRating);
+        final LinearLayout ratingView = (LinearLayout) this.bottomPanel.findViewById(R.id.infoCacheRatingView);
 
         final Typeface font = Typeface.createFromAsset(getAssets(), "fontawesome-webfont.ttf");
         rating.setTypeface(font);
 
-        if(!cacheModel.hasAttributes()){
+        if (!cacheModel.hasAttributes()) {
             attributes.setVisibility(View.GONE);
         }
 
-        this.setupViewPager(cacheModel.hasPhotos(), cacheModel.hasLogs());
+        this.setupViewPager(cacheModel.hasPhotos());
         this.tabLayout.setupWithViewPager(this.viewPager);
 
         this.initMenu();
@@ -190,11 +192,11 @@ public class CacheActivity extends AppCompatActivity {
         this.tabDetails.setView(this, cacheModel);
         this.tabLogs.setView(this, cacheModel);
 
-        if(cacheModel.hasPhotos()){
+        if (cacheModel.hasPhotos()) {
             this.tabGallery.setView(this, cacheModel);
         }
 
-        if(cacheModel.getRating() > -1){
+        if (cacheModel.getRating() > -1) {
             ratingView.setVisibility(View.VISIBLE);
             CacheRatingHelper.setStars(cacheModel.getRating(), this, rating);
         } else {
@@ -204,17 +206,15 @@ public class CacheActivity extends AppCompatActivity {
         this.loaded = true;
     }
 
-    private void setupViewPager(final boolean gallery, final boolean logs) {
+    private void setupViewPager(final boolean gallery) {
         this.initTabs();
 
         final ViewPagerAdapter adapter = new ViewPagerAdapter(this.getSupportFragmentManager());
+
         adapter.addFragment((Fragment) this.tabDetails, this.getString(R.string.cache_tabs_details));
+        adapter.addFragment((Fragment) this.tabLogs, this.getString(R.string.cache_tabs_logs));
 
-        if(logs){
-            adapter.addFragment((Fragment) this.tabLogs, this.getString(R.string.cache_tabs_logs));
-        }
-
-        if(gallery){
+        if (gallery) {
             adapter.addFragment((Fragment) this.tabGallery, this.getString(R.string.cache_tabs_gallery));
         }
 
@@ -222,30 +222,30 @@ public class CacheActivity extends AppCompatActivity {
     }
 
     @SuppressWarnings("StringConcatenationMissingWhitespace")
-    private void initTabs(){
+    private void initTabs() {
         final String name = "android:switcher:" + R.id.viewpager + ":";
-        this.tabDetails = (ICacheTabs) this.getSupportFragmentManager().findFragmentByTag(name+"0");
-        this.tabLogs = (ICacheTabs) this.getSupportFragmentManager().findFragmentByTag(name+"1");
-        this.tabGallery = (ICacheTabs) this.getSupportFragmentManager().findFragmentByTag(name+"2");
+        this.tabDetails = (ICacheTabs) this.getSupportFragmentManager().findFragmentByTag(name + "0");
+        this.tabLogs = (ICacheTabs) this.getSupportFragmentManager().findFragmentByTag(name + "1");
+        this.tabGallery = (ICacheTabs) this.getSupportFragmentManager().findFragmentByTag(name + "2");
 
-        if(this.tabDetails == null){
+        if (this.tabDetails == null) {
             this.tabDetails = new CacheDetailsFragment();
         }
-        if(this.tabLogs == null){
-            this.tabLogs = new CacheLogsFragment();
+        if (this.tabLogs == null) {
+            this.tabLogs = new CacheLogsFragment(presenter);
         }
-        if(this.tabGallery == null){
+        if (this.tabGallery == null) {
             this.tabGallery = new CacheGalleryFragment();
         }
     }
 
-    private void initMenu(){
-        if(this.menu != null){
+    private void initMenu() {
+        if (this.menu != null) {
             this.menu.findItem(R.id.action_nav).setVisible(true);
             this.menu.findItem(R.id.action_maps).setVisible(true);
             this.menu.findItem(R.id.action_www).setVisible(true);
 
-            if(this.presenter.isHint()){
+            if (this.presenter.isHint()) {
                 this.menu.findItem(R.id.action_hint).setVisible(true);
             }
         }

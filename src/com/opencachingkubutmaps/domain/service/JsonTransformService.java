@@ -1,16 +1,26 @@
 package com.opencachingkubutmaps.domain.service;
 
 import android.content.Context;
+
 import androidx.annotation.Nullable;
+
+import com.google.android.gms.maps.model.LatLng;
 import com.opencachingkubutmaps.domain.model.CacheMakerModel;
 import com.opencachingkubutmaps.domain.model.CacheModel;
-import com.opencachingkubutmaps.domain.valueObject.*;
-import com.google.android.gms.maps.model.LatLng;
+import com.opencachingkubutmaps.domain.valueObject.CacheAttributeValue;
+import com.opencachingkubutmaps.domain.valueObject.CacheLogValue;
+import com.opencachingkubutmaps.domain.valueObject.CachePhotoValue;
+import com.opencachingkubutmaps.domain.valueObject.CacheSizeValue;
+import com.opencachingkubutmaps.domain.valueObject.CacheTypeValue;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Locale;
 
 /**
  * Created by kubut on 2015-09-07.
@@ -38,9 +48,9 @@ public class JsonTransformService {
 
                 int rating = -1;
 
-                try{
+                try {
                     rating = jsonCache.getInt("rating");
-                } catch (final Exception e){
+                } catch (final Exception e) {
                     e.printStackTrace();
                 }
 
@@ -78,7 +88,7 @@ public class JsonTransformService {
             if (jsonObject.get(key) instanceof JSONObject) {
                 String name = ((JSONObject) jsonObject.get(key)).getString("name");
                 //noinspection StringConcatenationMissingWhitespace
-                name = name.substring(0,1).toUpperCase() + name.substring(1);
+                name = name.substring(0, 1).toUpperCase() + name.substring(1);
 
                 final CacheAttributeValue attr = new CacheAttributeValue(context, key);
                 attr.setLanguage(lang);
@@ -106,11 +116,17 @@ public class JsonTransformService {
         cacheModel.setOwner(owner.getString("username"));
         cacheModel.setHint(jsonObject.getString("hint2"));
         cacheModel.setDescription(HtmlParser.parseHtml(jsonObject.getString("description"), context));
-        cacheModel.appendPhotos(JsonTransformService.getCachePhotosValueByJson(jsonObject.getJSONArray("images")));
+        cacheModel.appendPhotos(JsonTransformService.getCachePhotosValueByJson(context, jsonObject.getJSONArray("images")));
 
-        try{
+        try {
+            cacheModel.setPasswordRequired(jsonObject.getBoolean("req_passwd"));
+        } catch (Exception e) {
+            cacheModel.setPasswordRequired(false);
+        }
+
+        try {
             cacheModel.setRating(jsonObject.getInt("rating"));
-        } catch (final Exception e){
+        } catch (final Exception e) {
             cacheModel.setRating(-1);
         }
 
@@ -123,7 +139,7 @@ public class JsonTransformService {
         return cacheModel;
     }
 
-    private static ArrayList<CacheLogValue> getCacheLogsValueByJson(final Context context, final JSONArray jsonArray) throws Exception{
+    private static ArrayList<CacheLogValue> getCacheLogsValueByJson(final Context context, final JSONArray jsonArray) throws Exception {
         final ArrayList<CacheLogValue> logs = new ArrayList<>();
         final int length = jsonArray.length();
 
@@ -144,15 +160,24 @@ public class JsonTransformService {
         return logs;
     }
 
-    private static ArrayList<CachePhotoValue> getCachePhotosValueByJson(final JSONArray jsonArray) throws Exception{
+    private static ArrayList<CachePhotoValue> getCachePhotosValueByJson(Context context, final JSONArray jsonArray) throws Exception {
         final ArrayList<CachePhotoValue> photos = new ArrayList<>();
         final int length = jsonArray.length();
+
+        PreferencesService preferencesService = new PreferencesService(context);
+        String serverUrl = "https://" + preferencesService.getServerName();
 
         for (int i = 0; i < length; i++) {
             final JSONObject jsonPhoto = jsonArray.getJSONObject(i);
 
             final CachePhotoValue photo = new CachePhotoValue();
-            photo.setUrl(jsonPhoto.getString("url"));
+            String photoUrl = jsonPhoto.getString("url");
+
+            if (!photoUrl.contains("opencaching")) {
+                photoUrl = serverUrl + photoUrl;
+            }
+
+            photo.setUrl(photoUrl);
             photo.setTitle(jsonPhoto.getString("caption"));
             photo.setSpoiler(jsonPhoto.getBoolean("is_spoiler"));
             photos.add(photo);

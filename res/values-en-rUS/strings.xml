@@ -92,4 +92,26 @@
     <string name="oauth_wrong_PIN">Error occurred - PIN code is incorrect or your phone has no internet connection</string>
     <string name="oauth_begin_title">Authorization required</string>
     <string name="oauth_begin_subtitle">To use this function you have to be logged in. You will be redirected to the Opencaching website where a PIN code will be generated. Copy that code and enter it in the modal that will popup in the application in the next step</string>
+    <string name="create_log_title">New log entry</string>
+    <string name="create_log_type">Type</string>
+    <string name="create_log_rate">Rate</string>
+    <string name="create_log_comment">Comment</string>
+    <string-array name="create_log_types_event">
+        <item>Attended</item>
+        <item>Will attend</item>
+        <item>Comment</item>
+    </string-array>
+    <string-array name="create_log_types_normal">
+        <item>Found it</item>
+        <item>Didn\'t find it</item>
+        <item>Comment</item>
+    </string-array>
+    <string name="create_log_comment_footer">Log created from the Opencaching Kubut Maps application</string>
+    <string name="create_log_success">Log created successfully</string>
+    <string name="create_log_password">Password</string>
+    <string name="langPref">en</string>
+    <string name="create_log_success_title">Success!</string>
+    <string name="create_log_error_title">Error occurred</string>
+    <string name="create_log_error_general">Your log cannot be created. Check your internet connection and try again. In case if the error still appears please let me know at fotokubut@gmail.com</string>
+    <string name="create_log_error_auth">Your log cannot be created. Something is wrong with your authorization - please authorize application again. In case if the error still appears please let me know at fotokubut@gmail.com</string>
 </resources>

@@ -22,6 +22,7 @@ repositories {
 }
 
 dependencies {
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.70'
     implementation 'com.aminography:redirectglide:2.0.1'

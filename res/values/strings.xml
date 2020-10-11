@@ -9,6 +9,7 @@
     <string name="location_dialog_ok">OPEN SETTINGS</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
+    <string name="langPref">en</string>
 
     <!--First run-->
     <string name="first_run_select_server_title">Please select the server:</string>
@@ -120,4 +121,37 @@
     <string name="cache_dialog_ok">Close</string>
     <string name="cache_dialog_title">Hint</string>
     <string name="settings_compass_warning_ok">GOT IT</string>
+
+    <!-- Create log-->
+    <string name="create_log_title">New log entry</string>
+    <string name="create_log_type">Type</string>
+    <string name="create_log_rate">Rate</string>
+    <string name="create_log_comment">Comment</string>
+    <string name="create_log_password">Password</string>
+    <string name="create_log_comment_footer">Log created from the Opencaching Kubut Maps application</string>
+    <string name="create_log_success_title">Success!</string>
+    <string name="create_log_success">Log created successfully</string>
+    <string name="create_log_error_title">Error occurred</string>
+    <string name="create_log_error_general">Your log cannot be created. Check your internet connection and try again. In case if the error still appears please let me know at fotokubut@gmail.com</string>
+    <string name="create_log_error_auth">Your log cannot be created. Something is wrong with your authorization - please authorize application again. In case if the error still appears please let me know at fotokubut@gmail.com</string>
+    <string-array name="create_log_types_event">
+        <item>Attended</item>
+        <item>Will attend</item>
+        <item>Comment</item>
+    </string-array>
+    <string-array name="create_log_types_normal">
+        <item>Found it</item>
+        <item>Didn\'t find it</item>
+        <item>Comment</item>
+    </string-array>
+    <string-array name="create_log_types_values_event" translatable="false">
+        <item>Attended</item>
+        <item>Will attend</item>
+        <item>Comment</item>
+    </string-array>
+    <string-array name="create_log_types_values_normal" translatable="false">
+        <item>Found it</item>
+        <item>Didn\'t find it</item>
+        <item>Comment</item>
+    </string-array>
 </resources>

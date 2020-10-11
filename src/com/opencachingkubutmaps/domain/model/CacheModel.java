@@ -19,6 +19,7 @@ public class CacheModel {
     private CacheTypeValue type;
     private CacheSizeValue size;
     private int rating;
+    private boolean passwordRequired = false;
     private final ArrayList<CacheAttributeValue> attrs;
     private final ArrayList<CacheLogValue> logs;
     private final ArrayList<CachePhotoValue> photos;
@@ -115,10 +116,18 @@ public class CacheModel {
     public void setSize(final CacheSizeValue size) {
         this.size = size;
     }
+
     public int getRating() {
         return this.rating;
     }
     public void setRating(final int rating) {
         this.rating = rating;
+    }
+
+    public boolean isPasswordRequired() {
+        return this.passwordRequired;
+    }
+    public void setPasswordRequired(final boolean required) {
+        this.passwordRequired = required;
     }
 }

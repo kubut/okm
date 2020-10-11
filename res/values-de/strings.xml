@@ -92,4 +92,26 @@
     <string name="oauth_wrong_PIN">Fehler aufgetreten - PIN-Code ist falsch oder Ihr Telefon hat keine Internetverbindung</string>
     <string name="oauth_begin_title">Erlaubnis benötigt</string>
     <string name="oauth_begin_subtitle">Um diese Funktion nutzen zu können, müssen Sie angemeldet sein. Sie werden zur Opencaching-Website weitergeleitet, auf der ein PIN-Code generiert wird. Kopieren Sie diesen Code und geben Sie ihn in das Modal ein, das im nächsten Schritt in der Anwendung angezeigt wird</string>
+    <string name="create_log_title">Neuer Protokolleintrag</string>
+    <string name="create_log_type">Art</string>
+    <string name="create_log_rate">Bewertung</string>
+    <string name="create_log_comment">Kommentar</string>
+    <string-array name="create_log_types_event">
+        <item>Besucht</item>
+        <item>Werde antreten</item>
+        <item>Kommentar</item>
+    </string-array>
+    <string-array name="create_log_types_normal">
+        <item>Fand es</item>
+        <item>Hab es nicht gefunden</item>
+        <item>Kommentar</item>
+    </string-array>
+    <string name="create_log_comment_footer">Protokoll, das mit der Opencaching Kubut Maps-Anwendung erstellt wurde</string>
+    <string name="create_log_success">Protokoll erfolgreich erstellt</string>
+    <string name="create_log_password">Passwort</string>
+    <string name="langPref">de</string>
+    <string name="create_log_success_title">Erfolg!</string>
+    <string name="create_log_error_title">Ein Fehler ist aufgetreten</string>
+    <string name="create_log_error_general">Ihr Protokoll kann nicht erstellt werden. Überprüfen Sie Ihre Internetverbindung und versuchen Sie es erneut. Falls der Fehler weiterhin auftritt, lassen Sie es mich bitte unter fotokubut@gmail.com wissen</string>
+    <string name="create_log_error_auth">Ihr Protokoll kann nicht erstellt werden. Mit Ihrer Autorisierung stimmt etwas nicht - bitte autorisieren Sie die Bewerbung erneut. Falls der Fehler weiterhin auftritt, lassen Sie es mich bitte unter fotokubut@gmail.com wissen</string>
 </resources>

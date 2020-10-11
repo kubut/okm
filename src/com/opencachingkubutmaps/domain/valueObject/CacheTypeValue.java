@@ -10,8 +10,11 @@ public class CacheTypeValue {
     private final String name;
     private int icon = 0;
     private final int selectedIcon;
+    private String key;
 
     public CacheTypeValue(final Context context, final String key){
+        this.key = key;
+
         final String drawableName = "cache_icon_" + key.toLowerCase();
 
         final int iconIdentifier = context.getResources().getIdentifier(drawableName, "drawable", context.getPackageName());
@@ -46,7 +49,10 @@ public class CacheTypeValue {
     }
 
     public String getName() {
-
         return this.name;
+    }
+
+    public String getKey() {
+        return this.key;
     }
 }

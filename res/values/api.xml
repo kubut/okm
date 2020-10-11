@@ -8,4 +8,5 @@
     <string name="okapi_oath_request_token">services/oauth/request_token</string>
     <string name="okapi_oath_authorize">services/oauth/authorize</string>
     <string name="okapi_oauth_access_token">services/oauth/access_token</string>
+    <string name="okapi_submit_log" translatable="false">services/logs/submit?cache_code=[$CACHE_CODE$]&amp;logtype=[$LOG_TYPE$]&amp;langpref=[$LANG_PREF$]&amp;comment=[$LOG_COMMENT$]&amp;rating=[$LOG_RATING$]&amp;password=[$LOG_PASSWORD$]</string>
 </resources>

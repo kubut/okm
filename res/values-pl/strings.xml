@@ -108,5 +108,26 @@
     <string name="oauth_wrong_PIN">Wystąpił problem - prawdopdoobnie podałeś błędny kod PIN lub Twoje połączenie internetowe zostało zerwane</string>
     <string name="oauth_begin_title">Wymagane logowanie</string>
     <string name="oauth_begin_subtitle">Aby użyć tej funkcji musisz być zalogowany. W tym celu zostaniesz przekierowany na stronę Opencaching, gdzie zostanie wygenerowany kod PIN. Skopiuj go i wprowadź w modalu który zostanie pokazany w następnym kroku</string>
-
+    <string name="create_log_title">Dodaj wpis</string>
+    <string name="create_log_type">Typ wpisu</string>
+    <string name="create_log_rate">Ocena</string>
+    <string name="create_log_comment">Komentarz</string>
+    <string-array name="create_log_types_event">
+        <item>Uczestniczyłem</item>
+        <item>Będę uczestniczył</item>
+        <item>Komentarz</item>
+    </string-array>
+    <string-array name="create_log_types_normal">
+        <item>Znaleziona</item>
+        <item>Nieznaleziona</item>
+        <item>Komentarz</item>
+    </string-array>
+    <string name="create_log_comment_footer">Wpis utworzony bezpośrednio z aplikacji Opencaching Kubut Maps</string>
+    <string name="create_log_success">Pomyślnie utworzono nowy wpis</string>
+    <string name="create_log_password">Hasło</string>
+    <string name="langPref">pl</string>
+    <string name="create_log_success_title">Sukces!</string>
+    <string name="create_log_error_title">Wystąpił błąd</string>
+    <string name="create_log_error_general">Nie można utworzyć Twojego wpisu. Sprawdź połączenie internetowe i spróbuj ponownie. Jeśli błąd nadal się pojawia, daj mi znać pod adresem fotokubut@gmail.com</string>
+    <string name="create_log_error_auth">Nie można utworzyć Twojego wpisu, autoryzacja nie powiodła się. Spróbuj ponownie nadać uprawnienia aplikacji OKM. Jeśli błąd nadal się pojawia, daj mi znać pod adresem fotokubut@gmail.com</string>
 </resources>
