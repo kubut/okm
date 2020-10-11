@@ -217,7 +217,11 @@ public final class MainMapPresenter {
     }
 
     private void syncProgressBar() {
-        this.getActivity().displayProgressBar(this.downloadTask);
+        MainActivity activity = this.getActivity();
+
+        if (activity != null) {
+            activity.displayProgressBar(this.downloadTask);
+        }
     }
 
     private void applyCaches() {
