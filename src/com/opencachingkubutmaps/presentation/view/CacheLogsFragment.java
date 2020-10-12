@@ -79,6 +79,8 @@ public class CacheLogsFragment extends Fragment implements ICacheTabs {
 
         final DateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
 
+        this.htmlLogs = "";
+
         for (final CacheLogValue log : cacheModel.getLogs()) {
             this.htmlLogs += "<div style='margin-top: 10px; border-top: 4px solid " + String.format("#%06X", (0xFFFFFF & log.getColor())) + "; background-color: #F5F5F5; box-shadow: 0px 2px 13px -1px rgba(0,0,0,0.35); border-radius: 5px; padding: 5px 15px'>";
             this.htmlLogs += "<p style='float:left; font-weight: bold'>" + df.format(log.getDate()) + "</p>";
@@ -125,7 +127,7 @@ public class CacheLogsFragment extends Fragment implements ICacheTabs {
                     if (jsonResult.has("success")) {
                         if (jsonResult.getBoolean("success")) {
                             showModal(getString(R.string.create_log_success_title), getString(R.string.create_log_success));
-                            cachePresenter.loadCacheDetails(cacheModel.getCode());
+                            cachePresenter.loadCacheDetails(cacheModel.getCode(), true);
                         } else {
                             showModal(getString(R.string.create_log_error_title), jsonResult.getString("message"));
                         }

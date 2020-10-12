@@ -56,8 +56,8 @@ public class CachePresenter {
         return this.cacheActivity;
     }
 
-    public void loadCacheDetails(final String code) {
-        if ((this.cacheModel != null) && this.cacheModel.getCode().equals(code)) {
+    public void loadCacheDetails(final String code, boolean forceReload) {
+        if (!forceReload && (this.cacheModel != null) && this.cacheModel.getCode().equals(code)) {
             this.setCacheDetails(this.cacheModel);
         } else {
             this.downloadCacheDetails(code);

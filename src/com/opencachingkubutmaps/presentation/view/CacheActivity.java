@@ -81,7 +81,7 @@ public class CacheActivity extends AppCompatActivity {
 
         this.switchToLoader();
         this.presenter.connectContext(this);
-        this.presenter.loadCacheDetails(this.cacheCode);
+        this.presenter.loadCacheDetails(this.cacheCode, false);
     }
 
     @Override
@@ -130,7 +130,7 @@ public class CacheActivity extends AppCompatActivity {
 
     @SuppressWarnings("UnusedParameters")
     public void loadCache(final View v) {
-        this.presenter.loadCacheDetails(this.cacheCode);
+        this.presenter.loadCacheDetails(this.cacheCode, false);
         this.switchToLoader();
     }
 

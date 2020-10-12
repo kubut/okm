@@ -7,19 +7,32 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
-import androidx.core.app.ActivityCompat;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.*;
+import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.opencachingkubutmaps.R;
 import com.opencachingkubutmaps.data.factories.IMainDrawerItemListFactory;
 import com.opencachingkubutmaps.data.factories.MainDrawerActionItemListFactory;
@@ -29,12 +42,6 @@ import com.opencachingkubutmaps.domain.model.IMainDrawerItem;
 import com.opencachingkubutmaps.presentation.adapter.MainDrawerListAdapter;
 import com.opencachingkubutmaps.presentation.adapter.NoInfowindowAdapter;
 import com.opencachingkubutmaps.presentation.presenter.MainMapPresenter;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.rey.material.widget.ProgressView;
 
 import java.util.ArrayList;
@@ -42,7 +49,7 @@ import java.util.ArrayList;
 /**
  * Created by kubut on 2015-07-12.
  */
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback{
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
     private ActionBarDrawerToggle mDrawerToggle;
     private MainDrawerListAdapter drawerActionAdapter, drawerIntentAdapter;
     public ArrayList<IMainDrawerItem> mainDrawerActionItemsList;
@@ -59,24 +66,24 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.main_activity);
 
-        this.toolbar            = (Toolbar) this.findViewById(R.id.app_bar);
+        this.toolbar = (Toolbar) this.findViewById(R.id.app_bar);
         this.toolbar_infowindow = (Toolbar) this.findViewById(R.id.app_bar_infowindow);
-        this.mDrawerLayout      = (DrawerLayout) this.findViewById(R.id.main_layout);
-        this.infowindow         = (LinearLayout) this.findViewById(R.id.infowindow);
+        this.mDrawerLayout = (DrawerLayout) this.findViewById(R.id.main_layout);
+        this.infowindow = (LinearLayout) this.findViewById(R.id.infowindow);
         final SupportMapFragment map = (SupportMapFragment) this.getSupportFragmentManager().findFragmentById(R.id.map);
-        this.progressBar        = (ProgressView) this.findViewById(R.id.progressBar);
-        this.animationUp        = AnimationUtils.loadAnimation(this, R.anim.bottom_up);
-        this.animationBottom    = AnimationUtils.loadAnimation(this, R.anim.up_bottom);
+        this.progressBar = (ProgressView) this.findViewById(R.id.progressBar);
+        this.animationUp = AnimationUtils.loadAnimation(this, R.anim.bottom_up);
+        this.animationBottom = AnimationUtils.loadAnimation(this, R.anim.up_bottom);
 
         this.infowindow.setVisibility(View.GONE);
         this.toolbar_infowindow.setVisibility(View.GONE);
 
-        if(map != null){
+        if (map != null) {
             map.getMapAsync(this);
         }
 
         this.presenter = (MainMapPresenter) this.getLastCustomNonConfigurationInstance();
-        if(this.presenter == null){
+        if (this.presenter == null) {
             this.presenter = MainMapPresenter.getInstance(this);
         }
         this.presenter.connectContext(this);
@@ -93,55 +100,61 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         this.presenter.sync();
 
-        if(!this.presenter.checkLocationPermission()){
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        if (!this.presenter.checkLocationPermission()) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         }
     }
 
     @Override
-    public void onStop(){
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        this.presenter.setGpsMode(true);
+    }
+
+    @Override
+    public void onStop() {
         super.onStop();
         this.presenter.getInfowindowPresenter().stop();
     }
 
     @Override
-    public void onPause(){
+    public void onPause() {
         super.onPause();
         this.presenter.getInfowindowPresenter().stop();
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
 
         FirstRunModel.showIfFirstTime(this);
 
-        if(this.presenter.getInfowindowPresenter().isOpen()){
+        if (this.presenter.getInfowindowPresenter().isOpen()) {
             this.presenter.getInfowindowPresenter().sync();
             this.showInfowindow(false);
         }
     }
 
     @Override
-    public Object onRetainCustomNonConfigurationInstance(){
+    public Object onRetainCustomNonConfigurationInstance() {
         return this.presenter;
     }
 
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         this.presenter.saveMapPosition();
         this.presenter.disconnectContext();
         super.onDestroy();
     }
 
     @Override
-    public boolean onPrepareOptionsMenu(final Menu menu){
+    public boolean onPrepareOptionsMenu(final Menu menu) {
         final MenuInflater inflater = this.getMenuInflater();
         inflater.inflate(R.menu.main_activity_actions, menu);
         final MenuItem downloadItem = menu.findItem(R.id.action_appendCaches);
         final MenuItem infoItem = menu.findItem(R.id.action_cacheInfo);
 
-        if(this.presenter.getInfowindowPresenter().isOpen()){
+        if (this.presenter.getInfowindowPresenter().isOpen()) {
             downloadItem.setVisible(false);
             infoItem.setVisible(true);
         } else {
@@ -162,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 this.goToCacheInfo();
                 return true;
             case android.R.id.home:
-                if(this.mDrawerLayout.isDrawerOpen(GravityCompat.START)){
+                if (this.mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                     this.mDrawerLayout.closeDrawers();
                 } else {
                     this.mDrawerLayout.openDrawer(GravityCompat.START);
@@ -204,13 +217,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         this.presenter.connectMap(map);
 
-        if(this.presenter.checkLocationPermission()){
+        if (this.presenter.checkLocationPermission()) {
             location = locationManager.getLastKnownLocation(bestProvider);
         }
 
         this.presenter.setLastLocation(location);
         this.presenter.setMapPosition();
-        this.presenter.setGpsMode(true);
+
+        if (this.presenter.checkLocationPermission()) {
+            this.presenter.setGpsMode(true);
+        }
 
         map.setInfoWindowAdapter(new NoInfowindowAdapter(this));
 
@@ -235,7 +251,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         map.getUiSettings().setZoomControlsEnabled(true);
     }
 
-    private void initializeDrawerMenu(final DrawerLayout mDrawerLayout, final Toolbar toolbar){
+    private void initializeDrawerMenu(final DrawerLayout mDrawerLayout, final Toolbar toolbar) {
         final IMainDrawerItemListFactory actionFactory = new MainDrawerActionItemListFactory(this.presenter);
         final IMainDrawerItemListFactory intentFactory = new MainDrawerIntentItemListFactory(this.presenter);
 
@@ -258,8 +274,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 mDrawerLayout,
                 toolbar,
                 R.string.drawer_open,
-                R.string.drawer_close)
-        {
+                R.string.drawer_close) {
             @Override
             public void onDrawerClosed(final View view) {
                 super.onDrawerClosed(view);
@@ -275,8 +290,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
 
             @Override
-            public void onDrawerSlide(final View drawerView, final float slideOffset)
-            {
+            public void onDrawerSlide(final View drawerView, final float slideOffset) {
                 super.onDrawerSlide(drawerView, slideOffset);
                 mDrawerLayout.bringChildToFront(drawerView);
                 mDrawerLayout.requestLayout();
@@ -307,17 +321,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-    public void goToSettings(){
+    public void goToSettings() {
         final Intent intent = new Intent(this.getApplicationContext(), SettingsActivity.class);
         this.startActivity(intent);
     }
 
-    public void goToCacheInfo(){
+    public void goToCacheInfo() {
         final String code = this.presenter.getInfowindowPresenter().getSelectedMarkerCode();
         final String name = this.presenter.getInfowindowPresenter().getSelectedMarkerName();
         final String position = this.presenter.getInfowindowPresenter().getSelectedMarkerPosition();
 
-        if((code != null) && (name != null) && (position != null)){
+        if ((code != null) && (name != null) && (position != null)) {
             final Intent intent = new Intent(this.getApplicationContext(), CacheActivity.class);
             intent.putExtra("code", code);
             intent.putExtra("name", name);
@@ -326,33 +340,33 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-    public void hideNavigationDrawer(){
+    public void hideNavigationDrawer() {
         this.mDrawerLayout.closeDrawers();
     }
 
-    public void syncDrawerItems(){
+    public void syncDrawerItems() {
         this.drawerActionAdapter.notifyDataSetChanged();
         this.drawerIntentAdapter.notifyDataSetChanged();
     }
 
-    public void displayProgressBar(final boolean show){
-        if(show){
+    public void displayProgressBar(final boolean show) {
+        if (show) {
             this.progressBar.setVisibility(View.VISIBLE);
         } else {
             this.progressBar.setVisibility(View.INVISIBLE);
         }
     }
 
-    public LinearLayout getInfowindowLayout(){
+    public LinearLayout getInfowindowLayout() {
         return this.infowindow;
     }
 
-    private ImageView getCompass(){
+    private ImageView getCompass() {
         return (ImageView) this.infowindow.findViewById(R.id.compass);
     }
 
-    public void setToolbarState(final boolean info){
-        if(info){
+    public void setToolbarState(final boolean info) {
+        if (info) {
             this.toolbar.setVisibility(View.GONE);
             this.toolbar_infowindow.setVisibility(View.VISIBLE);
             this.setSupportActionBar(this.toolbar_infowindow);
@@ -363,19 +377,19 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-    public void hideInfowindow(){
+    public void hideInfowindow() {
         this.infowindow.startAnimation(this.animationBottom);
         this.infowindow.setVisibility(View.GONE);
     }
 
-    public void showInfowindow(final boolean animation){
-        if(animation){
+    public void showInfowindow(final boolean animation) {
+        if (animation) {
             this.infowindow.startAnimation(this.animationUp);
         }
         this.infowindow.setVisibility(View.VISIBLE);
     }
 
-    public void animateCompass(final Animation animation){
+    public void animateCompass(final Animation animation) {
         this.presenter.getInfowindowPresenter().getCompass().syncMode();
         this.getCompass().startAnimation(animation);
     }
