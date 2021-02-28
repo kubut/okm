@@ -232,7 +232,7 @@ public class CacheActivity extends AppCompatActivity {
             this.tabDetails = new CacheDetailsFragment();
         }
         if (this.tabLogs == null) {
-            this.tabLogs = new CacheLogsFragment(presenter);
+            this.tabLogs = new CacheLogsFragment();
         }
         if (this.tabGallery == null) {
             this.tabGallery = new CacheGalleryFragment();

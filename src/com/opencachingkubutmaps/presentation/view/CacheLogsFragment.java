@@ -24,7 +24,6 @@ import com.opencachingkubutmaps.domain.model.CacheModel;
 import com.opencachingkubutmaps.domain.service.OkapiService;
 import com.opencachingkubutmaps.domain.service.PreferencesService;
 import com.opencachingkubutmaps.domain.valueObject.CacheLogValue;
-import com.opencachingkubutmaps.presentation.presenter.CachePresenter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,13 +41,11 @@ public class CacheLogsFragment extends Fragment implements ICacheTabs {
     private String htmlLogs;
     private CacheModel cacheModel;
     private PreferencesService _preferencesService;
-    private CachePresenter cachePresenter;
 
-    public CacheLogsFragment(CachePresenter cachePresenter) {
+    public CacheLogsFragment() {
         this.ready = false;
         this.loaded = false;
         this.htmlLogs = "";
-        this.cachePresenter = cachePresenter;
     }
 
     @Override
@@ -90,7 +87,7 @@ public class CacheLogsFragment extends Fragment implements ICacheTabs {
         }
 
         if (cacheModel.getLogs().isEmpty()) {
-            this.htmlLogs += "<h1 style='margin-top: 50px; text-align: center'>"+context.getString(R.string.label_last_found_none)+"</h1>";
+            this.htmlLogs += "<h1 style='margin-top: 50px; text-align: center'>" + context.getString(R.string.label_last_found_none) + "</h1>";
         }
 
         this.htmlLogs += "<div class='paddingBottom' style='height: 70px'></div>";
@@ -127,7 +124,6 @@ public class CacheLogsFragment extends Fragment implements ICacheTabs {
                     if (jsonResult.has("success")) {
                         if (jsonResult.getBoolean("success")) {
                             showModal(getString(R.string.create_log_success_title), getString(R.string.create_log_success));
-                            cachePresenter.loadCacheDetails(cacheModel.getCode(), true);
                         } else {
                             showModal(getString(R.string.create_log_error_title), jsonResult.getString("message"));
                         }
