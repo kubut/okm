@@ -10,18 +10,18 @@ import com.opencachingkubutmaps.R;
 import com.opencachingkubutmaps.domain.service.PreferencesService;
 
 public class OkapiOauthApi extends DefaultApi10a {
-    private String authorizeUrl;
-    private String requestTokenUrl;
-    private String accessTokenUrl;
+    private String authorizeServiceUrl;
+    private String requestTokenServiceUrl;
+    private String accessTokenServiceUrl;
     private static OkapiOauthApi instance = null;
+    private PreferencesService preferencesService;
 
     protected OkapiOauthApi(Context context) {
-        final PreferencesService preferencesService = new PreferencesService(context);
-        final String apiUrl = preferencesService.getServerAPI();
+        this.preferencesService = new PreferencesService(context);
 
-        authorizeUrl = apiUrl + context.getString(R.string.okapi_oath_authorize);
-        requestTokenUrl = apiUrl + context.getString(R.string.okapi_oath_request_token);
-        accessTokenUrl = apiUrl + context.getString(R.string.okapi_oauth_access_token);
+        authorizeServiceUrl = context.getString(R.string.okapi_oath_authorize);
+        requestTokenServiceUrl = context.getString(R.string.okapi_oath_request_token);
+        accessTokenServiceUrl = context.getString(R.string.okapi_oauth_access_token);
     }
 
     public static OkapiOauthApi getInstance(Context context) {
@@ -34,7 +34,16 @@ public class OkapiOauthApi extends DefaultApi10a {
 
     @Override
     public String getAccessTokenEndpoint() {
-        return accessTokenUrl;
+        return preferencesService.getServerAPI() + accessTokenServiceUrl;
+    }
+
+    @Override
+    public String getRequestTokenEndpoint() {
+        return preferencesService.getServerAPI() + requestTokenServiceUrl;
+    }
+
+    public String getAuthorizationEndpoint() {
+        return preferencesService.getServerAPI() + authorizeServiceUrl;
     }
 
     @Override
@@ -44,12 +53,7 @@ public class OkapiOauthApi extends DefaultApi10a {
 
     @Override
     protected String getAuthorizationBaseUrl() {
-        return authorizeUrl+"?oauth_token=%s";
-    }
-
-    @Override
-    public String getRequestTokenEndpoint() {
-        return requestTokenUrl;
+        return getAuthorizationEndpoint() + "?oauth_token=%s";
     }
 
     @Override
@@ -59,7 +63,7 @@ public class OkapiOauthApi extends DefaultApi10a {
 
     @Override
     public String getAuthorizationUrl(OAuth1RequestToken requestToken) {
-        return String.format(authorizeUrl+"?oauth_token=%s", requestToken.getToken());
+        return String.format(getAuthorizationEndpoint() + "?oauth_token=%s", requestToken.getToken());
     }
 
     @Override

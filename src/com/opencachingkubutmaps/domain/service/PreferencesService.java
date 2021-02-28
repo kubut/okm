@@ -1,6 +1,7 @@
 package com.opencachingkubutmaps.domain.service;
 
 import android.content.Context;
+
 import androidx.annotation.Nullable;
 
 import com.github.scribejava.core.model.OAuth1AccessToken;
@@ -20,16 +21,16 @@ public class PreferencesService {
     private final PreferencesRepository repository;
     private final Context context;
 
-    public PreferencesService(final Context context){
+    public PreferencesService(final Context context) {
         this.repository = new PreferencesRepository(context);
         this.context = context;
     }
 
     @Nullable
-    public String getUsername(){
+    public String getUsername() {
         String username = this.repository.getUsername();
 
-        if(username != null){
+        if (username != null) {
             username = username.trim();
 
             return username.isEmpty() ? null : username;
@@ -38,19 +39,19 @@ public class PreferencesService {
         }
     }
 
-    private boolean isSaveMode(){
+    private boolean isSaveMode() {
         return this.repository.getSaveMode();
     }
 
-    public boolean isMapAutoposition(){
+    public boolean isMapAutoposition() {
         return this.repository.isMapAutoposition();
     }
 
-    public int getCachesLimit(){
+    public int getCachesLimit() {
         return this.isSaveMode() ? 50 : 200;
     }
 
-    public int getLpc(){
+    public int getLpc() {
         return this.isSaveMode() ? 35 : 70;
     }
 
@@ -66,14 +67,14 @@ public class PreferencesService {
         this.repository.setAccessToken(token, tokenSecret);
     }
 
-    public void setMapPosition(final MapPositionValue position){
+    public void setMapPosition(final MapPositionValue position) {
         this.repository.setMapPosition(position.toString());
     }
 
-    public MapPositionValue getMapPosition(){
+    public MapPositionValue getMapPosition() {
         final String encoded = this.repository.getMapPosition();
 
-        if(encoded == null){
+        if (encoded == null) {
             return null;
         }
 
@@ -85,34 +86,34 @@ public class PreferencesService {
         return new MapPositionValue(position, zoom);
     }
 
-    public void setUuid(final String uuid){
+    public void setUuid(final String uuid) {
         this.repository.setUuid(uuid);
     }
 
-    public boolean isHideFound(){
+    public boolean isHideFound() {
         return this.repository.isHideFound();
     }
 
-    public boolean isCompass(){
+    public boolean isCompass() {
         return this.repository.isCompass();
     }
 
-    public CompassModel.Mode getCompassMode(){
-        if(this.repository.getCompassMode().equals("magnetic")){
+    public CompassModel.Mode getCompassMode() {
+        if (this.repository.getCompassMode().equals("magnetic")) {
             return CompassModel.Mode.MAGNETIC;
         } else {
             return CompassModel.Mode.ORIENTATION;
         }
     }
 
-    public String getCompassModeName(){
+    public String getCompassModeName() {
         String modeName = "";
         final String mode = this.repository.getCompassMode();
         final String[] entries = this.context.getResources().getStringArray(R.array.settings_compass_mode_entries);
         final String[] values = this.context.getResources().getStringArray(R.array.settings_compass_mode_values);
 
-        for(int i=0; i<values.length; i++){
-            if(values[i].equals(mode)){
+        for (int i = 0; i < values.length; i++) {
+            if (values[i].equals(mode)) {
                 modeName = entries[i];
             }
         }
@@ -120,27 +121,37 @@ public class PreferencesService {
         return modeName;
     }
 
-    public String getLanguageCode(){
+    public String getLanguageCode() {
         return Locale.getDefault().getLanguage();
     }
 
-    public String getServerName(){
+    public String getServerName() {
         return this.repository.getServer();
     }
 
-    public String getServerAPI(){
-        return "https://" + this.getServerName() + "/okapi/";
+    public String getServerAPI() {
+        String serverFullName = this.getServerName();
+
+        if (serverFullName.contains(".pl")) {
+            serverFullName = serverFullName.replace("www.", "");
+        }
+
+        if (serverFullName.contains(".de") && !serverFullName.contains("www.")) {
+            serverFullName = "www." + serverFullName;
+        }
+
+        return "https://" + serverFullName + "/okapi/";
     }
 
-    public long getLastRunTime(){
+    public long getLastRunTime() {
         return this.repository.getLastRunTime();
     }
 
-    public void setLastRunTime(){
+    public void setLastRunTime() {
         this.repository.setLastRunTime(new java.util.Date().getTime());
     }
 
-    public void setServerName(final String serverName){
+    public void setServerName(final String serverName) {
         this.repository.setServer(serverName);
     }
 }
